@@ -1,9 +1,9 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     ext {
-        compose_version = '1.0.0-alpha08'
+        compose_version = '1.0.0-alpha09'
         arrow_version = "0.12.0-SNAPSHOT"
-        nav_compose_version = "1.0.0-alpha03"
+        nav_compose_version = "1.0.0-alpha04"
     }
     repositories {
         google()
