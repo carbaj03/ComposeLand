@@ -3,18 +3,28 @@ package com.acv.composeland.chip
 import androidx.compose.foundation.ScrollableColumn
 import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavController
+
+
+data class ChipMainState(
+    val goBack: () -> Unit,
+    val items: List<ChipMainItem>,
+)
+
+data class ChipMainItem(
+    val name: String,
+    val goToDetail: () -> Unit = {}
+)
 
 @Composable
-fun ChipMain(navController: NavController) {
+fun ChipMain(
+    state: ChipMainState
+) {
     ScrollableColumn {
-        Html {
-            H1(text = "Usage")
-            Row {
-                Body(text = "comsadf")
-                Body(text = "Relevant")
-                Body(text = "Focused")
-            }
+        H1(text = "Usage")
+        Row {
+            Body(text = "comsadf")
+            Body(text = "Relevant")
+            Body(text = "Focused")
         }
     }
 

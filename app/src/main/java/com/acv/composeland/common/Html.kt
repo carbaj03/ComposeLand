@@ -4,7 +4,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 
-interface HtmlContext {
+//interface HtmlContext {
 
     @Composable
     fun H1(text: String) {
@@ -30,11 +30,11 @@ interface HtmlContext {
     fun Body(text: String) {
         Text(text = text, style = MaterialTheme.typography.body1)
     }
-}
-
-object Html : HtmlContext {
-    @Composable
-    inline operator fun invoke(crossinline c: HtmlContext.() -> Unit) {
-        c()
-    }
-}
+//}
+//
+//object Html : HtmlContext {
+//    @Composable
+//    inline operator fun invoke(crossinline c: HtmlContext.() -> Unit) {
+//        c()
+//    }
+//}

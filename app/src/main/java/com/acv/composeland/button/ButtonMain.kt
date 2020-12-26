@@ -10,22 +10,29 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import androidx.navigation.compose.navigate
+
+
+data class ButtonMainState(
+    val goBack: () -> Unit,
+    val goText: () -> Unit,
+    val items: List<ButtonMainItem>,
+)
+
+data class ButtonMainItem(
+    val name: String,
+    val goToDetail: () -> Unit = {}
+)
 
 @Composable
 fun ButtonMain(
-    navController: NavController,
-    items: List<ButtonScreen>
+    state: ButtonMainState
 ) {
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text("Button Examples") },
                 navigationIcon = {
-                    IconButton(onClick = {
-                        navController.popBackStack()
-                    }) {
+                    IconButton(onClick = { state.goBack() }) {
                         Icon(Icons.Filled.ArrowBack)
                     }
                 }
@@ -33,12 +40,12 @@ fun ButtonMain(
         },
     ) {
         ScrollableColumn {
-            items.forEach { screen ->
+            state.items.forEach { screen ->
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(8.dp)
-                        .clickable(onClick = { navController.navigate(route = screen.route) })
+                        .clickable(onClick = { screen.goToDetail() })
                 ) {
                     Text(text = screen.name)
                 }

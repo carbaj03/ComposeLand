@@ -10,22 +10,27 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import androidx.navigation.compose.navigate
+
+data class TextMainState(
+    val goBack: () -> Unit,
+    val items: List<TextMainItem>,
+)
+
+data class TextMainItem(
+    val name: String,
+    val goToDetail: () -> Unit = {}
+)
 
 @Composable
 fun TextMain(
-    navController: NavController,
-    items: List<TextScreen>
+    state: TextMainState
 ) {
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text("Text Examples") },
                 navigationIcon = {
-                    IconButton(onClick = {
-                        navController.popBackStack()
-                    }) {
+                    IconButton(onClick = { state.goBack() }) {
                         Icon(Icons.Filled.ArrowBack)
                     }
                 }
@@ -33,14 +38,14 @@ fun TextMain(
         },
     ) {
         ScrollableColumn {
-            items.forEach { screen ->
+            state.items.forEach { screen ->
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(8.dp)
-                        .clickable(onClick = { navController.navigate(route = screen.route) })
+                        .clickable(onClick = { screen.goToDetail() })
                 ) {
-                    Text(text = screen.name)
+                    Text(text = "sdf")
                 }
             }
         }

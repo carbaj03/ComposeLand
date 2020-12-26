@@ -2,8 +2,7 @@ package com.acv.composeland.button
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
+import androidx.navigation.compose.navigate
 
 sealed class ButtonScreen(val route: String, val name: String) {
     companion object {
@@ -16,19 +15,33 @@ sealed class ButtonScreen(val route: String, val name: String) {
                 Shape(navController),
                 Border(navController),
             )
+
+        fun buttonItems(navController: NavHostController) =
+            routes(navController).map {
+                ButtonMainItem(
+                    name = it.name,
+                    goToDetail = { navController.navigate(route = it.route) },
+                )
+            }
     }
 
     @Composable
     abstract fun screen()
 
-    data class Main(val navController: NavHostController) : ButtonScreen("main", "Main") {
+    data class Main(
+        val navController: NavHostController
+    ) : ButtonScreen(route, "Main") {
+        companion object {
+            const val route = "ButtonMain"
+        }
+
         @Composable
         override fun screen() {
-            NavHost(navController = navController, startDestination = route) {
-                val routes = routes(navController)
-                composable(route) { ButtonMain(navController = navController, items = routes) }
-                routes.forEach { screen -> composable(screen.route) { screen.screen() } }
-            }
+//            NavHost(navController = navController, startDestination = route) {
+//                val routes = routes(navController)
+//                composable(route) { ButtonMain(navController = navController, items = routes) }
+//                routes.forEach { screen -> composable(screen.route) { screen.screen() } }
+//            }
         }
     }
 

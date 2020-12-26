@@ -11,15 +11,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
 import com.acv.composeland.chip.Chip
 import com.acv.composeland.chip.ChipConstants
 import com.acv.composeland.common.Argument
 import com.acv.composeland.common.CodeScaffold
 import com.acv.composeland.common.codeBui
 
+
+data class TextColorState(
+    val goBack: () -> Unit
+)
+
 @Composable
-fun TextColor(goBack: () -> Unit) {
+fun TextColor(state: TextColorState) {
 
     val a = listOf(
         Color.Black to "Color.Black",
@@ -52,7 +56,7 @@ fun TextColor(goBack: () -> Unit) {
     }
 
     CodeScaffold(
-        goBack = goBack,
+        goBack = state.goBack,
         code = code,
         sample = {
             Text(

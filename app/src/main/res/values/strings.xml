@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ComposeLand</string>
+
+    <string name="profile">Profile</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="scrollable">Scroll</string>
 </resources>

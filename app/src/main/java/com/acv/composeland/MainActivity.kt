@@ -7,15 +7,29 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigate
 import androidx.navigation.compose.rememberNavController
-import com.acv.composeland.appbar.bottom.BottomAppBarDependencies
-import com.acv.composeland.button.ButtonDependencies
-import com.acv.composeland.chip.ChipDependencies
-import com.acv.composeland.main.MainDependencies
-import com.acv.composeland.main.MainItem
-import com.acv.composeland.main.Screen
-import com.acv.composeland.text.TextDependencies
+import com.acv.composeland.appbar.bottom.BottomAppBarMain
+import com.acv.composeland.appbar.bottom.BottomAppBarMainItem
+import com.acv.composeland.appbar.bottom.BottomAppBarMainState
+import com.acv.composeland.appbar.bottom.BottomAppBarScreen
+import com.acv.composeland.button.ButtonMain
+import com.acv.composeland.button.ButtonMainState
+import com.acv.composeland.button.ButtonScreen
+import com.acv.composeland.chip.ChipMainState
+import com.acv.composeland.chip.ChipScreen
+import com.acv.composeland.compose.MainScreen
+import com.acv.composeland.compose.MainState
+import com.acv.composeland.compose.Navigator
+import com.acv.composeland.compose.Screen
+import com.acv.composeland.material.MaterialScreen
+import com.acv.composeland.material.MaterialState
+import com.acv.composeland.navigation.NavigationScreen
+import com.acv.composeland.navigation.NavigationState
+import com.acv.composeland.text.TextMain
+import com.acv.composeland.text.TextMainState
+import com.acv.composeland.text.TextScreen
 import com.acv.composeland.ui.ComposeLandTheme
 
 class MainActivity : AppCompatActivity() {
@@ -25,7 +39,7 @@ class MainActivity : AppCompatActivity() {
             ComposeLandTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-                    App()
+                    AppMain()
                 }
             }
         }
@@ -33,75 +47,123 @@ class MainActivity : AppCompatActivity() {
 }
 
 @Composable
-fun App() {
+fun AppMain() {
+
     val navController = rememberNavController()
 
-    val mainItems = listOf(
-        MainItem(
-            image = R.drawable.bottom,
-            title = "App bars: bottom",
-            description = " A bottom app bar displays navigation and key actions at the bottom of mobile screens ",
-            goToDetail = { navController.navigate(route = Screen.BottomAppBar.route) },
-        ),
-        MainItem(
-            image = R.drawable.bottom,
-            title = "App bars: top",
-            description = "The top app bar displays information and actions relating to the current screen"
-        ),
-        MainItem(
-            image = R.drawable.bottom,
-            title = "Bottom navigation",
-            description = "Bottom navigation bars allow movement between primary destinations in an app"
-        ),
-
-        MainItem(
-            image = R.drawable.bottom,
-            title = "Buttons",
-            description = "Buttons allow users to take actions, and make choices, with a single tap "
-        ),
-        MainItem(
-            image = R.drawable.bottom,
-            title = "Buttons: floating action button",
-            description = "A floating action button (FAB) represents the primary action of a screen "
-        ),
-        MainItem(
-            image = R.drawable.bottom,
-            title = "Cards",
-            description = "Cards contain content and actions about a single subject"
-        ),
-        MainItem(
-            image = R.drawable.bottom,
-            title = "Checkboxes",
-            description = "Checkboxes allow the user to select one or more items from a set or turn an option on or off",
-        ),
-        MainItem(
-            image = R.drawable.bottom,
-            title = "Chips",
-            description = "Chips are compact elements that represent an input, attribute, or action ",
-        ),
-        MainItem(
-            image = R.drawable.bottom,
-            title = "Checkboxes",
-            description = "Checkboxes allow the user to select one or more items from a set or turn an option on or off",
-        ),
-        MainItem(
-            image = R.drawable.bottom,
-            title = "Text",
-            description = "Checkboxes allow the user to select one or more items from a set or turn an option on or off",
-            goToDetail = { navController.navigate(route = Screen.Text.route) },
-        ),
+    val mainState = MainState(
+        goBack = { navController.popBackStack() },
+        items = Screen.mainItems(navController)
+    )
+    val materialState = MaterialState(
+        goBack = { navController.popBackStack() },
+        items = MaterialScreen.materialItems(navController)
+    )
+    val navigationState = NavigationState(
+        goBack = { navController.popBackStack() },
+        items = NavigationScreen.navigationItems(navController)
+    )
+    val buttonMainState = ButtonMainState(
+        goBack = { navController.popBackStack() },
+        goText = {},
+        items = ButtonScreen.buttonItems(navController),
+    )
+    val textMainState = TextMainState(
+        goBack = { navController.popBackStack() },
+        items = TextScreen.textItems(navController),
+    )
+    val chipMainState = ChipMainState(
+        goBack = { navController.popBackStack() },
+        items = ChipScreen.items(navController),
     )
 
-    Screen.Main(
-        navController,
-        MainDependencies({ navController.popBackStack() }, mainItems),
-        TextDependencies(""),
-        ButtonDependencies(""),
-        ChipDependencies(""),
-        BottomAppBarDependencies("", Screen.Text(TextDependencies(""))),
-    ).screen()
+    val bottomAppBarMainState = BottomAppBarMainState(
+        goText = { navController.navigate(route = MaterialScreen.Text.route) },
+        goBack = { navController.popBackStack() },
+        items = BottomAppBarScreen.items(navController),
+    )
 
 
+    Navigator.global(
+        navController = navController,
+        startDestination = Screen.Main.route,
+        main = {
+            val routes = Screen.routes(materialState, navigationState)
+            composable(Screen.Main.route) { MainScreen(mainState) }
+            routes.forEach { screen ->
+                composable(screen.route) { screen.screen() }
+            }
+        },
+        material = {
+            val routes = MaterialScreen.routes(textMainState, buttonMainState, bottomAppBarMainState, chipMainState)
+            composable(MaterialScreen.Main.route) { MaterialScreen(materialState) }
+            routes.forEach { screen ->
+                composable(screen.route) { screen.screen() }
+            }
+        },
+        button = {
+            val routes = ButtonScreen.routes(navController)
+            composable(ButtonScreen.Main.route) { ButtonMain(buttonMainState) }
+            routes.forEach { screen ->
+                composable(screen.route) { screen.screen() }
+            }
+        },
+        navigation = {
+            val routes = NavigationScreen.routes()
+            composable(NavigationScreen.Main.route) { NavigationScreen(navigationState) }
+            routes.forEach { screen ->
+                composable(screen.route) { screen.screen() }
+            }
+        },
+        bottonAppBar = {
+            val routes = BottomAppBarScreen.routes(navController)
+            composable(BottomAppBarScreen.Main.route) {
+                val items = routes.map {
+                    BottomAppBarMainItem(
+                        name = "asdf",
+                        goToDetail = { navController.navigate(it.route) },
+                    )
+                }
+                BottomAppBarMain(
+                    state = BottomAppBarMainState(
+                        goBack = { navController.popBackStack() },
+                        items = items,
+                        goText = { navController.navigate(TextScreen.Main.route) }
+                    )
+                )
+            }
+            routes.forEach { screen ->
+                composable(screen.route) { screen.screen() }
+            }
+        },
+        text = {
+            val routes = TextScreen.routes(navController)
+            composable(TextScreen.Main.route) { TextMain(textMainState) }
+            routes.forEach { screen ->
+                composable(screen.route) { screen.screen() }
+            }
+        }
+    )
+//
+//    Screen.Main(
+//        navController = navController,
+//        mainState = MainState(
+//            goBack = { navController.popBackStack() },
+//            items = Screen.mainItems(navController)
+//        ),
+//        materialState = MaterialState(
+//            goBack = { navController.popBackStack() },
+//            items = MaterialScreen.materialItems(navController)
+//        ),
+//        bottomAppBarDependencies = BottomAppBarDependencies("", MaterialScreen.Text(TextDependencies(""))),
+//        buttonDependencies = ButtonDependencies(""),
+//        chipDependencies = ChipDependencies(""),
+//        textDependencies = TextDependencies(""),
+//        navigationDependencies = NavigationState(
+//            goBack = { navController.popBackStack() },
+//            items = NavigationScreen.navigationItems(navController)
+//        ),
+//    ).screen()
 }
 
 
@@ -109,6 +171,6 @@ fun App() {
 @Composable
 fun DefaultPreview() {
     ComposeLandTheme {
-        App()
+        AppMain()
     }
 }

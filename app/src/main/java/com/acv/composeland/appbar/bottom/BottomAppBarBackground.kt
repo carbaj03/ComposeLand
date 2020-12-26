@@ -11,13 +11,16 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.navigation.NavHostController
 import com.acv.composeland.common.ChipGroup
 import com.acv.composeland.common.CodeScaffold
 import java.util.*
 
+data class BottomAppBarState(
+    val goBack: () -> Unit,
+)
+
 @Composable
-fun BottomAppBarBackground(goBack : () -> Unit) {
+fun BottomAppBarBackground(state: BottomAppBarState) {
     val a: HashMap<String, Color> = hashMapOf(
         "Default" to MaterialTheme.colors.primary,
         "Magenta" to Color.Magenta,
@@ -36,7 +39,7 @@ fun BottomAppBarBackground(goBack : () -> Unit) {
     """
 
     CodeScaffold(
-        goBack = goBack,
+        goBack = state.goBack,
         code = code,
         sample = {
             BottomAppBar(
