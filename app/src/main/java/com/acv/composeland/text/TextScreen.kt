@@ -20,7 +20,7 @@ sealed class TextScreen(
         fun textItems(navController: NavHostController) =
             routes(navController).map {
                 TextMainItem(
-                    name = "it.name",
+                    name = it.route,
                     goToDetail = { navController.navigate(route = it.route) },
                 )
             }
@@ -39,11 +39,6 @@ sealed class TextScreen(
         @Composable
         override fun screen() {
             TextMain(state)
-//            NavHost(navController = navController, startDestination = route) {
-//                val routes = routes(navController)
-//                composable(route) { TextMain(navController = navController, items = routes) }
-//                routes.forEach { screen -> composable(screen.route) { screen.screen() } }
-//            }
         }
     }
 
