@@ -34,9 +34,9 @@ fun BottomAppBarElevation(
     val code: String = """
       @Composable
       fun TextColor(){
-            Text(
-                text = code,
-                color = Color.Blue
+           BottomAppBar(
+                backgroundColor = MaterialTheme.colors.surface,
+                elevation = a[color]!!,
             )
       }
     """

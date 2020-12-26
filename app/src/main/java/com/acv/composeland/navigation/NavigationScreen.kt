@@ -45,16 +45,12 @@ sealed class NavigationScreen(
         val dependencies: NavigationState,
     ) : NavigationScreen(route) {
         companion object {
-            val route: String = "Navigation"
+            const val route: String = "Navigation"
         }
 
         @Composable
         override fun screen() {
-//            NavHost(navController = navController, startDestination = route) {
-//                val routes = routes()
-//                composable(route) { NavigationScreen(dependencies) }
-//                routes.forEach { screen -> composable(screen.route) { screen.screen() } }
-//            }
+            NavigationMain(dependencies)
         }
     }
 
@@ -73,11 +69,6 @@ sealed class NavigationScreen(
 
         @Composable
         override fun screen() {
-//            NavHost(navController, startDestination = Screen.Profile.route) {
-//                composable(Screen.Profile.route) { Profile(navController) }
-//                composable(Screen.Dashboard.route) { Dashboard(navController) }
-//                composable(Screen.Scrollable.route) { Scrollable(navController) }
-//            }
         }
     }
 

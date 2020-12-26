@@ -101,7 +101,7 @@ sealed class MaterialScreen(
 
         @Composable
         override fun screen() {
-            MaterialScreen(state)
+            MaterialMain(state)
         }
     }
 

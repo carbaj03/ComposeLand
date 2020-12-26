@@ -10,11 +10,10 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.acv.composeland.chip.Body
-import com.acv.composeland.chip.H2
-import com.acv.composeland.chip.H3
-import com.acv.composeland.material.RelatedItem
-import com.acv.composeland.material.RelatedItems
+import com.acv.composeland.common.Body
+import com.acv.composeland.common.H5
+import com.acv.composeland.common.H6
+import com.acv.composeland.material.*
 
 data class BottomAppBarMainState(
     val title: String,
@@ -23,6 +22,8 @@ data class BottomAppBarMainState(
     val usage: String,
     val usageDescription: String,
     val related: List<RelatedItem>,
+    val principle: String,
+    val principles: List<PrincipleItem>,
     val items: List<BottomAppBarMainItem>,
 )
 
@@ -49,13 +50,34 @@ fun BottomAppBarMain(
             )
         },
     ) {
-        ScrollableColumn {
-            H2(text = "App bars: bottom")
-            Body(text = state.description)
-            H3(text = state.usage)
-            Body(text = state.usageDescription)
+        ScrollableColumn(
+            contentPadding = it,
+            modifier = Modifier.padding(8.dp)
+        ) {
+            H5(
+                modifier = Modifier.padding(top = 8.dp),
+                text = "App bars: bottom"
+            )
+            Body(
+                modifier = Modifier.padding(top = 8.dp),
+                text = state.description
+            )
 
-            RelatedItems(items = state.related)
+            H6(
+                modifier = Modifier.padding(top = 8.dp),
+                text = state.usage
+            )
+            Body(
+                modifier = Modifier.padding(top = 8.dp),
+                text = state.usageDescription
+            )
+            RelatedItems(
+                modifier = Modifier.padding(top = 8.dp),
+                items = state.related
+            )
+
+            H6(text = state.principle)
+            Principles(items = state.principles)
 
             state.items.forEach { screen ->
                 Card(

@@ -11,8 +11,11 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.AnnotatedString
+import com.acv.composeland.common.Argument
 import com.acv.composeland.common.ChipGroup
 import com.acv.composeland.common.CodeScaffold
+import com.acv.composeland.common.codeBui
 import java.util.*
 
 data class BottomAppBarState(
@@ -28,15 +31,15 @@ fun BottomAppBarBackground(state: BottomAppBarState) {
     )
     var color by remember { mutableStateOf(a.keys.elementAt(0)) }
 
-    val code: String = """
-      @Composable
-      fun TextColor(){
-            Text(
-                text = code,
-                color = Color.Blue
+    val code: AnnotatedString = codeBui {
+        annotation(name = "Composable")
+        function(name = "BottomAppBarBackground") {
+            `class`(
+                name = "BottomAppBar",
+                Argument("backgroundColor", color),
             )
-      }
-    """
+        }
+    }
 
     CodeScaffold(
         goBack = state.goBack,

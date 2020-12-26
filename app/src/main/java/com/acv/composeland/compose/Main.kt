@@ -14,13 +14,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.loadImageResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
-import com.acv.composeland.chip.Body
-import com.acv.composeland.chip.H6
+import com.acv.composeland.common.Body
+import com.acv.composeland.common.H6
 import com.acv.composeland.common.fakeGridItems
 
 
 data class MainState(
+    val title: String,
     val goBack: () -> Unit,
     val items: List<MainItem>,
 )
@@ -35,7 +35,12 @@ data class MainItem(
 @Composable
 fun MainScreen(state: MainState) {
     Scaffold(
-        topBar = { TopBar { state.goBack() } },
+        topBar = {
+            TopBar(
+                title = state.title,
+                goBack = { state.goBack() }
+            )
+        },
     ) {
         LazyColumn {
             fakeGridItems(state.items, 2) { screen ->
@@ -63,9 +68,12 @@ fun MainScreen(state: MainState) {
 
 
 @Composable
-private fun TopBar(goBack: () -> Unit) {
+private fun TopBar(
+    title: String,
+    goBack: () -> Unit
+) {
     TopAppBar(
-        title = { Text("Text Examples") },
+        title = { Text(title) },
         navigationIcon = {
             IconButton(onClick = {
                 goBack()

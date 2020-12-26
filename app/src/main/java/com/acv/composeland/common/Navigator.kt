@@ -7,6 +7,21 @@ import androidx.navigation.compose.NavHost
 
 object Navigator {
 
+    sealed class Screens {
+        object Main : Screens()
+        object Material : Screens()
+        object Button : Screens()
+        object Text : Screens()
+        object Navigation : Screens()
+        object Animation : Screens()
+        object BottomAppBar : Screens()
+
+        val screens = listOf(
+            Main, Material, Button, Text, Navigation, Animation, BottomAppBar
+        )
+    }
+
+
     @Composable
     fun Global(
         navController: NavHostController,
@@ -16,15 +31,21 @@ object Navigator {
         button: NavGraphBuilder.() -> Unit,
         text: NavGraphBuilder.() -> Unit,
         navigation: NavGraphBuilder.() -> Unit,
-        bottonAppBar: NavGraphBuilder.() -> Unit,
+        animation: NavGraphBuilder.() -> Unit,
+        bottomAppBar: NavGraphBuilder.() -> Unit,
     ) {
-        NavHost(navController = navController, startDestination = startDestination) {
+        NavHost(
+            navController = navController,
+            startDestination = startDestination
+        ) {
+
             main(navController)
             material()
             navigation()
             text()
             button()
-            bottonAppBar()
+            bottomAppBar()
+            animation()
         }
     }
 }

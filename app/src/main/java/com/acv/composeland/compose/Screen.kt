@@ -6,9 +6,11 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigate
 import com.acv.composeland.R
-import com.acv.composeland.material.MaterialScreen
+import com.acv.composeland.animation.AnimationMain
+import com.acv.composeland.animation.AnimationMainState
+import com.acv.composeland.material.MaterialMain
 import com.acv.composeland.material.MaterialState
-import com.acv.composeland.navigation.NavigationScreen
+import com.acv.composeland.navigation.NavigationMain
 import com.acv.composeland.navigation.NavigationState
 
 sealed class Screen(
@@ -29,14 +31,21 @@ sealed class Screen(
                     description = "Checkboxes allow the user to select one or more items from a set or turn an option on or off",
                     goToDetail = { navController.navigate(route = Navigation.route) },
                 ),
+                MainItem(
+                    image = R.drawable.bottom,
+                    title = "Animation",
+                    description = "Checkboxes allow the user to select one or more items from a set or turn an option on or off",
+                    goToDetail = { navController.navigate(route = Animation.route) },
+                ),
             )
 
         fun NavGraphBuilder.main(
             materialState: MaterialState,
             navigationState: NavigationState,
             mainState: MainState,
+            animationState: AnimationMainState,
         ) {
-            val routes = routes(materialState, navigationState)
+            val routes = routes(materialState, navigationState, animationState)
             composable(Main.route) { MainScreen(mainState) }
             routes.forEach { screen ->
                 composable(screen.route) { screen.screen() }
@@ -46,9 +55,11 @@ sealed class Screen(
         private fun routes(
             materialState: MaterialState,
             navigationState: NavigationState,
+            animationState: AnimationMainState,
         ) = listOf(
             Material(materialState),
             Navigation(navigationState),
+            Animation(animationState),
         )
     }
 
@@ -77,7 +88,7 @@ sealed class Screen(
 
         @Composable
         override fun screen() {
-            MaterialScreen(state = state)
+            MaterialMain(state = state)
         }
     }
 
@@ -90,7 +101,20 @@ sealed class Screen(
 
         @Composable
         override fun screen() {
-            NavigationScreen(state = state)
+            NavigationMain(state = state)
+        }
+    }
+
+    data class Animation(
+        val state: AnimationMainState,
+    ) : Screen(route) {
+        companion object {
+            const val route = "MainAnimation"
+        }
+
+        @Composable
+        override fun screen() {
+            AnimationMain(state = state)
         }
     }
 }

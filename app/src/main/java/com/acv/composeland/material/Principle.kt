@@ -1,10 +1,9 @@
 package com.acv.composeland.material
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.ConstraintLayout
+import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Canvas
 import androidx.compose.ui.graphics.Color
@@ -12,42 +11,29 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.Paint
 import androidx.compose.ui.text.font.FontWeight
 
-data class RelatedItem(
-    val action: () -> Unit,
+
+data class PrincipleItem(
+    val image: Int,
     val title: String,
     val subTitle: String,
 )
 
 @Composable
-fun Related(
-    state: RelatedItem,
-    modifier: Modifier = Modifier,
+fun Principle(
+    state: PrincipleItem
 ) {
-    ConstraintLayout(modifier = modifier) {
-        val (title, description, image) = createRefs()
-
+    Column {
         Image(
-            modifier = Modifier.constrainAs(image) {
-                start.linkTo(parent.start)
-                top.linkTo(parent.top)
-            },
             bitmap = createTestImage(),
         )
 
         Text(
             text = state.title,
-            modifier = Modifier.constrainAs(title) {
-                start.linkTo(image.end)
-            },
             fontWeight = FontWeight.Bold
         )
 
         Text(
             text = state.subTitle,
-            modifier = Modifier.constrainAs(description) {
-                start.linkTo(image.end)
-                top.linkTo(title.bottom)
-            }
         )
     }
 }

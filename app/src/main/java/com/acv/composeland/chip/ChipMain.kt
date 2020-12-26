@@ -3,6 +3,8 @@ package com.acv.composeland.chip
 import androidx.compose.foundation.ScrollableColumn
 import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.Composable
+import com.acv.composeland.common.Body
+import com.acv.composeland.common.H1
 
 
 data class ChipMainState(
