@@ -13,8 +13,8 @@ import androidx.compose.ui.unit.dp
 
 
 data class ButtonMainState(
+    val title: String,
     val goBack: () -> Unit,
-    val goText: () -> Unit,
     val items: List<ButtonMainItem>,
 )
 
@@ -30,7 +30,7 @@ fun ButtonMain(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Button Examples") },
+                title = { Text(state.title) },
                 navigationIcon = {
                     IconButton(onClick = { state.goBack() }) {
                         Icon(Icons.Filled.ArrowBack)

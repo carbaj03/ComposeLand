@@ -12,13 +12,18 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
 import com.acv.composeland.common.ChipGroup
 import com.acv.composeland.common.CodeScaffold
 import java.util.*
 
+data class BottomAppBarElevationState(
+    val goBack: () -> Unit,
+)
+
 @Composable
-fun BottomAppBarElevation(goBack : () -> Unit) {
+fun BottomAppBarElevation(
+    state: BottomAppBarElevationState
+) {
     val a: HashMap<String, Dp> = hashMapOf(
         "Default" to 8.dp,
         "4" to 4.dp,
@@ -37,7 +42,7 @@ fun BottomAppBarElevation(goBack : () -> Unit) {
     """
 
     CodeScaffold(
-        goBack = goBack,
+        goBack = state.goBack,
         code = code,
         sample = {
             BottomAppBar(

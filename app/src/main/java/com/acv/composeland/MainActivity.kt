@@ -11,17 +11,16 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigate
 import androidx.navigation.compose.rememberNavController
 import com.acv.composeland.appbar.bottom.BottomAppBarMain
-import com.acv.composeland.appbar.bottom.BottomAppBarMainItem
 import com.acv.composeland.appbar.bottom.BottomAppBarMainState
 import com.acv.composeland.appbar.bottom.BottomAppBarScreen
+import com.acv.composeland.appbar.bottom.RelatedItem
 import com.acv.composeland.button.ButtonMain
 import com.acv.composeland.button.ButtonMainState
 import com.acv.composeland.button.ButtonScreen
 import com.acv.composeland.chip.ChipMainState
 import com.acv.composeland.chip.ChipScreen
-import com.acv.composeland.compose.MainScreen
+import com.acv.composeland.common.Navigator
 import com.acv.composeland.compose.MainState
-import com.acv.composeland.compose.Navigator
 import com.acv.composeland.compose.Screen
 import com.acv.composeland.material.MaterialScreen
 import com.acv.composeland.material.MaterialState
@@ -64,11 +63,12 @@ fun AppMain() {
         items = NavigationScreen.navigationItems(navController)
     )
     val buttonMainState = ButtonMainState(
+        title = "Button Examples",
         goBack = { navController.popBackStack() },
-        goText = {},
         items = ButtonScreen.buttonItems(navController),
     )
     val textMainState = TextMainState(
+        title = "Text Examples",
         goBack = { navController.popBackStack() },
         items = TextScreen.textItems(navController),
     )
@@ -78,21 +78,31 @@ fun AppMain() {
     )
 
     val bottomAppBarMainState = BottomAppBarMainState(
-        goText = { navController.navigate(route = MaterialScreen.Text.route) },
+        title = "Bottom App Bar Examples",
+        description = "A bottom app bar displays navigation and key actions at the bottom of mobile screens.",
+        usage = "Usage",
+        usageDescription = "Bottom app bars provide access to a bottom navigation drawer and up to four actions, including the floating action button.",
+        related = listOf(
+            RelatedItem(
+                action = { navController.navigate(route = MaterialScreen.Text.route) },
+                title = "Text Samples",
+                subTitle = "All The text samples"
+            ),
+            RelatedItem(
+                action = { navController.navigate(route = MaterialScreen.Button.route) },
+                title = "Button Samples",
+                subTitle = "All The text samples"
+            )
+        ),
         goBack = { navController.popBackStack() },
         items = BottomAppBarScreen.items(navController),
     )
 
-
-    Navigator.global(
+    Navigator.Global(
         navController = navController,
         startDestination = Screen.Main.route,
         main = {
-            val routes = Screen.routes(materialState, navigationState)
-            composable(Screen.Main.route) { MainScreen(mainState) }
-            routes.forEach { screen ->
-                composable(screen.route) { screen.screen() }
-            }
+            Screen.run { main(materialState, navigationState, mainState) }
         },
         material = {
             val routes = MaterialScreen.routes(textMainState, buttonMainState, bottomAppBarMainState, chipMainState)
@@ -117,21 +127,7 @@ fun AppMain() {
         },
         bottonAppBar = {
             val routes = BottomAppBarScreen.routes(navController)
-            composable(BottomAppBarScreen.Main.route) {
-                val items = routes.map {
-                    BottomAppBarMainItem(
-                        name = "asdf",
-                        goToDetail = { navController.navigate(it.route) },
-                    )
-                }
-                BottomAppBarMain(
-                    state = BottomAppBarMainState(
-                        goBack = { navController.popBackStack() },
-                        items = items,
-                        goText = { navController.navigate(TextScreen.Main.route) }
-                    )
-                )
-            }
+            composable(BottomAppBarScreen.Main.route) { BottomAppBarMain(bottomAppBarMainState) }
             routes.forEach { screen ->
                 composable(screen.route) { screen.screen() }
             }
@@ -144,26 +140,6 @@ fun AppMain() {
             }
         }
     )
-//
-//    Screen.Main(
-//        navController = navController,
-//        mainState = MainState(
-//            goBack = { navController.popBackStack() },
-//            items = Screen.mainItems(navController)
-//        ),
-//        materialState = MaterialState(
-//            goBack = { navController.popBackStack() },
-//            items = MaterialScreen.materialItems(navController)
-//        ),
-//        bottomAppBarDependencies = BottomAppBarDependencies("", MaterialScreen.Text(TextDependencies(""))),
-//        buttonDependencies = ButtonDependencies(""),
-//        chipDependencies = ChipDependencies(""),
-//        textDependencies = TextDependencies(""),
-//        navigationDependencies = NavigationState(
-//            goBack = { navController.popBackStack() },
-//            items = NavigationScreen.navigationItems(navController)
-//        ),
-//    ).screen()
 }
 
 

@@ -18,7 +18,7 @@ sealed class TextScreen(
             )
 
         fun textItems(navController: NavHostController) =
-            TextScreen.routes(navController).map {
+            routes(navController).map {
                 TextMainItem(
                     name = "it.name",
                     goToDetail = { navController.navigate(route = it.route) },

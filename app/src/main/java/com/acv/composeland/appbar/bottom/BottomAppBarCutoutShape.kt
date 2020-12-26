@@ -21,8 +21,14 @@ import java.util.*
 import kotlin.math.abs
 import kotlin.math.roundToInt
 
+data class BottomAppBarCutoutShapeState(
+    val goBack: () -> Unit,
+)
+
 @Composable
-fun BottomAppBarCutoutShape(goBack : () -> Unit) {
+fun BottomAppBarCutoutShape(
+    state: BottomAppBarCutoutShapeState
+) {
     val a: HashMap<String, Shape> = hashMapOf(
         "CutCorner" to CutCornerShape(50),
         "Circle" to CircleShape,
@@ -40,7 +46,7 @@ fun BottomAppBarCutoutShape(goBack : () -> Unit) {
     """
 
     CodeScaffold(
-        goBack = goBack,
+        goBack = state.goBack,
         code = code,
         options = {
             ChipGroup(

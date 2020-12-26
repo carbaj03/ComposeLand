@@ -22,14 +22,24 @@ import com.acv.composeland.chip.H3
 
 
 data class BottomAppBarMainState(
+    val title: String,
     val goBack: () -> Unit,
-    val goText: () -> Unit,
+    val description: String,
+    val usage: String,
+    val usageDescription: String,
+    val related: List<RelatedItem>,
     val items: List<BottomAppBarMainItem>,
 )
 
 data class BottomAppBarMainItem(
     val name: String,
     val goToDetail: () -> Unit = {}
+)
+
+data class RelatedItem(
+    val action: () -> Unit,
+    val title: String,
+    val subTitle: String,
 )
 
 @Composable
@@ -39,7 +49,7 @@ fun BottomAppBarMain(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("BottomAppBar Examples") },
+                title = { Text(state.title) },
                 navigationIcon = {
                     IconButton(onClick = {
                         state.goBack()
@@ -55,29 +65,33 @@ fun BottomAppBarMain(
             Body(text = "A bottom app bar displays navigation and key actions at the bottom of mobile screens.")
             H3(text = "Usage")
             Body(text = "Bottom app bars provide access to a bottom navigation drawer and up to four actions, including the floating action button.")
-            Row(modifier = Modifier.padding(8.dp)) {
-                Card(modifier = Modifier.clickable { state.goText() }) {
-                    Related()
-                }
-                Spacer(modifier = Modifier.width(10.dp))
-                Card {
-                    Related()
-                }
-            }
-        }
 
-        state.items.forEach { screen ->
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp)
-                    .clickable { screen.goToDetail() }
-            ) {
-                Text(text = screen.name)
+            RelatedItems(items = state.related)
+
+            state.items.forEach { screen ->
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp)
+                        .clickable { screen.goToDetail() }
+                ) {
+                    Text(text = screen.name)
+                }
             }
         }
     }
+}
 
+@Composable
+fun RelatedItems(items: List<RelatedItem>) {
+    Row(modifier = Modifier.padding(8.dp)) {
+        items.forEach { item ->
+            Card(modifier = Modifier.clickable { item.action() }) {
+                Related(item)
+            }
+            Spacer(modifier = Modifier.width(10.dp))
+        }
+    }
 }
 
 private fun createTestImage(): ImageBitmap {
@@ -90,7 +104,9 @@ private fun createTestImage(): ImageBitmap {
 }
 
 @Composable
-fun Related() {
+fun Related(
+    state: RelatedItem
+) {
     ConstraintLayout {
         val (title, description, image) = createRefs()
 
@@ -103,17 +119,19 @@ fun Related() {
         )
 
         Text(
-            text = "Text1",
+            text = state.title,
             modifier = Modifier.constrainAs(title) {
                 start.linkTo(image.end)
             },
             fontWeight = FontWeight.Bold
         )
 
-        Text("Text2", Modifier.constrainAs(description) {
-            start.linkTo(image.end)
-            top.linkTo(title.bottom)
-        })
-
+        Text(
+            text = state.subTitle,
+            modifier = Modifier.constrainAs(description) {
+                start.linkTo(image.end)
+                top.linkTo(title.bottom)
+            }
+        )
     }
 }

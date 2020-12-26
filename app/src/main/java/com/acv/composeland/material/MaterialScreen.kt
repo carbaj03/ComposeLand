@@ -94,10 +94,6 @@ sealed class MaterialScreen(
 
     data class Main(
         val state: MaterialState,
-        val textMainState: TextMainState,
-        val buttonMainState: ButtonMainState,
-        val bottomAppBarMainState: BottomAppBarMainState,
-        val chipma: BottomAppBarMainState,
     ) : MaterialScreen(route) {
         companion object {
             const val route = "Materialmain"
@@ -105,18 +101,11 @@ sealed class MaterialScreen(
 
         @Composable
         override fun screen() {
-//            NavHost(navController = navHostController, startDestination = route) {
-//                val routes = routes(textDependencies, buttonDependencies, chipDependencies, bottomAppBarDependencies)
-//                composable(route) { MaterialScreen(state) }
-//                routes.forEach { screen ->
-//                    composable(screen.route) { screen.screen() }
-//                }
-//            }
+            MaterialScreen(state)
         }
     }
 
     data class Text(
-//        val dependencies: TextDependencies
         val state: TextMainState
     ) : MaterialScreen(route) {
         companion object {
@@ -129,17 +118,18 @@ sealed class MaterialScreen(
     }
 
     data class Button(
-//        val dependencies: ButtonDependencies
         val state: ButtonMainState
-    ) : MaterialScreen("Materialbutton") {
+    ) : MaterialScreen(route) {
+        companion object {
+            const val route = "Materialbutton"
+        }
+
         @Composable
         override fun screen() =
             ButtonMain(state = state)
     }
 
     data class BottomAppBar(
-//        val dependencies: BottomAppBarDependencies,
-//        val textDependencies: TextDependencies,
         val state: BottomAppBarMainState
     ) : MaterialScreen(route) {
         companion object {
@@ -149,10 +139,6 @@ sealed class MaterialScreen(
         @Composable
         override fun screen() {
             BottomAppBarMain(state = state)
-//            BottomAppBarScreen.Main(
-//                navController,
-//                Text(textDependencies)
-//            ).screen()
         }
     }
 

@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 data class TextMainState(
+    val title : String,
     val goBack: () -> Unit,
     val items: List<TextMainItem>,
 )
@@ -28,7 +29,7 @@ fun TextMain(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Text Examples") },
+                title = { Text(state.title) },
                 navigationIcon = {
                     IconButton(onClick = { state.goBack() }) {
                         Icon(Icons.Filled.ArrowBack)
@@ -45,7 +46,7 @@ fun TextMain(
                         .padding(8.dp)
                         .clickable(onClick = { screen.goToDetail() })
                 ) {
-                    Text(text = "sdf")
+                    Text(text = screen.name)
                 }
             }
         }
