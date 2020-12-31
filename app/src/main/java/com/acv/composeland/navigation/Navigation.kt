@@ -6,9 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -16,10 +14,12 @@ import androidx.compose.ui.res.loadImageResource
 import androidx.compose.ui.unit.dp
 import com.acv.composeland.common.Body
 import com.acv.composeland.common.H6
+import com.acv.composeland.common.TopBarBack
 import com.acv.composeland.common.fakeGridItems
 
 
 data class NavigationState(
+    val title: String,
     val goBack: () -> Unit,
     val items: List<NavigationItem>,
 )
@@ -34,7 +34,12 @@ data class NavigationItem(
 @Composable
 fun NavigationMain(state: NavigationState) {
     Scaffold(
-        topBar = { TopBar { state.goBack() } },
+        topBar = {
+            TopBarBack(
+                title = state.title,
+                goBack = { state.goBack() }
+            )
+        }
     ) {
         LazyColumn {
             fakeGridItems(state.items, 2) { screen ->
@@ -58,19 +63,4 @@ fun NavigationMain(state: NavigationState) {
             }
         }
     }
-}
-
-
-@Composable
-private fun TopBar(goBack: () -> Unit) {
-    TopAppBar(
-        title = { Text("Text Examples") },
-        navigationIcon = {
-            IconButton(onClick = {
-                goBack()
-            }) {
-                Icon(Icons.Filled.ArrowBack)
-            }
-        }
-    )
 }

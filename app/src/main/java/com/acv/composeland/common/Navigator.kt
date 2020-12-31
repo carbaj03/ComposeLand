@@ -5,7 +5,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 
-object Navigator {
+class Navigator {
 
     sealed class Screens {
         object Main : Screens()
@@ -33,12 +33,12 @@ object Navigator {
         navigation: NavGraphBuilder.() -> Unit,
         animation: NavGraphBuilder.() -> Unit,
         bottomAppBar: NavGraphBuilder.() -> Unit,
+        color: NavGraphBuilder.() -> Unit,
     ) {
         NavHost(
             navController = navController,
             startDestination = startDestination
         ) {
-
             main(navController)
             material()
             navigation()
@@ -46,6 +46,7 @@ object Navigator {
             button()
             bottomAppBar()
             animation()
+            color()
         }
     }
 }

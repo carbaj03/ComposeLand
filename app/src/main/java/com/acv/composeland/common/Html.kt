@@ -4,37 +4,38 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 
 //interface HtmlContext {
 
 @Composable
 fun H1(
-    modifier: Modifier = Modifier,
     text: String,
+    modifier: Modifier = Modifier,
 ) {
     Text(modifier = modifier, text = text, style = MaterialTheme.typography.h1)
 }
 
 @Composable
 fun H2(
-    modifier: Modifier = Modifier,
     text: String,
+    modifier: Modifier = Modifier,
 ) {
     Text(modifier = modifier, text = text, style = MaterialTheme.typography.h2)
 }
 
 @Composable
 fun H3(
-    modifier: Modifier = Modifier,
     text: String,
+    modifier: Modifier = Modifier,
 ) {
     Text(modifier = modifier, text = text, style = MaterialTheme.typography.h3)
 }
 
 @Composable
 fun H4(
-    modifier: Modifier = Modifier,
     text: String,
+    modifier: Modifier = Modifier,
 ) {
     Text(modifier = modifier, text = text, style = MaterialTheme.typography.h4)
 }
@@ -42,26 +43,27 @@ fun H4(
 
 @Composable
 fun H5(
-    modifier: Modifier = Modifier,
     text: String,
+    modifier: Modifier = Modifier,
 ) {
     Text(modifier = modifier, text = text, style = MaterialTheme.typography.h5)
 }
 
 @Composable
 fun H6(
-    modifier: Modifier = Modifier,
     text: String,
+    modifier: Modifier = Modifier,
 ) {
     Text(modifier = modifier, text = text, style = MaterialTheme.typography.h6)
 }
 
 @Composable
 fun Body(
-    modifier: Modifier = Modifier,
     text: String,
+    modifier: Modifier = Modifier,
+    color: Color = Color.Unspecified
 ) {
-    Text(modifier = modifier, text = text, style = MaterialTheme.typography.body1)
+    Text(color = color, modifier = modifier, text = text, style = MaterialTheme.typography.body1)
 }
 //}
 //

@@ -1,30 +1,25 @@
 package com.acv.composeland.appbar.bottom
 
-import androidx.compose.foundation.ScrollableColumn
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import com.acv.composeland.common.Body
-import com.acv.composeland.common.H5
-import com.acv.composeland.common.H6
-import com.acv.composeland.material.*
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.runtime.*
+import com.acv.composeland.appbar.bottom.design.Design
+import com.acv.composeland.appbar.bottom.design.DesignState
+import com.acv.composeland.appbar.bottom.design.DesignTabItem
+import com.acv.composeland.appbar.bottom.design.ImplementationTabItem
+import com.acv.composeland.appbar.bottom.implementation.Implementation
+
 
 data class BottomAppBarMainState(
     val title: String,
     val goBack: () -> Unit,
     val description: String,
-    val usage: String,
-    val usageDescription: String,
-    val related: List<RelatedItem>,
-    val principle: String,
-    val principles: List<PrincipleItem>,
+    val design: DesignState,
     val items: List<BottomAppBarMainItem>,
+    val fabVisible: Boolean,
+    val onFabClick: () -> Unit,
 )
 
 data class BottomAppBarMainItem(
@@ -38,57 +33,38 @@ fun BottomAppBarMain(
 ) {
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = { Text(state.title) },
-                navigationIcon = {
-                    IconButton(onClick = {
-                        state.goBack()
-                    }) {
-                        Icon(Icons.Filled.ArrowBack)
-                    }
+            BottomAppBatTopBar(state.title, state.goBack)
+        },
+        floatingActionButton = {
+            if (state.fabVisible) {
+                FloatingActionButton(onClick = { state.onFabClick() }) {
+                    Icon(Icons.Filled.Favorite)
                 }
-            )
+            }
         },
     ) {
-        ScrollableColumn(
-            contentPadding = it,
-            modifier = Modifier.padding(8.dp)
-        ) {
-            H5(
-                modifier = Modifier.padding(top = 8.dp),
-                text = "App bars: bottom"
-            )
-            Body(
-                modifier = Modifier.padding(top = 8.dp),
-                text = state.description
-            )
-
-            H6(
-                modifier = Modifier.padding(top = 8.dp),
-                text = state.usage
-            )
-            Body(
-                modifier = Modifier.padding(top = 8.dp),
-                text = state.usageDescription
-            )
-            RelatedItems(
-                modifier = Modifier.padding(top = 8.dp),
-                items = state.related
-            )
-
-            H6(text = state.principle)
-            Principles(items = state.principles)
-
-            state.items.forEach { screen ->
-                Card(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp)
-                        .clickable { screen.goToDetail() }
-                ) {
-                    Text(text = screen.name)
-                }
+        MainTabs(
+            items = listOf(DesignTabItem, ImplementationTabItem),
+        ) { item ->
+            when (item) {
+                DesignTabItem -> Design(state = state.design)
+                ImplementationTabItem -> Implementation(state)
             }
         }
     }
+}
+
+@Composable
+private fun BottomAppBatTopBar(
+    title: String,
+    goBack: () -> Unit,
+) {
+    TopAppBar(
+        title = { Text(title) },
+        navigationIcon = {
+            IconButton(onClick = { goBack() }) {
+                Icon(Icons.Filled.ArrowBack)
+            }
+        }
+    )
 }
