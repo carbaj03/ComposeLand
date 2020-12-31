@@ -33,10 +33,9 @@ interface Item<A> {
     fun item(navController: NavHostController): A
 }
 
-interface Dependency
 
-sealed class Screen<A : Dependency>(
-
+sealed class Screen(
+    val route : String
 ) {
     companion object : Routes<ScreenDependencies, MainItem> {
         override fun items(navController: NavHostController): List<MainItem> =
@@ -71,14 +70,18 @@ sealed class Screen<A : Dependency>(
     }
 
     @Composable
-    abstract fun screen(dependency: A)
+    abstract fun screen()
 
-    object Main : Screen<MainState>() {
-        const val route: String = "AppMain"
+    data class Main(
+        val mainState: MainState,
+    ) : Screen(route) {
+        companion object {
+            const val route = "MainApp"
+        }
 
         @Composable
-        override fun screen(dependency: MainState) {
-            MainScreen(dependency)
+        override fun screen() {
+            MainScreen(mainState)
         }
     }
 

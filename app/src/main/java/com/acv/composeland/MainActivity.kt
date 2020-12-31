@@ -223,76 +223,76 @@ fun AppMain() {
         mutableStateOf(ScreenDependencies(mainState, coreState, materialState, navigationState, animationState, dataAndStateState))
     }
 
-    NavHost(
-        navController = navController,
-        startDestination = Screen.Main.route,
-    ) {
-        routes(
-            screen = Screen.Companion,
-            dependencies = dependencies
-        )
-    }
-
-//    Navigator().Global(
+//    NavHost(
 //        navController = navController,
 //        startDestination = Screen.Main.route,
-//        main = {
-//            Log.e("global", dependencies.dataAndStateState.example.isExpanded.toString())
-//            routes(
-//                screen = Screen.Companion,
-//                dependencies = dependencies
-//            )
-//        },
-//        material = {
-//            val routes = MaterialScreen.routes(textMainState, buttonMainState, bottomAppBarMainState, chipMainState, colorMainState)
-//            composable(MaterialScreen.Main.route) { MaterialMain(materialState) }
-//            routes.forEach { screen ->
-//                composable(screen.route) { screen.screen() }
-//            }
-//        },
-//        button = {
-//            val routes = ButtonScreen.routes(navController)
-//            composable(ButtonScreen.Main.route) { ButtonMain(buttonMainState) }
-//            routes.forEach { screen ->
-//                composable(screen.route) { screen.screen() }
-//            }
-//        },
-//        navigation = {
-//            val routes = NavigationScreen.routes()
-//            composable(NavigationScreen.Main.route) { NavigationMain(navigationState) }
-//            routes.forEach { screen ->
-//                composable(screen.route) { screen.screen() }
-//            }
-//        },
-//        bottomAppBar = {
-//            val routes = BottomAppBarScreen.routes(navController)
-//            composable(BottomAppBarScreen.Main.route) { BottomAppBarMain(bottomAppBarMainState) }
-//            routes.forEach { screen ->
-//                composable(screen.route) { screen.screen() }
-//            }
-//        },
-//        text = {
-//            val routes = TextScreen.routes(navController)
-//            composable(TextScreen.Main.route) { TextMain(textMainState) }
-//            routes.forEach { screen ->
-//                composable(screen.route) { screen.screen() }
-//            }
-//        },
-//        animation = {
-//            val routes = AnimationScreen.routes(navController)
-//            composable(AnimationScreen.Main.route) { AnimationMain(animationState) }
-//            routes.forEach { screen ->
-//                composable(screen.route) { screen.screen() }
-//            }
-//        },
-//        color = {
-//            val routes = ColorScreen.routes(navController)
-//            composable(AnimationScreen.Main.route) { AnimationMain(animationState) }
-//            routes.forEach { screen ->
-//                composable(screen.route) { screen.screen() }
-//            }
-//        }
-//    )
+//    ) {
+//        routes(
+//            screen = Screen.Companion,
+//            dependencies = dependencies
+//        )
+//    }
+
+    Navigator().Global(
+        navController = navController,
+        startDestination = Screen.Main.route,
+        main = {
+            Log.e("global", dependencies.dataAndStateState.example.isExpanded.toString())
+            routes(
+                screen = Screen.Companion,
+                dependencies = dependencies
+            )
+        },
+        material = {
+            val routes = MaterialScreen.routes(textMainState, buttonMainState, bottomAppBarMainState, chipMainState, colorMainState)
+            composable(MaterialScreen.Main.route) { MaterialMain(materialState) }
+            routes.forEach { screen ->
+                composable(screen.route) { screen.screen() }
+            }
+        },
+        button = {
+            val routes = ButtonScreen.routes(navController)
+            composable(ButtonScreen.Main.route) { ButtonMain(buttonMainState) }
+            routes.forEach { screen ->
+                composable(screen.route) { screen.screen() }
+            }
+        },
+        navigation = {
+            val routes = NavigationScreen.routes()
+            composable(NavigationScreen.Main.route) { NavigationMain(navigationState) }
+            routes.forEach { screen ->
+                composable(screen.route) { screen.screen() }
+            }
+        },
+        bottomAppBar = {
+            val routes = BottomAppBarScreen.routes(navController)
+            composable(BottomAppBarScreen.Main.route) { BottomAppBarMain(bottomAppBarMainState) }
+            routes.forEach { screen ->
+                composable(screen.route) { screen.screen() }
+            }
+        },
+        text = {
+            val routes = TextScreen.routes(navController)
+            composable(TextScreen.Main.route) { TextMain(textMainState) }
+            routes.forEach { screen ->
+                composable(screen.route) { screen.screen() }
+            }
+        },
+        animation = {
+            val routes = AnimationScreen.routes(navController)
+            composable(AnimationScreen.Main.route) { AnimationMain(animationState) }
+            routes.forEach { screen ->
+                composable(screen.route) { screen.screen() }
+            }
+        },
+        color = {
+            val routes = ColorScreen.routes(navController)
+            composable(AnimationScreen.Main.route) { AnimationMain(animationState) }
+            routes.forEach { screen ->
+                composable(screen.route) { screen.screen() }
+            }
+        }
+    )
 }
 
 

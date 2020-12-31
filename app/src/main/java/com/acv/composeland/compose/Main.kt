@@ -19,12 +19,13 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.*
 
+interface Dependency
 
 data class MainState(
     val title: String,
     val goBack: () -> Unit,
     val items: List<MainItem>,
-) : Dependency
+): Dependency
 
 sealed class MainItem
 
