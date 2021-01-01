@@ -59,6 +59,16 @@ sealed class MaterialScreen(val route: String) {
     object BottomAppBar : MaterialScreen("material_bottomappbar")
 }
 
+sealed class ButtonScreen(val route: String) {
+    object Main : ButtonScreen("button_main")
+    object Color : ButtonScreen("button_color")
+    object Click : ButtonScreen("button_click")
+    object Enabled : ButtonScreen("button_enabled")
+    object InteractionState : ButtonScreen("button_interaction_state")
+    object Shape : ButtonScreen("button_shape")
+    object Border : ButtonScreen("button_border")
+}
+
 @Composable
 fun AppMain() {
 
@@ -78,7 +88,7 @@ fun AppMain() {
             composable(MainScreen.DataAndState.route) { DataAndStateMain(navController) }
         },
         material = {
-            composable(MaterialScreen.Main.route) { MaterialMain(navController) }
+            composable(MaterialScreen.Main.route) { MaterialMain(navController = navController) }
             composable(MaterialScreen.Text.route) { TextMain(navController = navController) }
             composable(MaterialScreen.Color.route) { ColorMain(navController = navController) }
             composable(MaterialScreen.Button.route) { ButtonMain(navController = navController) }
@@ -86,13 +96,13 @@ fun AppMain() {
             composable(MaterialScreen.BottomAppBar.route) { BottomAppBarMain(navController = navController) }
         },
         button = {
-            composable("button_main") { ButtonMain(navController = navController) }
-            composable("button_color") { ColorMain(navController = navController) }
-            composable("button_click") { ButtonClick(goBack = { navController.popBackStack() }) }
-            composable("button_enabled") { ButtonEnabled(goBack = { navController.popBackStack() }) }
-            composable("button_interaction_state") { ButtonInteractionState(goBack = { navController.popBackStack() }) }
-            composable("button_shape") { ButtonShape(goBack = { navController.popBackStack() }) }
-            composable("button_border") { ButtonBorder(goBack = { navController.popBackStack() }) }
+            composable(ButtonScreen.Main.route) { ButtonMain(navController = navController) }
+            composable(ButtonScreen.Color.route) { ColorMain(navController = navController) }
+            composable(ButtonScreen.Click.route) { ButtonClick(goBack = { navController.popBackStack() }) }
+            composable(ButtonScreen.Enabled.route) { ButtonEnabled(goBack = { navController.popBackStack() }) }
+            composable(ButtonScreen.InteractionState.route) { ButtonInteractionState(goBack = { navController.popBackStack() }) }
+            composable(ButtonScreen.Shape.route) { ButtonShape(goBack = { navController.popBackStack() }) }
+            composable(ButtonScreen.Border.route) { ButtonBorder(goBack = { navController.popBackStack() }) }
         },
         navigation = {
             composable("navigation_main") { NavigationMain(navController = navController) }
