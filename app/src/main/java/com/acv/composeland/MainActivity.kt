@@ -39,14 +39,14 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-sealed class MainScreen(val route : String){
+sealed class MainScreen(val route: String) {
     object Core : MainScreen("core")
     object Main : MainScreen("main")
     object Material : MainScreen("material")
     object Navigation : MainScreen("navigation")
     object Legacy : MainScreen("legacy")
     object Layout : MainScreen("layout")
-    object Theming: MainScreen("theming")
+    object Theming : MainScreen("theming")
     object DataAndState : MainScreen("data_and_state")
 }
 
@@ -57,16 +57,16 @@ fun AppMain() {
 
     Navigator().Global(
         navController = navController,
-        startDestination = "main",
+        startDestination = MainScreen.Main.route,
         main = {
-            composable("core") { CoreConceptsMain(navController) }
-            composable("main") { MainScreen(navController) }
-            composable("material") { MaterialMain(navController) }
-            composable("navigation") { NavigationMain(navController) }
-            composable("legacy") { CoreConceptsMain(navController) }
-            composable("layout") { CoreConceptsMain(navController) }
-            composable("theming") { CoreConceptsMain(navController) }
-            composable("data_and_state") { DataAndStateMain(navController) }
+            composable(MainScreen.Core.route) { CoreConceptsMain(navController) }
+            composable(MainScreen.Main.route) { MainScreen(navController) }
+            composable(MainScreen.Material.route) { MaterialMain(navController) }
+            composable(MainScreen.Navigation.route) { NavigationMain(navController) }
+            composable(MainScreen.Legacy.route) { CoreConceptsMain(navController) }
+            composable(MainScreen.Layout.route) { CoreConceptsMain(navController) }
+            composable(MainScreen.Theming.route) { CoreConceptsMain(navController) }
+            composable(MainScreen.DataAndState.route) { DataAndStateMain(navController) }
         },
         material = {
             composable("material_main") { MaterialMain(navController) }
@@ -79,11 +79,11 @@ fun AppMain() {
         button = {
             composable("button_main") { ButtonMain(navController = navController) }
             composable("button_color") { ColorMain(navController = navController) }
-            composable("button_click") { ButtonClick(goBack = { /*TODO*/ }) }
-            composable("button_enabled") { ButtonEnabled(goBack = { /*TODO*/ }) }
-            composable("button_interaction_state") { ButtonInteractionState(goBack = { /*TODO*/ }) }
-            composable("button_shape") { ButtonShape(goBack = { /*TODO*/ }) }
-            composable("button_border") { ButtonBorder(goBack = { /*TODO*/ }) }
+            composable("button_click") { ButtonClick(goBack = { navController.popBackStack() }) }
+            composable("button_enabled") { ButtonEnabled(goBack = { navController.popBackStack() }) }
+            composable("button_interaction_state") { ButtonInteractionState(goBack = { navController.popBackStack() }) }
+            composable("button_shape") { ButtonShape(goBack = { navController.popBackStack() }) }
+            composable("button_border") { ButtonBorder(goBack = { navController.popBackStack() }) }
         },
         navigation = {
             composable("navigation_main") { NavigationMain(navController = navController) }
