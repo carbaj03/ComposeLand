@@ -73,6 +73,15 @@ sealed class NavigationScreen(val route: String) {
     object Main : NavigationScreen("navigation_main")
 }
 
+sealed class BottomAppBarScreen(val route: String) {
+    object Main : BottomAppBarScreen("bottomappbar_main")
+    object Background : BottomAppBarScreen("bottomappbar_background")
+    object ContentColor : BottomAppBarScreen("bottomappbar_content_color")
+    object CutoutShape : BottomAppBarScreen("bottomappbar_cutout_shape")
+    object Elevation : BottomAppBarScreen("bottomappbar_elevation")
+}
+
+
 @Composable
 fun AppMain() {
 
@@ -112,11 +121,11 @@ fun AppMain() {
             composable(NavigationScreen.Main.route) { NavigationMain(navController = navController) }
         },
         bottomAppBar = {
-            composable("bottomappbar_main") { BottomAppBarMain(navController = navController) }
-            composable("bottomappbar_background") { BottomAppBarBackground(navController = navController) }
-            composable("bottomappbar_content_color") { BottomAppBarContentColor(navController = navController) }
-            composable("bottomappbar_cutout_shape") { BottomAppBarCutoutShape(navController = navController) }
-            composable("bottomappbar_elevation") { BottomAppBarElevation(navController = navController) }
+            composable(BottomAppBarScreen.Main.route) { BottomAppBarMain(navController = navController) }
+            composable(BottomAppBarScreen.Background.route) { BottomAppBarBackground(navController = navController) }
+            composable(BottomAppBarScreen.ContentColor.route) { BottomAppBarContentColor(navController = navController) }
+            composable(BottomAppBarScreen.CutoutShape.route) { BottomAppBarCutoutShape(navController = navController) }
+            composable(BottomAppBarScreen.Elevation.route) { BottomAppBarElevation(navController = navController) }
         },
         text = {
             composable("text_main") { TextMain(navController = navController) }
