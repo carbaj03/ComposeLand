@@ -90,6 +90,12 @@ sealed class TextScreen(val route: String) {
     object FontWeight : TextScreen("text_font_weight")
 }
 
+
+sealed class AnimationScreen(val route: String) {
+    object Main : AnimationScreen("animation_main")
+    object Crossfade : AnimationScreen("animation_crossfade")
+}
+
 @Composable
 fun AppMain() {
 
@@ -144,8 +150,8 @@ fun AppMain() {
             composable(TextScreen.FontWeight.route) { TextFontWeight(navController = navController) }
         },
         animation = {
-            composable("animation_main") { AnimationMain(navController = navController) }
-            composable("animation_creossfade") { AnimationCrossfade(navController = navController) }
+            composable(AnimationScreen.Main.route) { AnimationMain(navController = navController) }
+            composable(AnimationScreen.Crossfade.route) { AnimationCrossfade(navController = navController) }
         },
         color = {
 //            val routes = ColorScreen.routes(navController)
