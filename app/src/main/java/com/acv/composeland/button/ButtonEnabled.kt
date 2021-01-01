@@ -7,8 +7,17 @@ import androidx.compose.runtime.*
 import androidx.navigation.NavHostController
 import com.acv.composeland.common.CodeScaffold
 
+data class ButtonEnabledState(
+    val goBack: () -> Unit,
+)
+
 @Composable
-fun ButtonEnabled(goBack : () -> Unit) {
+fun ButtonEnabled(
+    navController: NavHostController
+) {
+    val state = ButtonEnabledState(
+        goBack = { navController.popBackStack() },
+    )
     var count by remember { mutableStateOf(0) }
     var switch by remember { mutableStateOf(false) }
 
@@ -27,7 +36,7 @@ fun ButtonEnabled(goBack : () -> Unit) {
     """
 
     CodeScaffold(
-        goBack = goBack,
+        goBack = state.goBack,
         code = code
     ) {
         Switch(checked = switch, onCheckedChange = { switch = !switch })

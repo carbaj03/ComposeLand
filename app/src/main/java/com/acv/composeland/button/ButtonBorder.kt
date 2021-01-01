@@ -10,8 +10,17 @@ import com.acv.composeland.common.ChipGroup
 import com.acv.composeland.common.CodeScaffold
 import java.util.*
 
+data class ButtonBorderState(
+    val goBack: () -> Unit,
+)
+
 @Composable
-fun ButtonBorder(goBack : () -> Unit) {
+fun ButtonBorder(
+    navController: NavHostController
+) {
+    val state = ButtonBorderState(
+        goBack = { navController.popBackStack() },
+    )
     val a: HashMap<String, BorderStroke> = hashMapOf(
         "Out" to ButtonConstants.defaultOutlinedBorder,
     )
@@ -32,7 +41,7 @@ fun ButtonBorder(goBack : () -> Unit) {
     """
 
     CodeScaffold(
-        goBack = goBack,
+        goBack = state.goBack,
         code = code,
         sample = {
             ChipGroup(

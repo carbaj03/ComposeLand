@@ -32,6 +32,7 @@ fun ColorMain(
         goBack = { navController.popBackStack() },
         items = listOf(ColorMainItem(name = "sadf", goToDetail = {}))
     )
+
     Scaffold(
         topBar = {
             TopAppBar(

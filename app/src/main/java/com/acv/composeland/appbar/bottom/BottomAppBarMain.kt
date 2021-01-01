@@ -13,6 +13,7 @@ import com.acv.composeland.appbar.bottom.design.*
 import com.acv.composeland.appbar.bottom.implementation.Implementation
 import com.acv.composeland.material.PrincipleItem
 import com.acv.composeland.material.RelatedItem
+import com.acv.composeland.screen.MaterialScreen
 
 
 data class BottomAppBarMainState(
@@ -54,14 +55,14 @@ fun BottomAppBarMain(
                         description = "Bottom app bars provide access to a bottom navigation drawer and up to four actions, including the floating action button.",
                         related = listOf(
                             RelatedItem(
-                                action = { navController.navigate(route = "material_text") },
+                                action = { navController.navigate(route = MaterialScreen.Text.route) },
                                 title = "Navigation Drawer",
                                 icon = R.drawable.topbar,
                                 subTitle = "Navigation drawers provide access to destinations in your app.",
                                 type = "Related Article",
                             ),
                             RelatedItem(
-                                action = { navController.navigate(route = "material_button") },
+                                action = { navController.navigate(route = MaterialScreen.Button.route) },
                                 title = "Button Samples",
                                 icon = R.drawable.navigation_drawer,
                                 subTitle = "All The text samples",

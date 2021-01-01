@@ -10,8 +10,17 @@ import com.acv.composeland.common.ChipGroup
 import com.acv.composeland.common.CodeScaffold
 import java.util.*
 
+data class ButtonShapeState(
+    val goBack: () -> Unit,
+)
+
 @Composable
-fun ButtonShape(goBack : () -> Unit) {
+fun ButtonShape(
+    navController: NavHostController
+) {
+    val state = ButtonShapeState(
+        goBack = { navController.popBackStack() },
+    )
     val a: HashMap<String, Shape> = hashMapOf(
         "Small" to MaterialTheme.shapes.small,
         "Medium" to MaterialTheme.shapes.medium,
@@ -34,7 +43,7 @@ fun ButtonShape(goBack : () -> Unit) {
     """
 
     CodeScaffold(
-        goBack = goBack,
+        goBack = state.goBack,
         code = code
     ) {
         ChipGroup(

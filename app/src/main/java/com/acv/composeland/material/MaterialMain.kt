@@ -23,11 +23,13 @@ import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.loadImageResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.navigate
 import com.acv.composeland.R
 import com.acv.composeland.common.Body
 import com.acv.composeland.common.H6
 import com.acv.composeland.common.TopBarBack
 import com.acv.composeland.common.fakeGridItems
+import com.acv.composeland.screen.MaterialScreen
 
 
 data class MaterialState(
@@ -45,20 +47,22 @@ data class MaterialItem(
 )
 
 @Composable
-fun MaterialMain(navController: NavHostController) {
+fun MaterialMain(
+    navController: NavHostController
+) {
     val state = MaterialState(
         title = "Material",
         goBack = { navController.popBackStack() },
         componentsMaterialState = ComponentsMaterialState(listOf(
             MaterialItem(
-                image = R.drawable.ic_compose,
-                title = "sdaf",
-                description = "sdf",
-                goToDetail = {}
+                image = R.drawable.buttons,
+                title = "Buttons",
+                description = "desc",
+                goToDetail = { navController.navigate(MaterialScreen.Button.route)}
             ))),
         designMaterialState = DesignMaterialState(listOf(
             MaterialItem(
-                image = R.drawable.ic_compose,
+                image = R.drawable.snackbars,
                 title = "sdaf",
                 description = "sdf",
                 goToDetail = {}
@@ -77,15 +81,9 @@ fun MaterialMain(navController: NavHostController) {
             options = listOf("Design", "Components", "Develop"),
         ) {
             when (it) {
-                0 -> {
-                    DesignMaterialMain(state = state.designMaterialState)
-                }
-                1 -> {
-                    ComponentsMaterialMain(state = state.componentsMaterialState)
-                }
-                else -> {
-                    Text(text = "saa")
-                }
+                0 -> DesignMaterialMain(state = state.designMaterialState)
+                1 -> ComponentsMaterialMain(state = state.componentsMaterialState)
+                else -> Text(text = "saa")
             }
         }
     }
@@ -136,7 +134,9 @@ data class ComponentsMaterialState(
 
 
 @Composable
-fun ComponentsMaterialMain(state: ComponentsMaterialState) {
+fun ComponentsMaterialMain(
+    state: ComponentsMaterialState
+) {
     LazyColumn {
         fakeGridItems(
             items = state.items,

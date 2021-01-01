@@ -17,8 +17,17 @@ import com.acv.composeland.chip.Chip
 import com.acv.composeland.chip.ChipConstants
 import com.acv.composeland.common.CodeScaffold
 
+data class ButtonColorState(
+    val goBack: () -> Unit,
+)
+
 @Composable
-fun ButtonColor(goBack : () -> Unit) {
+fun ButtonColor(
+    navController: NavHostController
+) {
+    val state = ButtonColorState(
+        goBack = { navController.popBackStack() },
+    )
     var selected by remember { mutableStateOf(-1) }
     var color by remember { mutableStateOf(Color.Black) }
 
@@ -37,7 +46,7 @@ fun ButtonColor(goBack : () -> Unit) {
     """
 
     CodeScaffold(
-        goBack = goBack,
+        goBack = state.goBack,
         code = code
     ) {
         Button(

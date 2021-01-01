@@ -6,8 +6,19 @@ import androidx.compose.runtime.*
 import androidx.navigation.NavHostController
 import com.acv.composeland.common.CodeScaffold
 
+
+data class ButtonClickState(
+    val goBack: () -> Unit,
+)
+
 @Composable
-fun ButtonClick(goBack : () -> Unit) {
+fun ButtonClick(
+    navController: NavHostController
+) {
+    val state = ButtonClickState(
+        goBack = { navController.popBackStack() },
+    )
+
     var count by remember { mutableStateOf(0) }
 
     val code: String = """
@@ -23,7 +34,7 @@ fun ButtonClick(goBack : () -> Unit) {
     """
 
     CodeScaffold(
-        goBack = goBack,
+        goBack = state.goBack,
         code = code
     ) {
         Button(

@@ -24,6 +24,8 @@ import androidx.compose.ui.unit.*
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.navigate
 import com.acv.composeland.R
+import com.acv.composeland.screen.MainScreen
+import com.acv.composeland.screen.MaterialScreen
 
 
 data class MainState(
@@ -51,7 +53,7 @@ data class MidMainItem(
 ) : MainItem()
 
 @Composable
-fun MainScreen(
+fun HomeScreen(
     navController: NavHostController
 ) {
     val state = MainState(
@@ -60,16 +62,16 @@ fun MainScreen(
         items = listOf(
             HeaderMainItem(
                 image = R.drawable.ic_core_cocepts,
-                title = "header",
-                description = "des",
-                guide = { navController.navigate("core") },
+                title = "Core",
+                description = "Core description",
+                guide = { navController.navigate(MainScreen.Core.route) },
                 codelab = {},
             ),
             MidMainItem(
                 image = R.drawable.ic_compose,
-                title = "Exaple",
-                description = "sadf",
-                guide = {},
+                title = "Material",
+                description = "Material description",
+                guide = { navController.navigate(MaterialScreen.Main.route) },
                 codelab = {},
             )
         )

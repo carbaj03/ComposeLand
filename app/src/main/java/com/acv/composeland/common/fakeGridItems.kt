@@ -25,8 +25,12 @@ fun <T> LazyListScope.fakeGridItems(
 
         item {
             Row(
-                Modifier.fillMaxWidth()
-                    .padding(start = contentPadding.start, end = contentPadding.end)
+                Modifier
+                    .fillMaxWidth()
+                    .padding(
+                        start = contentPadding.start,
+                        end = contentPadding.end
+                    )
             ) {
                 for (column in 0 until columns) {
                     Box(modifier = Modifier.weight(1f)) {

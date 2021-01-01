@@ -16,13 +16,15 @@ import com.acv.composeland.button.*
 import com.acv.composeland.chip.ChipMain
 import com.acv.composeland.chip.TextColor
 import com.acv.composeland.common.Navigator
-import com.acv.composeland.compose.MainScreen
+import com.acv.composeland.compose.HomeScreen
 import com.acv.composeland.core.CoreConceptsMain
 import com.acv.composeland.datastate.DataAndStateMain
 import com.acv.composeland.material.MaterialMain
 import com.acv.composeland.material.color.ColorMain
 import com.acv.composeland.navigation.NavigationMain
 import com.acv.composeland.text.*
+import com.acv.composeland.screen.*
+import com.acv.composeland.screen.ButtonScreen
 import com.acv.composeland.ui.ComposeLandTheme
 
 class MainActivity : AppCompatActivity() {
@@ -39,63 +41,6 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-sealed class MainScreen(val route: String) {
-    object Core : MainScreen("core")
-    object Main : MainScreen("main")
-    object Material : MainScreen("material")
-    object Navigation : MainScreen("navigation")
-    object Legacy : MainScreen("legacy")
-    object Layout : MainScreen("layout")
-    object Theming : MainScreen("theming")
-    object DataAndState : MainScreen("data_and_state")
-}
-
-sealed class MaterialScreen(val route: String) {
-    object Main : MaterialScreen("material_main")
-    object Text : MaterialScreen("material_text")
-    object Color : MaterialScreen("material_color")
-    object Button : MaterialScreen("material_button")
-    object Chip : MaterialScreen("material_chip")
-    object BottomAppBar : MaterialScreen("material_bottomappbar")
-}
-
-sealed class ButtonScreen(val route: String) {
-    object Main : ButtonScreen("button_main")
-    object Color : ButtonScreen("button_color")
-    object Click : ButtonScreen("button_click")
-    object Enabled : ButtonScreen("button_enabled")
-    object InteractionState : ButtonScreen("button_interaction_state")
-    object Shape : ButtonScreen("button_shape")
-    object Border : ButtonScreen("button_border")
-}
-
-sealed class NavigationScreen(val route: String) {
-    object Main : NavigationScreen("navigation_main")
-}
-
-sealed class BottomAppBarScreen(val route: String) {
-    object Main : BottomAppBarScreen("bottomappbar_main")
-    object Background : BottomAppBarScreen("bottomappbar_background")
-    object ContentColor : BottomAppBarScreen("bottomappbar_content_color")
-    object CutoutShape : BottomAppBarScreen("bottomappbar_cutout_shape")
-    object Elevation : BottomAppBarScreen("bottomappbar_elevation")
-}
-
-sealed class TextScreen(val route: String) {
-    object Main : TextScreen("text_main")
-    object Color : TextScreen("text_color")
-    object FontSize : TextScreen("text_font_size")
-    object FontStyle : TextScreen("text_font_style")
-    object FontFamily : TextScreen("text_font_family")
-    object FontWeight : TextScreen("text_font_weight")
-}
-
-
-sealed class AnimationScreen(val route: String) {
-    object Main : AnimationScreen("animation_main")
-    object Crossfade : AnimationScreen("animation_crossfade")
-}
-
 @Composable
 fun AppMain() {
 
@@ -106,7 +51,7 @@ fun AppMain() {
         startDestination = MainScreen.Main.route,
         main = {
             composable(MainScreen.Core.route) { CoreConceptsMain(navController) }
-            composable(MainScreen.Main.route) { MainScreen(navController) }
+            composable(MainScreen.Main.route) { HomeScreen(navController) }
             composable(MainScreen.Material.route) { MaterialMain(navController) }
             composable(MainScreen.Navigation.route) { NavigationMain(navController) }
             composable(MainScreen.Legacy.route) { CoreConceptsMain(navController) }
@@ -124,12 +69,12 @@ fun AppMain() {
         },
         button = {
             composable(ButtonScreen.Main.route) { ButtonMain(navController = navController) }
-            composable(ButtonScreen.Color.route) { ColorMain(navController = navController) }
-            composable(ButtonScreen.Click.route) { ButtonClick(goBack = { navController.popBackStack() }) }
-            composable(ButtonScreen.Enabled.route) { ButtonEnabled(goBack = { navController.popBackStack() }) }
-            composable(ButtonScreen.InteractionState.route) { ButtonInteractionState(goBack = { navController.popBackStack() }) }
-            composable(ButtonScreen.Shape.route) { ButtonShape(goBack = { navController.popBackStack() }) }
-            composable(ButtonScreen.Border.route) { ButtonBorder(goBack = { navController.popBackStack() }) }
+            composable(ButtonScreen.Color.route) { ButtonColor(navController = navController) }
+            composable(ButtonScreen.Click.route) { ButtonClick(navController = navController) }
+            composable(ButtonScreen.Enabled.route) { ButtonEnabled(navController = navController) }
+            composable(ButtonScreen.InteractionState.route) { ButtonInteractionState(navController = navController) }
+            composable(ButtonScreen.Shape.route) { ButtonShape(navController = navController) }
+            composable(ButtonScreen.Border.route) { ButtonBorder(navController = navController) }
         },
         navigation = {
             composable(NavigationScreen.Main.route) { NavigationMain(navController = navController) }
@@ -154,8 +99,7 @@ fun AppMain() {
             composable(AnimationScreen.Crossfade.route) { AnimationCrossfade(navController = navController) }
         },
         color = {
-//            val routes = ColorScreen.routes(navController)
-            composable("color_") {}
+            composable(ColorScreen.Main.route) { ColorMain(navController = navController) }
         }
     )
 }

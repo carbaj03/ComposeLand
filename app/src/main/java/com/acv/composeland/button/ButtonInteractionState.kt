@@ -12,8 +12,17 @@ import androidx.compose.ui.gesture.scrollorientationlocking.Orientation
 import androidx.navigation.NavHostController
 import com.acv.composeland.common.CodeScaffold
 
+data class ButtonInteractionStateState(
+    val goBack: () -> Unit,
+)
+
 @Composable
-fun ButtonInteractionState(goBack : () -> Unit) {
+fun ButtonInteractionState(
+    navController: NavHostController
+) {
+    val state = ButtonInteractionStateState(
+        goBack = { navController.popBackStack() },
+    )
     val interactionState = remember { InteractionState() }
     var text = when {
         Interaction.Dragged in interactionState -> "Dragged"
@@ -41,7 +50,7 @@ fun ButtonInteractionState(goBack : () -> Unit) {
     """
 
     CodeScaffold(
-        goBack = goBack,
+        goBack = state.goBack,
         code = code
     ) {
         Button(
