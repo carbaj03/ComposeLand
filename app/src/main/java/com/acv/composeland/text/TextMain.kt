@@ -10,9 +10,10 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 
 data class TextMainState(
-    val title : String,
+    val title: String,
     val goBack: () -> Unit,
     val items: List<TextMainItem>,
 )
@@ -24,8 +25,13 @@ data class TextMainItem(
 
 @Composable
 fun TextMain(
-    state: TextMainState
+    navController: NavHostController
 ) {
+    val state = TextMainState(
+        title = "Text Examples",
+        goBack = { navController.popBackStack() },
+        items = listOf(TextMainItem(name = "sadf", goToDetail = {}))
+    )
     Scaffold(
         topBar = {
             TopAppBar(

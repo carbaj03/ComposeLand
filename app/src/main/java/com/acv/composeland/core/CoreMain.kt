@@ -10,6 +10,7 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.acv.composeland.common.Body
 import com.acv.composeland.common.H6
 
@@ -20,8 +21,13 @@ data class CoreConceptsMainState(
 
 @Composable
 fun CoreConceptsMain(
-    state: CoreConceptsMainState
+    navController: NavHostController
 ) {
+    val state = CoreConceptsMainState(
+        title = "Core",
+        goBack = { navController.popBackStack() },
+    )
+
     Scaffold(
         topBar = {
             TopAppBar(

@@ -15,6 +15,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.acv.composeland.common.ChipGroup
 import com.acv.composeland.common.CodeScaffold
 import java.util.*
@@ -27,8 +28,10 @@ data class BottomAppBarCutoutShapeState(
 
 @Composable
 fun BottomAppBarCutoutShape(
-    state: BottomAppBarCutoutShapeState
+    navController: NavHostController
 ) {
+    val state = BottomAppBarCutoutShapeState(goBack = { navController.popBackStack() })
+
     val a: HashMap<String, Shape> = hashMapOf(
         "CutCorner" to CutCornerShape(50),
         "Circle" to CircleShape,
@@ -85,7 +88,7 @@ fun BottomAppBarCutoutShape(
                 },
                 floatingActionButtonPosition = FabPosition.Center,
                 isFloatingActionButtonDocked = true,
-            ){}
+            ) {}
         },
     )
 

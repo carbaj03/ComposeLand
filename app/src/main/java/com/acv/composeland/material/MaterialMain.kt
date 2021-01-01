@@ -8,8 +8,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.savedinstancestate.savedInstanceState
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Canvas
@@ -19,8 +21,9 @@ import androidx.compose.ui.graphics.Paint
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.loadImageResource
-import androidx.compose.ui.res.loadVectorResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import com.acv.composeland.R
 import com.acv.composeland.common.Body
 import com.acv.composeland.common.H6
 import com.acv.composeland.common.TopBarBack
@@ -42,7 +45,26 @@ data class MaterialItem(
 )
 
 @Composable
-fun MaterialMain(state: MaterialState) {
+fun MaterialMain(navController: NavHostController) {
+    val state = MaterialState(
+        title = "Material",
+        goBack = { navController.popBackStack() },
+        componentsMaterialState = ComponentsMaterialState(listOf(
+            MaterialItem(
+                image = R.drawable.ic_compose,
+                title = "sdaf",
+                description = "sdf",
+                goToDetail = {}
+            ))),
+        designMaterialState = DesignMaterialState(listOf(
+            MaterialItem(
+                image = R.drawable.ic_compose,
+                title = "sdaf",
+                description = "sdf",
+                goToDetail = {}
+            ))),
+    )
+
     Scaffold(
         topBar = {
             TopBarBack(

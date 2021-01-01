@@ -10,9 +10,10 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 
 data class AnimationMainState(
-    val title : String,
+    val title: String,
     val goBack: () -> Unit,
     val items: List<AnimationMainItem>,
 )
@@ -24,8 +25,16 @@ data class AnimationMainItem(
 
 @Composable
 fun AnimationMain(
-    state: AnimationMainState
+    navController: NavHostController
 ) {
+    val state = AnimationMainState(
+        title = "Animations",
+        goBack = { navController.popBackStack() },
+        items = listOf(
+            AnimationMainItem("", {})
+        )
+    )
+
     Scaffold(
         topBar = {
             TopAppBar(

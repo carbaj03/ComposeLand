@@ -12,6 +12,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.acv.composeland.common.ChipGroup
 import com.acv.composeland.common.CodeScaffold
 import java.util.*
@@ -22,8 +23,10 @@ data class BottomAppBarElevationState(
 
 @Composable
 fun BottomAppBarElevation(
-    state: BottomAppBarElevationState
+    navController: NavHostController
 ) {
+    val state = BottomAppBarElevationState(goBack = { navController.popBackStack() })
+
     val a: HashMap<String, Dp> = hashMapOf(
         "Default" to 8.dp,
         "4" to 4.dp,

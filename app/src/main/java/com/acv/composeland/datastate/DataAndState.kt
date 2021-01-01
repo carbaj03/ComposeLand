@@ -1,13 +1,13 @@
 package com.acv.composeland.datastate
 
+import android.util.Log
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.runtime.savedinstancestate.savedInstanceState
-import androidx.compose.runtime.setValue
+import androidx.navigation.NavHostController
 import com.acv.composeland.common.H6
 
 data class DataAndStateState(
@@ -20,6 +20,7 @@ data class DataAndStateState(
 data class Other(
     val example: Example
 )
+
 data class Example(
     val isExpanded: Boolean,
     val onExpand: () -> Unit,
@@ -27,8 +28,27 @@ data class Example(
 
 @Composable
 fun DataAndStateMain(
-    state: DataAndStateState
+    navController: NavHostController
 ) {
+    var expanded by savedInstanceState { false }
+    var example by remember(expanded) {
+        Log.e("example", expanded.toString())
+        mutableStateOf(
+            Example(
+                isExpanded = expanded,
+                onExpand = { expanded = !expanded }
+            )
+        )
+    }
+    var state by remember(example) {
+        mutableStateOf(
+            DataAndStateState(
+                title = "Core",
+                goBack = { navController.popBackStack() },
+                example = example
+            )
+        )
+    }
 
     Example(
         title = state.title,
@@ -43,6 +63,8 @@ fun Example(
     goBack: () -> Unit,
     example: Example
 ) {
+
+
     Scaffold(
         topBar = {
             TopAppBar(

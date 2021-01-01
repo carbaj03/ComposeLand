@@ -2,8 +2,11 @@ package com.acv.composeland.compose
 
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.material.Card
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
@@ -18,14 +21,16 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.*
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.navigate
+import com.acv.composeland.R
 
-interface Dependency
 
 data class MainState(
     val title: String,
     val goBack: () -> Unit,
     val items: List<MainItem>,
-): Dependency
+)
 
 sealed class MainItem
 
@@ -33,20 +38,43 @@ data class HeaderMainItem(
     val image: Int,
     val title: String,
     val description: String,
-    val guide: () -> Unit = {},
-    val codelab: () -> Unit = {},
+    val guide: () -> Unit,
+    val codelab: () -> Unit,
 ) : MainItem()
 
 data class MidMainItem(
     val image: Int,
     val title: String,
     val description: String,
-    val guide: () -> Unit = {},
-    val codelab: () -> Unit = {},
+    val guide: () -> Unit,
+    val codelab: () -> Unit,
 ) : MainItem()
 
 @Composable
-fun MainScreen(state: MainState) {
+fun MainScreen(
+    navController: NavHostController
+) {
+    val state = MainState(
+        title = "ComposeLand",
+        goBack = { navController.popBackStack() },
+        items = listOf(
+            HeaderMainItem(
+                image = R.drawable.ic_core_cocepts,
+                title = "header",
+                description = "des",
+                guide = { navController.navigate("core") },
+                codelab = {},
+            ),
+            MidMainItem(
+                image = R.drawable.ic_compose,
+                title = "Exaple",
+                description = "sadf",
+                guide = {},
+                codelab = {},
+            )
+        )
+    )
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -65,7 +93,7 @@ fun MainScreen(state: MainState) {
                             description = item.description,
                             type = "Featured",
                             guide = item.guide,
-                            codelab = item.codelab
+                            codelab = item.codelab,
                         )
                     }
                     is MidMainItem -> {

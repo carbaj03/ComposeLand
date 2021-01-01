@@ -12,6 +12,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
+import androidx.navigation.NavHostController
 import com.acv.composeland.common.Argument
 import com.acv.composeland.common.ChipGroup
 import com.acv.composeland.common.CodeScaffold
@@ -23,7 +24,10 @@ data class BottomAppBarState(
 )
 
 @Composable
-fun BottomAppBarBackground(state: BottomAppBarState) {
+fun BottomAppBarBackground(
+    navController: NavHostController
+) {
+    val state = BottomAppBarState(goBack = { navController.popBackStack() })
     val a: HashMap<String, Color> = hashMapOf(
         "Default" to MaterialTheme.colors.primary,
         "Magenta" to Color.Magenta,

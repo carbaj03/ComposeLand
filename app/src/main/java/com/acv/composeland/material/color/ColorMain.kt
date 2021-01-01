@@ -10,9 +10,10 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 
 data class ColorMainState(
-    val title : String,
+    val title: String,
     val goBack: () -> Unit,
     val items: List<ColorMainItem>,
 )
@@ -24,8 +25,13 @@ data class ColorMainItem(
 
 @Composable
 fun ColorMain(
-    state: ColorMainState
+    navController: NavHostController
 ) {
+    val state = ColorMainState(
+        title = "Colors",
+        goBack = { navController.popBackStack() },
+        items = listOf(ColorMainItem(name = "sadf", goToDetail = {}))
+    )
     Scaffold(
         topBar = {
             TopAppBar(

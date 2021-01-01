@@ -24,8 +24,17 @@ import androidx.navigation.NavHostController
 import com.acv.composeland.common.ChipGroup
 import com.acv.composeland.common.CodeScaffold
 
+
+data class TextFontWeightState(
+    val goBack: () -> Unit,
+)
+
 @Composable
-fun TextFontWeight(goBack : () -> Unit) {
+fun TextFontWeight(
+    navController: NavHostController
+) {
+    val state = TextFontWeightState(goBack = { navController.popBackStack() })
+
     val a = listOf(
         Thin to "Thin",
         ExtraLight to "ExtraLight",
@@ -50,7 +59,7 @@ fun TextFontWeight(goBack : () -> Unit) {
     """
 
     CodeScaffold(
-        goBack = goBack,
+        goBack = state.goBack,
         code = code,
         options = {
             ChipGroup(

@@ -6,11 +6,20 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.acv.composeland.common.ChipGroup
 import com.acv.composeland.common.CodeScaffold
 
+data class TextFontSizeState(
+    val goBack: () -> Unit,
+)
+
 @Composable
-fun TextFontSize(goBack: () -> Unit) {
+fun TextFontSize(
+    navController: NavHostController
+) {
+    val state = TextFontSizeState(goBack = { navController.popBackStack() })
+
     var size by remember { mutableStateOf(10f) }
     var unit by remember { mutableStateOf("sp") }
 
@@ -25,7 +34,7 @@ fun TextFontSize(goBack: () -> Unit) {
     """
 
     CodeScaffold(
-        goBack = goBack,
+        goBack = state.goBack,
         code = code,
         sample = {
             Text(

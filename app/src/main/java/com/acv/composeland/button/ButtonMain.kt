@@ -10,6 +10,7 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 
 
 data class ButtonMainState(
@@ -25,8 +26,13 @@ data class ButtonMainItem(
 
 @Composable
 fun ButtonMain(
-    state: ButtonMainState
+    navController: NavHostController
 ) {
+    val state = ButtonMainState(
+        title = "Button Examples",
+        goBack = { navController.popBackStack() },
+        items = ButtonScreen.buttonItems(navController),
+    )
     Scaffold(
         topBar = {
             TopAppBar(

@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
+import androidx.navigation.NavHostController
+import com.acv.composeland.text.TextFontStyleState
 
 
 data class AnimationCrossfadeState(
@@ -12,7 +14,11 @@ data class AnimationCrossfadeState(
 )
 
 @Composable
-fun AnimationCrossfade(state: AnimationCrossfadeState) {
+fun AnimationCrossfade(
+    navController: NavHostController
+) {
+    val state = AnimationCrossfadeState(goBack = { navController.popBackStack() })
+
     var letter by remember { mutableStateOf("A") }
     Crossfade(current = letter) { screen ->
         when (screen) {

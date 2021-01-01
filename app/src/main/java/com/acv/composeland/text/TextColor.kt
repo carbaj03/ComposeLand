@@ -5,6 +5,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
+import androidx.navigation.NavHostController
 import com.acv.composeland.chip.ChipConstants
 import com.acv.composeland.common.Argument
 import com.acv.composeland.common.ChipGroup
@@ -17,7 +18,10 @@ data class TextColorState(
 )
 
 @Composable
-fun TextColor(state: TextColorState) {
+fun TextColor(
+    navController: NavHostController
+) {
+    val state = TextColorState(goBack = { navController.popBackStack() })
 
     val a: HashMap<String, Color> = hashMapOf(
         "Black" to Color.Black,

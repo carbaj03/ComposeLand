@@ -12,6 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.loadImageResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import com.acv.composeland.R
 import com.acv.composeland.common.Body
 import com.acv.composeland.common.H6
 import com.acv.composeland.common.TopBarBack
@@ -32,7 +34,20 @@ data class NavigationItem(
 )
 
 @Composable
-fun NavigationMain(state: NavigationState) {
+fun NavigationMain(navController: NavHostController) {
+    val state = NavigationState(
+        title = "Navigation",
+        goBack = { navController.popBackStack() },
+        items = listOf(
+            NavigationItem(
+                image = R.drawable.ic_compose,
+                title = "asdf",
+                description = "sdf",
+                goToDetail = {}
+            )
+        )
+    )
+
     Scaffold(
         topBar = {
             TopBarBack(

@@ -11,10 +11,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.acv.composeland.appbar.bottom.BottomAppBarElevationState
 import com.acv.composeland.common.CodeScaffold
 
+data class TextColorState(
+    val goBack: () -> Unit,
+)
+
 @Composable
-fun TextColor(goBack : () -> Unit) {
+fun TextColor(
+    navController: NavHostController
+) {
+    val state = BottomAppBarElevationState(goBack = { navController.popBackStack() })
+
     val code: String = """
       @Composable
       fun TextColor(){
@@ -27,7 +36,7 @@ fun TextColor(goBack : () -> Unit) {
     var color by remember { mutableStateOf(Color.Black) }
 
     CodeScaffold(
-        goBack = goBack,
+        goBack = state.goBack,
         code = code
     ) {
         Text(
