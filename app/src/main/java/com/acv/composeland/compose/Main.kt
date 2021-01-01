@@ -19,7 +19,6 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.*
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.navigate
@@ -140,7 +139,8 @@ private fun customMid(
                 modifier = Modifier
                     .constrainAs(imageRef) {
                         top.linkTo(parent.top)
-                    }.preferredHeight(42.dp),
+                        height = Dimension.value(45.dp)
+                    },
                 imageVector = imageVector,
                 contentScale = ContentScale.Fit,
             )
@@ -200,15 +200,15 @@ private fun CustomCard(
         elevation = 0.dp
     ) {
         ConstraintLayout(
-            modifier = Modifier.fillMaxWidth().background(Color.LightGray).padding(8.dp)
+            modifier = Modifier.fillMaxWidth().background(Color.LightGray)
         ) {
             val (typeRef, titleRef, imageRef, descriptionRef, codelabRef, guideRef) = createRefs()
 
             Text(
                 text = type,
                 modifier = Modifier.constrainAs(typeRef) {
-                    start.linkTo(parent.start)
-                    top.linkTo(parent.top)
+                    start.linkTo(parent.start, 8.dp)
+                    top.linkTo(parent.top, 8.dp)
                 },
                 style = MaterialTheme.typography.caption,
             )
@@ -216,7 +216,7 @@ private fun CustomCard(
             Text(
                 text = title,
                 modifier = Modifier.constrainAs(titleRef) {
-                    start.linkTo(parent.start)
+                    start.linkTo(parent.start, 8.dp)
                     top.linkTo(typeRef.bottom)
                 },
                 style = MaterialTheme.typography.h5,
@@ -225,12 +225,9 @@ private fun CustomCard(
             Text(
                 text = description,
                 modifier = Modifier.constrainAs(descriptionRef) {
-                    end.linkTo(imageRef.start)
-                    start.linkTo(parent.start)
-                    top.linkTo(titleRef.bottom)
+                    linkTo(start = parent.start, end = imageRef.start, bias = 0f, startMargin = 8.dp)
+                    top.linkTo(titleRef.bottom, 8.dp)
                 },
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis,
                 style = MaterialTheme.typography.body1,
             )
 
@@ -239,8 +236,8 @@ private fun CustomCard(
                 text = text,
                 modifier = Modifier
                     .constrainAs(guideRef) {
-                        start.linkTo(parent.start)
-                        top.linkTo(descriptionRef.bottom)
+                        start.linkTo(parent.start, 8.dp)
+                        top.linkTo(descriptionRef.bottom, 4.dp)
                     }.then(draggable),
                 style = MaterialTheme.typography.button,
             )
@@ -249,17 +246,19 @@ private fun CustomCard(
             Text(
                 text = textCodelab,
                 modifier = Modifier.constrainAs(codelabRef) {
-                    start.linkTo(parent.start)
-                    top.linkTo(guideRef.bottom)
+                    start.linkTo(parent.start, 8.dp)
+                    top.linkTo(guideRef.bottom, 8.dp)
+                    bottom.linkTo(parent.bottom, 8.dp)
                 }.then(actionCodelab),
                 style = MaterialTheme.typography.button,
             )
 
             Image(
                 modifier = Modifier
-                    .preferredHeight(150.dp)
                     .constrainAs(imageRef) {
+                        linkTo(top = typeRef.top, bottom = codelabRef.bottom)
                         end.linkTo(parent.end)
+                        height = Dimension.fillToConstraints
                     },
                 imageVector = imageVector,
                 contentScale = ContentScale.Fit,

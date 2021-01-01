@@ -61,9 +61,10 @@ fun H6(
 fun Body(
     text: String,
     modifier: Modifier = Modifier,
+    maxLines: Int = Int.MAX_VALUE,
     color: Color = Color.Unspecified
 ) {
-    Text(color = color, modifier = modifier, text = text, style = MaterialTheme.typography.body1)
+    Text(color = color, maxLines = maxLines, modifier = modifier, text = text, style = MaterialTheme.typography.body1)
 }
 //}
 //

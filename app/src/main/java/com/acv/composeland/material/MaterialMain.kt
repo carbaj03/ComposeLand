@@ -21,14 +21,16 @@ import androidx.compose.ui.graphics.Paint
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.loadImageResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.navigate
 import com.acv.composeland.R
-import com.acv.composeland.common.Body
 import com.acv.composeland.common.H6
 import com.acv.composeland.common.TopBarBack
 import com.acv.composeland.common.fakeGridItems
+import com.acv.composeland.screen.BottomAppBarScreen
+import com.acv.composeland.screen.ColorScreen
 import com.acv.composeland.screen.MaterialScreen
 
 
@@ -43,7 +45,7 @@ data class MaterialItem(
     val image: Int,
     val title: String,
     val description: String,
-    val goToDetail: () -> Unit = {}
+    val goToDetail: () -> Unit
 )
 
 @Composable
@@ -53,20 +55,32 @@ fun MaterialMain(
     val state = MaterialState(
         title = "Material",
         goBack = { navController.popBackStack() },
-        componentsMaterialState = ComponentsMaterialState(listOf(
-            MaterialItem(
-                image = R.drawable.buttons,
-                title = "Buttons",
-                description = "desc",
-                goToDetail = { navController.navigate(MaterialScreen.Button.route)}
-            ))),
-        designMaterialState = DesignMaterialState(listOf(
-            MaterialItem(
-                image = R.drawable.snackbars,
-                title = "sdaf",
-                description = "sdf",
-                goToDetail = {}
-            ))),
+        componentsMaterialState = ComponentsMaterialState(
+            listOf(
+                MaterialItem(
+                    image = R.drawable.bottom,
+                    title = "App bars: bottom",
+                    description = " A bottom app bar displays navigation and key actions at the bottom of mobile screens ",
+                    goToDetail = { navController.navigate(route = BottomAppBarScreen.Main.route) },
+                ),
+                MaterialItem(
+                    image = R.drawable.buttons,
+                    title = "Buttons",
+                    description = "Buttons allow users to take actions, and make choices, with a single tap ",
+                    goToDetail = { navController.navigate(MaterialScreen.Button.route) }
+                )
+            )
+        ),
+        designMaterialState = DesignMaterialState(
+            listOf(
+                MaterialItem(
+                    image = R.drawable.snackbars,
+                    title = "Color",
+                    description = "sdf",
+                    goToDetail = { navController.navigate(ColorScreen.Main.route) }
+                )
+            )
+        ),
     )
 
     Scaffold(
@@ -113,7 +127,11 @@ fun DesignMaterialMain(state: DesignMaterialState) {
                 }
 
                 H6(text = screen.title)
-                Body(text = screen.description)
+                Text(
+                    text = screen.description,
+                    maxLines = 3,
+                    style = MaterialTheme.typography.body1,
+                )
             }
         }
     }
@@ -153,7 +171,12 @@ fun ComponentsMaterialMain(
                     contentScale = ContentScale.Fit,
                 )
                 H6(text = screen.title)
-                Body(text = screen.description)
+                Text(
+                    text = screen.description,
+                    maxLines = 3,
+                    overflow = TextOverflow.Ellipsis,
+                    style = MaterialTheme.typography.body1,
+                )
             }
         }
     }
