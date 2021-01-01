@@ -69,6 +69,10 @@ sealed class ButtonScreen(val route: String) {
     object Border : ButtonScreen("button_border")
 }
 
+sealed class NavigationScreen(val route: String) {
+    object Main : NavigationScreen("navigation_main")
+}
+
 @Composable
 fun AppMain() {
 
@@ -105,7 +109,7 @@ fun AppMain() {
             composable(ButtonScreen.Border.route) { ButtonBorder(goBack = { navController.popBackStack() }) }
         },
         navigation = {
-            composable("navigation_main") { NavigationMain(navController = navController) }
+            composable(NavigationScreen.Main.route) { NavigationMain(navController = navController) }
         },
         bottomAppBar = {
             composable("bottomappbar_main") { BottomAppBarMain(navController = navController) }
