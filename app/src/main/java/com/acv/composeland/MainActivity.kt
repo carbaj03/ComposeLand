@@ -81,6 +81,14 @@ sealed class BottomAppBarScreen(val route: String) {
     object Elevation : BottomAppBarScreen("bottomappbar_elevation")
 }
 
+sealed class TextScreen(val route: String) {
+    object Main : TextScreen("text_main")
+    object Color : TextScreen("text_color")
+    object FontSize : TextScreen("text_font_size")
+    object FontStyle : TextScreen("text_font_style")
+    object FontFamily : TextScreen("text_font_family")
+    object FontWeight : TextScreen("text_font_weight")
+}
 
 @Composable
 fun AppMain() {
@@ -128,12 +136,12 @@ fun AppMain() {
             composable(BottomAppBarScreen.Elevation.route) { BottomAppBarElevation(navController = navController) }
         },
         text = {
-            composable("text_main") { TextMain(navController = navController) }
-            composable("text_color") { TextColor(navController = navController) }
-            composable("text_font_size") { TextFontSize(navController = navController) }
-            composable("text_font_family") { TextFontFamily(navController = navController) }
-            composable("text_font_style") { TextFontStyle(navController = navController) }
-            composable("text_font_weight") { TextFontWeight(navController = navController) }
+            composable(TextScreen.Main.route) { TextMain(navController = navController) }
+            composable(TextScreen.Color.route) { TextColor(navController = navController) }
+            composable(TextScreen.FontSize.route) { TextFontSize(navController = navController) }
+            composable(TextScreen.FontFamily.route) { TextFontFamily(navController = navController) }
+            composable(TextScreen.FontStyle.route) { TextFontStyle(navController = navController) }
+            composable(TextScreen.FontWeight.route) { TextFontWeight(navController = navController) }
         },
         animation = {
             composable("animation_main") { AnimationMain(navController = navController) }
