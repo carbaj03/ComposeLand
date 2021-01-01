@@ -50,6 +50,15 @@ sealed class MainScreen(val route: String) {
     object DataAndState : MainScreen("data_and_state")
 }
 
+sealed class MaterialScreen(val route: String) {
+    object Main : MaterialScreen("material_main")
+    object Text : MaterialScreen("material_text")
+    object Color : MaterialScreen("material_color")
+    object Button : MaterialScreen("material_button")
+    object Chip : MaterialScreen("material_chip")
+    object BottomAppBar : MaterialScreen("material_bottomappbar")
+}
+
 @Composable
 fun AppMain() {
 
@@ -69,12 +78,12 @@ fun AppMain() {
             composable(MainScreen.DataAndState.route) { DataAndStateMain(navController) }
         },
         material = {
-            composable("material_main") { MaterialMain(navController) }
-            composable("material_text") { TextMain(navController = navController) }
-            composable("material_color") { ColorMain(navController = navController) }
-            composable("material_button") { ButtonMain(navController = navController) }
-            composable("material_chip") { ChipMain(navController = navController) }
-            composable("material_bottomappbar") { BottomAppBarMain(navController = navController) }
+            composable(MaterialScreen.Main.route) { MaterialMain(navController) }
+            composable(MaterialScreen.Text.route) { TextMain(navController = navController) }
+            composable(MaterialScreen.Color.route) { ColorMain(navController = navController) }
+            composable(MaterialScreen.Button.route) { ButtonMain(navController = navController) }
+            composable(MaterialScreen.Chip.route) { ChipMain(navController = navController) }
+            composable(MaterialScreen.BottomAppBar.route) { BottomAppBarMain(navController = navController) }
         },
         button = {
             composable("button_main") { ButtonMain(navController = navController) }
