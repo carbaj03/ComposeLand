@@ -4,5 +4,6 @@ interface MainNavigator {
     fun goBack()
     fun goCore()
     fun goMain()
-    fun goTheming()
+    fun goThemingGuide()
+    fun goThemingCodelab()
 }

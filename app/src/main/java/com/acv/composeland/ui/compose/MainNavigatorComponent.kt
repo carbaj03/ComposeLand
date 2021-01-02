@@ -21,7 +21,11 @@ class MainNavigatorComponent(
         navController.navigate(MaterialScreen.Main.route)
     }
 
-    override fun goTheming() {
+    override fun goThemingGuide() {
         navController.navigate(ThemingScreen.Guide.route)
+    }
+
+    override fun goThemingCodelab() {
+        navController.navigate(ThemingScreen.Codelab.route)
     }
 }
