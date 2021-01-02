@@ -43,6 +43,7 @@ fun ButtonShape(
     """
 
     CodeScaffold(
+        title = "Button Shape",
         goBack = state.goBack,
         code = code
     ) {

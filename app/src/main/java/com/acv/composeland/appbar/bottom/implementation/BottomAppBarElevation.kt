@@ -60,6 +60,7 @@ fun BottomAppBarElevation(
     }
 
     CodeScaffold(
+        title = "BottomAppBarElevation",
         goBack = state.goBack,
         code = code,
         sample = {

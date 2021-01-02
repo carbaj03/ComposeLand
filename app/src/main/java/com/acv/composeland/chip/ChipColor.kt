@@ -38,6 +38,7 @@ fun ChipColor(
     var color by remember { mutableStateOf(Color.Black) }
 
     CodeScaffold(
+        title = "Chip Color",
         goBack = state.goBack,
         code = code
     ) {

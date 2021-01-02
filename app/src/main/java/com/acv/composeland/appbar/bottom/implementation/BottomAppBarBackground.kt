@@ -46,6 +46,7 @@ fun BottomAppBarBackground(
     }
 
     CodeScaffold(
+        title = "BottomAppBar",
         goBack = state.goBack,
         code = code,
         sample = {

@@ -10,10 +10,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.annotatedString
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.unit.dp
 
 @Composable
 fun CodeScaffold(
+    title : String,
     goBack: () -> Unit,
     code: AnnotatedString,
     sample: @Composable () -> Unit,
@@ -22,11 +24,9 @@ fun CodeScaffold(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Simple Scaffold Screen") },
+                title = { Text(title) },
                 navigationIcon = {
-                    IconButton(onClick = {
-                       goBack()
-                    }) {
+                    IconButton(onClick = { goBack() }) {
                         Icon(Icons.Filled.ArrowBack)
                     }
                 }
@@ -55,6 +55,7 @@ fun CodeScaffold(
 
 @Composable
 fun CodeScaffold(
+    title : String,
     goBack: () -> Unit,
     code: String,
     sample: @Composable () -> Unit,
@@ -62,7 +63,8 @@ fun CodeScaffold(
 ) {
     CodeScaffold(
         goBack = goBack,
-        code = annotatedString { append(code) },
+        title = title,
+        code = buildAnnotatedString { append(code) },
         sample = sample,
         options = options
     )
@@ -70,13 +72,15 @@ fun CodeScaffold(
 
 @Composable
 fun CodeScaffold(
+    title : String,
     goBack: () -> Unit,
     code: String,
     content: @Composable () -> Unit,
 ) {
     CodeScaffold(
+        title = title,
         goBack = goBack,
-        code = annotatedString { append(code) },
+        code = buildAnnotatedString { append(code) },
         sample = content,
         options = {}
     )
@@ -84,11 +88,13 @@ fun CodeScaffold(
 
 @Composable
 fun CodeScaffold(
+    title : String,
     goBack: () -> Unit,
     code: AnnotatedString,
     children: @Composable () -> Unit,
 ) {
     CodeScaffold(
+        title = title,
         goBack = goBack,
         code = code,
         sample = children,

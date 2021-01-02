@@ -54,6 +54,7 @@ fun TextColor(
     }
 
     CodeScaffold(
+        title = "Text Color",
         goBack = state.goBack,
         code = code,
         sample = {

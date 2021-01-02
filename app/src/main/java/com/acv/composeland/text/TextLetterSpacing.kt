@@ -32,6 +32,7 @@ fun TextLetterSpacing(
     """
 
     CodeScaffold(
+        title = "Text Font Letter Spacing",
         goBack = state.goBack,
         code = code,
         sample = {

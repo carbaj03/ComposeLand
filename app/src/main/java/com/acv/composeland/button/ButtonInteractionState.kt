@@ -50,6 +50,7 @@ fun ButtonInteractionState(
     """
 
     CodeScaffold(
+        title = "Button Interaction State",
         goBack = state.goBack,
         code = code
     ) {

@@ -30,6 +30,7 @@ fun TextFontStyle(
     """
 
     CodeScaffold(
+        title = "Text Font Style",
         goBack = state.goBack,
         code = code,
         sample = {

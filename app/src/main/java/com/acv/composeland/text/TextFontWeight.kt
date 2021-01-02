@@ -59,6 +59,7 @@ fun TextFontWeight(
     """
 
     CodeScaffold(
+        title = "Text Font Weight",
         goBack = state.goBack,
         code = code,
         options = {

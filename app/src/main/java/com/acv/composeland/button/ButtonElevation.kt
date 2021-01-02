@@ -28,6 +28,7 @@ fun ButtonElevation(goBack : () -> Unit) {
     """
 
     CodeScaffold(
+        title = "Button Elevation",
         goBack = goBack,
         code = code
     ) {

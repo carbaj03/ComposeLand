@@ -34,6 +34,7 @@ fun TextFontSize(
     """
 
     CodeScaffold(
+        title = "Text Font Size",
         goBack = state.goBack,
         code = code,
         sample = {

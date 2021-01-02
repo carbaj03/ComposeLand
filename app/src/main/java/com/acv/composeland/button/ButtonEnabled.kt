@@ -36,6 +36,7 @@ fun ButtonEnabled(
     """
 
     CodeScaffold(
+        title = "Button Enabled",
         goBack = state.goBack,
         code = code
     ) {

@@ -41,6 +41,7 @@ fun ButtonBorder(
     """
 
     CodeScaffold(
+        title = "Button Border",
         goBack = state.goBack,
         code = code,
         sample = {

@@ -34,13 +34,19 @@ fun ButtonClick(
     """
 
     CodeScaffold(
+        title = "Button Click",
         goBack = state.goBack,
-        code = code
-    ) {
-        Button(
-            onClick = { count++ },
-        ) {
-            Text("$count clicks")
+        code = code,
+        sample = {
+            Button(
+                onClick = { count++ },
+            ) {
+                Text("$count clicks")
+            }
+        },
+        options = {
+
         }
-    }
+    )
+
 }

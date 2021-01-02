@@ -41,6 +41,7 @@ fun BottomAppBarContentColor(
     """
 
     CodeScaffold(
+        title = "BottomAppBarContentColor",
         goBack = state.goBack,
         code = code,
         sample = {

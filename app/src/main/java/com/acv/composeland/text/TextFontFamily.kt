@@ -37,6 +37,7 @@ fun TextFontFamily(
     """
 
     CodeScaffold(
+        title = "Text Font Family",
         goBack = state.goBack,
         code = code,
         options = {

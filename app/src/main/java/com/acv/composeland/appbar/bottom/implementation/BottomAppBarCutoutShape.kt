@@ -49,6 +49,7 @@ fun BottomAppBarCutoutShape(
     """
 
     CodeScaffold(
+        title = "BottomAppBarCutoutShape",
         goBack = state.goBack,
         code = code,
         options = {
