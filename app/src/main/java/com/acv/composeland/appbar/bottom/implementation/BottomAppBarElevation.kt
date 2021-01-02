@@ -1,4 +1,4 @@
-package com.acv.composeland.appbar.bottom
+package com.acv.composeland.appbar.bottom.implementation
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.material.BottomAppBar
@@ -10,8 +10,9 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.acv.composeland.common.Argument
 import com.acv.composeland.common.ChipGroup
@@ -19,28 +20,41 @@ import com.acv.composeland.common.CodeScaffold
 import com.acv.composeland.common.codeBui
 import java.util.*
 
-data class BottomAppBarState(
+data class BottomAppBarElevationState(
     val goBack: () -> Unit,
 )
 
 @Composable
-fun BottomAppBarBackground(
+fun BottomAppBarElevation(
     navController: NavHostController
 ) {
-    val state = BottomAppBarState(goBack = { navController.popBackStack() })
-    val a: HashMap<String, Color> = hashMapOf(
-        "Default" to MaterialTheme.colors.primary,
-        "Magenta" to Color.Magenta,
-        "Blue" to Color.Blue,
+    val state = BottomAppBarElevationState(goBack = { navController.popBackStack() })
+
+    val a: HashMap<String, Dp> = hashMapOf(
+        "Default" to 8.dp,
+        "4" to 4.dp,
+        "12" to 12.dp,
     )
     var color by remember { mutableStateOf(a.keys.elementAt(0)) }
 
+//    val code: String = """
+//      @Composable
+//      fun TextColor(){
+//           BottomAppBar(
+//                backgroundColor = MaterialTheme.colors.surface,
+//                elevation = a[color]!!,
+//            )
+//      }
+//    """
+
     val code: AnnotatedString = codeBui {
         annotation(name = "Composable")
-        function(name = "BottomAppBarBackground") {
+        function(name = "BottomAppBarElevation") {
+            varString(name = "clicks")
             `class`(
                 name = "BottomAppBar",
-                Argument("backgroundColor", color),
+                Argument("backgroundColor", "MaterialTheme.colors.surface"),
+                Argument("elevation", color),
             )
         }
     }
@@ -50,7 +64,8 @@ fun BottomAppBarBackground(
         code = code,
         sample = {
             BottomAppBar(
-                backgroundColor = a[color]!!,
+                backgroundColor = MaterialTheme.colors.surface,
+                elevation = a[color]!!,
             ) {
                 IconButton(onClick = { /* doSomething() */ }) {
                     Icon(Icons.Filled.Menu)
@@ -64,7 +79,6 @@ fun BottomAppBarBackground(
                     Icon(Icons.Filled.Favorite)
                 }
             }
-
         },
         options = {
             ChipGroup(

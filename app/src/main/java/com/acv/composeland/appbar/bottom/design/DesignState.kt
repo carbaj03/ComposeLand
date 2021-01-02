@@ -34,6 +34,8 @@ data class Behaviour(
     val scolling: Scrolling,
     val elevation: String,
     val placement: String,
+    val onExpand: () -> Unit,
+    val isExpanded : Boolean,
 )
 
 data class Layout(

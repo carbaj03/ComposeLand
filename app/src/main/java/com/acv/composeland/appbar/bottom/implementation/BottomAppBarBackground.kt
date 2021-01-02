@@ -1,28 +1,33 @@
-package com.acv.composeland.appbar.bottom
+package com.acv.composeland.appbar.bottom.implementation
 
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.material.*
+import androidx.compose.material.BottomAppBar
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.AnnotatedString
 import androidx.navigation.NavHostController
+import com.acv.composeland.common.Argument
 import com.acv.composeland.common.ChipGroup
 import com.acv.composeland.common.CodeScaffold
+import com.acv.composeland.common.codeBui
 import java.util.*
 
-
-data class BottomAppBarContentColorState(
+data class BottomAppBarState(
     val goBack: () -> Unit,
 )
 
 @Composable
-fun BottomAppBarContentColor(
-    navController : NavHostController
+fun BottomAppBarBackground(
+    navController: NavHostController
 ) {
-    val state = BottomAppBarContentColorState(goBack = { navController.popBackStack() })
+    val state = BottomAppBarState(goBack = { navController.popBackStack() })
     val a: HashMap<String, Color> = hashMapOf(
         "Default" to MaterialTheme.colors.primary,
         "Magenta" to Color.Magenta,
@@ -30,27 +35,26 @@ fun BottomAppBarContentColor(
     )
     var color by remember { mutableStateOf(a.keys.elementAt(0)) }
 
-    val code: String = """
-      @Composable
-      fun TextColor(){
-            Text(
-                text = code,
-                color = Color.Blue
+    val code: AnnotatedString = codeBui {
+        annotation(name = "Composable")
+        function(name = "BottomAppBarBackground") {
+            `class`(
+                name = "BottomAppBar",
+                Argument("backgroundColor", color),
             )
-      }
-    """
+        }
+    }
 
     CodeScaffold(
         goBack = state.goBack,
         code = code,
         sample = {
             BottomAppBar(
-                contentColor = a[color]!!,
+                backgroundColor = a[color]!!,
             ) {
                 IconButton(onClick = { /* doSomething() */ }) {
                     Icon(Icons.Filled.Menu)
                 }
-                Text(text = "Title")
                 // The actions should be at the end of the BottomAppBar
                 Spacer(Modifier.weight(1f, true))
                 IconButton(onClick = { /* doSomething() */ }) {
@@ -60,6 +64,7 @@ fun BottomAppBarContentColor(
                     Icon(Icons.Filled.Favorite)
                 }
             }
+
         },
         options = {
             ChipGroup(
@@ -67,7 +72,6 @@ fun BottomAppBarContentColor(
                 selected = a.keys.elementAt(0),
                 onChange = { color = it }
             )
-        }
+        },
     )
-
 }

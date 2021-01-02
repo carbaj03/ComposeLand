@@ -1,16 +1,15 @@
 package com.acv.composeland.text
 
-import androidx.compose.foundation.ScrollableColumn
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.navigate
+import com.acv.composeland.R
+import com.acv.composeland.button.Grid
+import com.acv.composeland.button.GridItem
+import com.acv.composeland.screen.TextScreen
 
 data class TextMainState(
     val title: String,
@@ -19,9 +18,11 @@ data class TextMainState(
 )
 
 data class TextMainItem(
-    val name: String,
-    val goToDetail: () -> Unit = {}
-)
+    override val icon: Int,
+    override val title: String,
+    override val description: String,
+    override val goToDetail: () -> Unit
+) : GridItem
 
 @Composable
 fun TextMain(
@@ -30,32 +31,30 @@ fun TextMain(
     val state = TextMainState(
         title = "Text Examples",
         goBack = { navController.popBackStack() },
-        items = listOf(TextMainItem(name = "sadf", goToDetail = {}))
+        items = listOf(
+            TextMainItem(
+                icon = R.drawable.ic_click,
+                title = "Color",
+                description = "Colors of the app",
+                goToDetail = { navController.navigate(TextScreen.Color.route) }
+            )
+        )
     )
     Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text(state.title) },
-                navigationIcon = {
-                    IconButton(onClick = { state.goBack() }) {
-                        Icon(Icons.Filled.ArrowBack)
-                    }
-                }
-            )
-        },
+        topBar = { TextToolbar(state.title, state.goBack) },
     ) {
-        ScrollableColumn {
-            state.items.forEach { screen ->
-                Card(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp)
-                        .clickable(onClick = { screen.goToDetail() })
-                ) {
-                    Text(text = screen.name)
-                }
+        Grid(items = state.items)
+    }
+}
+
+@Composable
+private fun TextToolbar(title: String, goBack: () -> Unit) {
+    TopAppBar(
+        title = { Text(title) },
+        navigationIcon = {
+            IconButton(onClick = { goBack() }) {
+                Icon(Icons.Filled.ArrowBack)
             }
         }
-    }
-
+    )
 }

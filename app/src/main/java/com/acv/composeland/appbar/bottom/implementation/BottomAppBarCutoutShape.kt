@@ -1,4 +1,4 @@
-package com.acv.composeland.appbar.bottom
+package com.acv.composeland.appbar.bottom.implementation
 
 import androidx.compose.animation.animatedFloat
 import androidx.compose.animation.core.TweenSpec
@@ -64,20 +64,7 @@ fun BottomAppBarCutoutShape(
                 bottomBar = {
                     BottomAppBar(
                         cutoutShape = a[color]!!,
-                    ) {
-                        IconButton(onClick = { /* doSomething() */ }) {
-                            Icon(Icons.Filled.Menu)
-                        }
-                        Text(text = "Title")
-                        // The actions should be at the end of the BottomAppBar
-                        Spacer(Modifier.weight(1f, true))
-                        IconButton(onClick = { /* doSomething() */ }) {
-                            Icon(Icons.Filled.Favorite)
-                        }
-                        IconButton(onClick = { /* doSomething() */ }) {
-                            Icon(Icons.Filled.Favorite)
-                        }
-                    }
+                    ) {}
                 },
                 floatingActionButton = {
                     ExtendedFloatingActionButton(

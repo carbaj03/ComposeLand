@@ -1,16 +1,12 @@
 package com.acv.composeland.appbar.bottom
 
-import androidx.compose.foundation.ScrollableColumn
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ScrollableTabRow
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.savedinstancestate.savedInstanceState
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import com.acv.composeland.appbar.bottom.design.TabItem
 
 @Composable
@@ -35,10 +31,6 @@ fun MainTabs(
                 )
             }
         }
-        ScrollableColumn(
-            modifier = Modifier.padding(horizontal = 8.dp)
-        ) {
-            content(items[state])
-        }
+        content(items[state])
     }
 }

@@ -1,45 +1,41 @@
-package com.acv.composeland.appbar.bottom
+package com.acv.composeland.appbar.bottom.implementation
 
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.material.BottomAppBar
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
 import com.acv.composeland.common.ChipGroup
 import com.acv.composeland.common.CodeScaffold
 import java.util.*
 
-data class BottomAppBarElevationState(
+
+data class BottomAppBarContentColorState(
     val goBack: () -> Unit,
 )
 
 @Composable
-fun BottomAppBarElevation(
-    navController: NavHostController
+fun BottomAppBarContentColor(
+    navController : NavHostController
 ) {
-    val state = BottomAppBarElevationState(goBack = { navController.popBackStack() })
-
-    val a: HashMap<String, Dp> = hashMapOf(
-        "Default" to 8.dp,
-        "4" to 4.dp,
-        "12" to 12.dp,
+    val state = BottomAppBarContentColorState(goBack = { navController.popBackStack() })
+    val a: HashMap<String, Color> = hashMapOf(
+        "Default" to MaterialTheme.colors.primary,
+        "Magenta" to Color.Magenta,
+        "Blue" to Color.Blue,
     )
     var color by remember { mutableStateOf(a.keys.elementAt(0)) }
 
     val code: String = """
       @Composable
       fun TextColor(){
-           BottomAppBar(
-                backgroundColor = MaterialTheme.colors.surface,
-                elevation = a[color]!!,
+            Text(
+                text = code,
+                color = Color.Blue
             )
       }
     """
@@ -49,12 +45,12 @@ fun BottomAppBarElevation(
         code = code,
         sample = {
             BottomAppBar(
-                backgroundColor = MaterialTheme.colors.surface,
-                elevation = a[color]!!,
+                contentColor = a[color]!!,
             ) {
                 IconButton(onClick = { /* doSomething() */ }) {
                     Icon(Icons.Filled.Menu)
                 }
+                Text(text = "Title")
                 // The actions should be at the end of the BottomAppBar
                 Spacer(Modifier.weight(1f, true))
                 IconButton(onClick = { /* doSomething() */ }) {
@@ -71,6 +67,7 @@ fun BottomAppBarElevation(
                 selected = a.keys.elementAt(0),
                 onChange = { color = it }
             )
-        },
+        }
     )
+
 }

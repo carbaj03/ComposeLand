@@ -26,10 +26,18 @@ data class ButtonMainState(
 )
 
 data class ButtonMainItem(
-    val name: String,
-    val icon : Int,
-    val goToDetail: () -> Unit = {}
-)
+    override val title: String,
+    override val description: String,
+    override val icon: Int,
+    override val goToDetail: () -> Unit,
+) : GridItem
+
+interface GridItem {
+    val icon: Int
+    val title: String
+    val description: String
+    val goToDetail: () -> Unit
+}
 
 @Composable
 fun ButtonMain(
@@ -41,12 +49,14 @@ fun ButtonMain(
         items = listOf(
             ButtonMainItem(
                 icon = R.drawable.ic_palette,
-                name = "Color",
+                title = "Color",
+                description = "Colors of the app",
                 goToDetail = { navController.navigate(ButtonScreen.Color.route) }
             ),
             ButtonMainItem(
                 icon = R.drawable.ic_click,
-                name = "Click",
+                title = "Click",
+                description = "Click actions",
                 goToDetail = { navController.navigate(ButtonScreen.Click.route) }
             )
         ),
@@ -64,52 +74,65 @@ fun ButtonMain(
             )
         },
     ) {
-        LazyColumn {
-            fakeGridItems(state.items, 2) { screen ->
-                Column(
+        Grid(items = state.items)
+    }
+
+}
+
+@Composable
+fun <A : GridItem> Grid(
+    items: List<A>
+) {
+    LazyColumn {
+        fakeGridItems(items, 2) { screen ->
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp)
+                    .clickable(onClick = { screen.goToDetail() })
+            ) {
+                Card(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(8.dp)
                         .clickable(onClick = { screen.goToDetail() })
                 ) {
-                    Card(
+                    ConstraintLayout(
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable(onClick = { screen.goToDetail() })
+                            .padding(4.dp)
+                            .fillMaxSize()
                     ) {
-                        ConstraintLayout(modifier = Modifier.padding(4.dp).fillMaxSize()) {
-                            val (title, description, image) = createRefs()
+                        val (title, description, image) = createRefs()
 
-                            Icon(
-                                modifier = Modifier
-                                    .constrainAs(image) {
-                                        start.linkTo(parent.start)
-                                        top.linkTo(parent.top)
-                                    },
-                                imageVector = vectorResource(id = screen.icon)
-                            )
-                            Text(
-                                modifier = Modifier
-                                    .constrainAs(title) {
-                                        linkTo(image.end, parent.end, bias = 0f)
-                                        width = Dimension.preferredWrapContent
-                                    },
-                                textAlign = TextAlign.Start,
-                                text = screen.name,
-                            )
+                        Icon(
+                            modifier = Modifier
+                                .constrainAs(image) {
+                                    start.linkTo(parent.start)
+                                    top.linkTo(parent.top)
+                                },
+                            imageVector = vectorResource(id = screen.icon),
+                            tint = MaterialTheme.colors.primary
+                        )
+                        Text(
+                            modifier = Modifier
+                                .constrainAs(title) {
+                                    linkTo(image.end, parent.end, bias = 0f)
+                                    width = Dimension.preferredWrapContent
+                                },
+                            textAlign = TextAlign.Start,
+                            text = screen.title,
+                        )
 
-                            Text(
-                                modifier = Modifier
-                                    .constrainAs(description) {
-                                        linkTo(image.end, parent.end, bias = 0f)
-                                        top.linkTo(title.bottom)
-                                        width = Dimension.preferredWrapContent
-                                    },
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis,
-                                text = "sdfsdafdsa ssadf da f dafd",
-                            )
-                        }
+                        Text(
+                            modifier = Modifier
+                                .constrainAs(description) {
+                                    linkTo(image.end, parent.end, bias = 0f)
+                                    top.linkTo(title.bottom)
+                                    width = Dimension.preferredWrapContent
+                                },
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                            text = screen.description,
+                        )
                     }
                 }
             }
