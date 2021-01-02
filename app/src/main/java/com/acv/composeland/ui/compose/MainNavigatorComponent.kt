@@ -22,6 +22,6 @@ class MainNavigatorComponent(
     }
 
     override fun goTheming() {
-        navController.navigate(ThemingScreen.Main.route)
+        navController.navigate(ThemingScreen.Guide.route)
     }
 }

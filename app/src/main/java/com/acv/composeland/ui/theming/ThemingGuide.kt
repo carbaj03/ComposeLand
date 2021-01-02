@@ -67,7 +67,7 @@ data class ThemingItem(
 )
 
 @Composable
-fun ThemingMain(
+fun ThemingGuide(
     themingNavigator: ThemingNavigator,
     themingViewModel: ThemingViewModel = viewModel(),
 ) {
