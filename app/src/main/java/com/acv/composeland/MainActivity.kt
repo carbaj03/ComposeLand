@@ -9,10 +9,11 @@ import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.acv.composeland.screen.*
+import com.acv.composeland.ui.screen.*
 import com.acv.composeland.ui.ComposeLandTheme
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -48,6 +49,6 @@ fun AppMain() {
 @Composable
 fun DefaultPreview() {
     ComposeLandTheme {
-        AppMain()
+//        AppMain()
     }
 }
