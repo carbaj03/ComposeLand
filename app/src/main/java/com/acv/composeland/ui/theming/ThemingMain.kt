@@ -1,4 +1,4 @@
-package com.acv.composeland.ui.material
+package com.acv.composeland.ui.theming
 
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
@@ -10,32 +10,32 @@ import com.acv.composeland.ui.common.Tabs
 import com.acv.composeland.ui.common.TopBarBack
 
 
-data class MaterialState(
+data class ThemingState(
     val title: String,
     val goBack: () -> Unit,
-    val designMaterialState: DesignMaterialState,
-    val componentsMaterialState: ComponentsMaterialState,
+    val designThemingState: DesignThemingState,
+    val componentsThemingState: ComponentsThemingState,
 ) {
     companion object {
-        fun empty(materialNavigator: MaterialNavigator) =
-            MaterialState(
-                title = "Material",
-                goBack = { materialNavigator.goBack() },
-                componentsMaterialState = ComponentsMaterialState(
+        fun empty(themingNavigator: ThemingNavigator) =
+            ThemingState(
+                title = "Theming",
+                goBack = { themingNavigator.goBack() },
+                componentsThemingState = ComponentsThemingState(
                     listOf(
-                        MaterialItem(
+                        ThemingItem(
                             image = R.drawable.bottom,
                             title = "App bars: bottom",
                             description = " A bottom app bar displays navigation and key actions at the bottom of mobile screens ",
                             goToDetail = { },
                         ),
-                        MaterialItem(
+                        ThemingItem(
                             image = R.drawable.buttons,
                             title = "Buttons",
                             description = "Buttons allow users to take actions, and make choices, with a single tap ",
                             goToDetail = { }
                         ),
-                        MaterialItem(
+                        ThemingItem(
                             image = R.drawable.bottom,
                             title = "Text",
                             description = "Checkboxes allow the user to select one or more items from a set or turn an option on or off",
@@ -43,9 +43,9 @@ data class MaterialState(
                         ),
                     )
                 ),
-                designMaterialState = DesignMaterialState(
+                designThemingState = DesignThemingState(
                     listOf(
-                        MaterialItem(
+                        ThemingItem(
                             image = R.drawable.snackbars,
                             title = "Color",
                             description = "sdf",
@@ -57,7 +57,7 @@ data class MaterialState(
     }
 }
 
-data class MaterialItem(
+data class ThemingItem(
     val image: Int,
     val title: String,
     val description: String,
@@ -65,16 +65,13 @@ data class MaterialItem(
 )
 
 @Composable
-fun MaterialMain(
-    materialNavigator: MaterialNavigator,
-    materialViewModel: MaterialViewModel = viewModel(),
+fun ThemingMain(
+    themingNavigator: ThemingNavigator,
+    themingViewModel: ThemingViewModel = viewModel(),
 ) {
     val id = 0
-    var state by remember { mutableStateOf(MaterialState.empty(materialNavigator)) }
-    LaunchedEffect(id) { state = materialViewModel.init(materialNavigator) }
-//    val state by produceState(MaterialState.empty(navController), materialViewModel) {
-//        materialViewModel.init(MaterialNavigatorComponent(navController))
-//    }
+    var state by remember { mutableStateOf(ThemingState.empty(themingNavigator)) }
+    LaunchedEffect(id) { state = themingViewModel.init(themingNavigator) }
 
     Scaffold(
         topBar = {
@@ -85,27 +82,26 @@ fun MaterialMain(
         },
     ) {
         Tabs(
-            options = MaterialTabItem.items,
-            default = MaterialTabItem.Develop
+            options = ThemingTabItem.items,
+            default = ThemingTabItem.Design
         ) {
             when (it) {
-                MaterialTabItem.Design -> DesignMaterialMain(state = state.designMaterialState)
-                MaterialTabItem.Components -> ComponentsMaterialMain(state = state.componentsMaterialState)
-                MaterialTabItem.Develop -> Text(text = "saa")
+                ThemingTabItem.Design -> DesignThemingMain(state = state.designThemingState)
+                ThemingTabItem.Components -> ComponentsThemingMain(state = state.componentsThemingState)
+                ThemingTabItem.Develop -> Text(text = "saa")
             }
         }
     }
 }
 
-
-sealed class MaterialTabItem(
+sealed class ThemingTabItem(
     override val title: String
 ) : TabItem {
     companion object {
         val items = listOf(Design, Components, Develop)
     }
 
-    object Design : MaterialTabItem("Design")
-    object Components : MaterialTabItem("Components")
-    object Develop : MaterialTabItem("Develop")
+    object Design : ThemingTabItem("Design")
+    object Components : ThemingTabItem("Components")
+    object Develop : ThemingTabItem("Develop")
 }

@@ -9,8 +9,9 @@ import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.acv.composeland.ui.screen.*
 import com.acv.composeland.ui.ComposeLandTheme
+import com.acv.composeland.ui.screen.*
+import com.acv.composeland.ui.theming.theming
 
 class MainActivity : AppCompatActivity() {
 
@@ -42,6 +43,7 @@ fun AppMain() {
         bottomAppBar(navController)
         animation(navController)
         color(navController)
+        theming(navController = navController)
     }
 }
 

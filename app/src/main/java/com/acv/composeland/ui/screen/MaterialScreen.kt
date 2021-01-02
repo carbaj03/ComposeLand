@@ -7,6 +7,7 @@ import com.acv.composeland.ui.appbar.bottom.BottomAppBarMain
 import com.acv.composeland.ui.button.ButtonMain
 import com.acv.composeland.ui.chip.ChipMain
 import com.acv.composeland.ui.material.MaterialMain
+import com.acv.composeland.ui.material.MaterialNavigatorComponent
 import com.acv.composeland.ui.material.color.ColorMain
 import com.acv.composeland.ui.text.TextMain
 
@@ -20,7 +21,9 @@ sealed class MaterialScreen(val route: String) {
 }
 
 fun NavGraphBuilder.material(navController: NavHostController) {
-    composable(MaterialScreen.Main.route) { MaterialMain(navController = navController) }
+    val material = MaterialNavigatorComponent(navController = navController)
+
+    composable(MaterialScreen.Main.route) { MaterialMain(material) }
     composable(MaterialScreen.Text.route) { TextMain(navController = navController) }
     composable(MaterialScreen.Color.route) { ColorMain(navController = navController) }
     composable(MaterialScreen.Button.route) { ButtonMain(navController = navController) }

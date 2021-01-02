@@ -4,6 +4,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.navigate
 import com.acv.composeland.ui.screen.MainScreen
 import com.acv.composeland.ui.screen.MaterialScreen
+import com.acv.composeland.ui.theming.ThemingScreen
 
 class MainNavigatorComponent(
     private val navController: NavHostController
@@ -18,5 +19,9 @@ class MainNavigatorComponent(
 
     override fun goMain() {
         navController.navigate(MaterialScreen.Main.route)
+    }
+
+    override fun goTheming() {
+        navController.navigate(ThemingScreen.Main.route)
     }
 }
