@@ -3,11 +3,13 @@ package com.acv.composeland.ui.theming
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
+import androidx.compose.runtime.savedinstancestate.Saver
 import androidx.compose.ui.viewinterop.viewModel
 import com.acv.composeland.R
 import com.acv.composeland.ui.common.TabItem
 import com.acv.composeland.ui.common.Tabs
 import com.acv.composeland.ui.common.TopBarBack
+import com.acv.composeland.ui.material.MaterialTabItem
 
 
 data class ThemingState(
@@ -83,7 +85,8 @@ fun ThemingMain(
     ) {
         Tabs(
             options = ThemingTabItem.items,
-            default = ThemingTabItem.Design
+            default = ThemingTabItem.Design,
+            saver = ThemingTabItem.AutoSaver,
         ) {
             when (it) {
                 ThemingTabItem.Design -> DesignThemingMain(state = state.designThemingState)
@@ -99,6 +102,14 @@ sealed class ThemingTabItem(
 ) : TabItem {
     companion object {
         val items = listOf(Design, Components, Develop)
+        val AutoSaver = Saver<TabItem, String>(
+            save = { it.title },
+            restore = { when(it){
+                "Design" -> MaterialTabItem.Design
+                "Componets" -> MaterialTabItem.Components
+                else -> MaterialTabItem.Develop
+            } }
+        )
     }
 
     object Design : ThemingTabItem("Design")

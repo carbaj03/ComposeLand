@@ -8,6 +8,7 @@ import androidx.compose.material.TabRow
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.savedinstancestate.Saver
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.savedinstancestate.savedInstanceState
 
@@ -19,17 +20,18 @@ interface TabItem {
 fun <A : TabItem> Tabs(
     options: List<A>,
     default: A,
+    saver : Saver<A, String>,
     content: @Composable (A) -> Unit
 ) {
-    var state by savedInstanceState { default }
+    var state by savedInstanceState(saver = saver) { default }
 
     Column {
         TabRow(
             backgroundColor = MaterialTheme.colors.surface,
             contentColor = MaterialTheme.colors.primary,
-            selectedTabIndex = options.indexOf(default),
+            selectedTabIndex = options.indexOf(state),
         ) {
-            options.forEachIndexed { index, tab ->
+            options.forEachIndexed { _, tab ->
                 Tab(
                     text = { Text(text = tab.title) },
                     selected = state == tab,

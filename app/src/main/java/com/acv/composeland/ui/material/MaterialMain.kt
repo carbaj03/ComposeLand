@@ -3,6 +3,7 @@ package com.acv.composeland.ui.material
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
+import androidx.compose.runtime.savedinstancestate.Saver
 import androidx.compose.ui.viewinterop.viewModel
 import com.acv.composeland.R
 import com.acv.composeland.ui.common.TabItem
@@ -86,7 +87,8 @@ fun MaterialMain(
     ) {
         Tabs(
             options = MaterialTabItem.items,
-            default = MaterialTabItem.Develop
+            default = MaterialTabItem.Develop,
+            saver = MaterialTabItem.AutoSaver,
         ) {
             when (it) {
                 MaterialTabItem.Design -> DesignMaterialMain(state = state.designMaterialState)
@@ -99,13 +101,23 @@ fun MaterialMain(
 
 
 sealed class MaterialTabItem(
-    override val title: String
+    override val title: String,
 ) : TabItem {
     companion object {
         val items = listOf(Design, Components, Develop)
+        val AutoSaver = Saver<TabItem, String>(
+            save = { it.title },
+            restore = { when(it){
+                "Design" -> Design
+                "Componets" -> Components
+                else -> Develop
+            } }
+        )
     }
 
     object Design : MaterialTabItem("Design")
     object Components : MaterialTabItem("Components")
     object Develop : MaterialTabItem("Develop")
 }
+
+

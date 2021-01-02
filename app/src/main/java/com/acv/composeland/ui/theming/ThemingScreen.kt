@@ -3,8 +3,6 @@ package com.acv.composeland.ui.theming
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
-import com.acv.composeland.ui.material.MaterialMain
-import com.acv.composeland.ui.material.MaterialNavigatorComponent
 import com.acv.composeland.ui.text.TextMain
 
 sealed class ThemingScreen(val route: String) {
@@ -13,10 +11,10 @@ sealed class ThemingScreen(val route: String) {
 }
 
 fun NavGraphBuilder.theming(navController: NavHostController) {
-    val material = MaterialNavigatorComponent(navController = navController)
+    val theming = ThemingNavigatorComponent(navController = navController)
 
     composable(ThemingScreen.Main.route) {
-        MaterialMain(material)
+        ThemingMain(theming)
     }
     composable(ThemingScreen.Text.route) {
         TextMain(navController = navController)
