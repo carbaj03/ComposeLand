@@ -24,12 +24,10 @@ fun Principle(
         Image(
             bitmap = imageResource(id = state.image),
         )
-
         Text(
             text = state.title,
             fontWeight = FontWeight.Bold
         )
-
         Text(
             text = state.subTitle,
         )

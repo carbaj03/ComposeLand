@@ -17,7 +17,6 @@ fun Usage(usage: Usage) {
         modifier = Modifier.padding(top = 8.dp),
         items = usage.related
     )
-
     H6(
         modifier = Modifier.padding(vertical = 8.dp),
         text = "Principles"
@@ -25,7 +24,6 @@ fun Usage(usage: Usage) {
     Principles(
         items = usage.principles
     )
-
     H6(
         modifier = Modifier.padding(vertical = 8.dp),
         text = "When to Use",
@@ -33,5 +31,4 @@ fun Usage(usage: Usage) {
     Body(
         text = usage.whenToUsage
     )
-
 }

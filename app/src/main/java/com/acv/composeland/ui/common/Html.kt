@@ -5,8 +5,8 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 
-//interface HtmlContext {
 
 @Composable
 fun H1(
@@ -40,7 +40,6 @@ fun H4(
     Text(modifier = modifier, text = text, style = MaterialTheme.typography.h4)
 }
 
-
 @Composable
 fun H5(
     text: String,
@@ -58,19 +57,38 @@ fun H6(
 }
 
 @Composable
+fun Subtitle(
+    text: String,
+    modifier: Modifier = Modifier,
+    maxLines: Int = Int.MAX_VALUE,
+    color: Color = Color.Unspecified,
+    textAlign: TextAlign = TextAlign.Justify,
+) {
+    Text(
+        modifier = modifier,
+        text = text,
+        textAlign = textAlign,
+        style = MaterialTheme.typography.subtitle1,
+        color = color,
+        maxLines = maxLines,
+    )
+}
+
+@Composable
 fun Body(
     text: String,
     modifier: Modifier = Modifier,
     maxLines: Int = Int.MAX_VALUE,
-    color: Color = Color.Unspecified
+    color: Color = Color.Unspecified,
+    textAlign: TextAlign = TextAlign.Justify,
 ) {
-    Text(color = color, maxLines = maxLines, modifier = modifier, text = text, style = MaterialTheme.typography.body1)
+    Text(
+        modifier = modifier,
+        text = text,
+        textAlign = textAlign,
+        style = MaterialTheme.typography.body1,
+        color = color,
+        maxLines = maxLines,
+
+        )
 }
-//}
-//
-//object Html : HtmlContext {
-//    @Composable
-//    inline operator fun invoke(crossinline c: HtmlContext.() -> Unit) {
-//        c()
-//    }
-//}
