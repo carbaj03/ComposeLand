@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ComposeLand">
         <activity
-            android:name=".abstract.MainActivity"
+            android:name=".declarative.HelloWorldAndroid"
             android:label="@string/app_name"
             android:theme="@style/Theme.ComposeLand.NoActionBar">
             <intent-filter>
