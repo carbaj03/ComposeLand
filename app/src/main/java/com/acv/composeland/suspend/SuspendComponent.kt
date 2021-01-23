@@ -1,6 +1,9 @@
 package com.acv.composeland.suspend
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
+import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.ui.platform.setContent
 import androidx.lifecycle.lifecycleScope
@@ -9,6 +12,10 @@ import arrow.core.Either
 import arrow.fx.*
 import arrow.fx.typeclasses.Disposable
 import arrow.typeclasses.Continuation
+import com.acv.composeland.R
+import com.acv.composeland.suspend.memo.update.TodoApp
+import com.acv.composeland.suspend.memo.update.compose
+import com.acv.composeland.suspend.memo.update.todoItemRepository
 import kotlinx.coroutines.*
 import kotlinx.coroutines.launch
 import kotlin.coroutines.*
@@ -18,18 +25,81 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        lifecycleScope.launch {
-            this.coroutineContext[kotlinx.coroutines.CoroutineName]
 
-        }
-//        setContent {
-//
+//        myContent {
+//            Log()
+////            launchLog()
 //        }
-//
-//        IO.unsafeCancellableRun()
-    }
+////
+//        setContent {
+//        }
 
+        val a = compose { TodoApp(todoItemRepository(false)) }
+        renderNodeToScreen(a)
+        renderAndroid(a)
+        renderAndroid(a)
+    }
 }
+
+//@RestrictsSuspension
+//fun interface Compose<F> {
+//    fun control(): ComposeEffect<F>
+//}
+
+sealed class Composable
+
+//suspend fun Log() {
+//    composer().name[0] = ""
+//    Log.e("name", composer().name.toString())
+//}
+
+
+//val composer = CoroutineCompose<String, Int>(hashMapOf(), "asdfs")
+
+fun ComponentActivity.myContent(f: suspend () -> Unit) {
+//    compose {
+    lifecycleScope.launch(CoroutineCompose<Any>(mutableListOf(), this)) {
+        f()
+    }
+//    }
+}
+
+
+fun launchLog() {
+    GlobalScope.launch {
+        Log.e("name", composer().context.toString())
+//        Log.e("name", (kotlin.coroutines.coroutineContext[CoroutineCompose] as CoroutineCompose).context)
+    }
+}
+
+//fun ComponentActivity.myContent(
+//    parent: CompositionReference = Recomposer.current(),
+//    content: suspend () -> Unit
+//) {
+//    lifecycleScope.launch(context = CoroutineCompose<Int, Int>(hashMapOf(), "name")) {
+//        content()
+//    }
+//}
+
+data class CoroutineCompose<A>(
+    /**
+     * User-defined coroutine name.
+     */
+    val name: MutableList<A>,
+    val context: Context,
+) : AbstractCoroutineContextElement(Key) {
+
+    /**
+     * Key for [CoroutineName] instance in the coroutine context.
+     */
+    companion object Key : CoroutineContext.Key<CoroutineCompose<*>>
+
+    /**
+     * Returns a string representation of the object.
+     */
+    override fun toString(): String = "CoroutineCompose($name)"
+}
+
 
 suspend fun SuspendComponent() {
 
@@ -56,7 +126,6 @@ public data class CoroutineName(
      */
     override fun toString(): String = "CoroutineName($name)"
 }
-
 
 
 @InternalCoroutinesApi

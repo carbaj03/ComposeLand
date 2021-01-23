@@ -1,6 +1,5 @@
 package com.acv.composeland
 
-import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material.MaterialTheme
@@ -13,9 +12,6 @@ import androidx.navigation.compose.rememberNavController
 import com.acv.composeland.ui.ComposeLandTheme
 import com.acv.composeland.ui.screen.*
 import com.acv.composeland.ui.theming.theming
-import kotlinx.coroutines.CoroutineName
-import kotlin.coroutines.AbstractCoroutineContextElement
-import kotlin.coroutines.CoroutineContext
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,26 +28,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
-
-
-data class CoroutineCompose<A, B>(
-    /**
-     * User-defined coroutine name.
-     */
-    val name: HashMap<A, B>,
-    val context: Context,
-) : AbstractCoroutineContextElement(Key) {
-    /**
-     * Key for [CoroutineName] instance in the coroutine context.
-     */
-    companion object Key : CoroutineContext.Key<CoroutineCompose<*, *>>
-
-    /**
-     * Returns a string representation of the object.
-     */
-    override fun toString(): String = "CoroutineCompose($name)"
-}
-
 
 @Composable
 fun AppMain() {
