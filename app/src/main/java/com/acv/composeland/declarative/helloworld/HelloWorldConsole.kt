@@ -4,10 +4,6 @@ import com.acv.composeland.declarative.Text
 import com.acv.composeland.declarative.interpreter.log
 
 
-data class HelloWorld(
-    val text: Text
-)
-
 fun main() {
     setContent {
         HelloWorld(

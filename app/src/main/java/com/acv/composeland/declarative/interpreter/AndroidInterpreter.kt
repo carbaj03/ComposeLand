@@ -9,7 +9,10 @@ import com.acv.composeland.declarative.*
 fun Node.android(root: ViewGroup) {
     when (this) {
         is Text -> root.addView(TextView(root.context).apply { text = this@android.text })
-        is Button -> root.addView(AppCompatButton(root.context).apply { text = this@android.text })
+        is Button -> root.addView(AppCompatButton(root.context).apply {
+            text = this@android.text
+            setOnClickListener { this@android.onClick() }
+        })
         is Row -> {
             root.addView(LinearLayout(root.context).apply {
                 orientation = LinearLayout.HORIZONTAL

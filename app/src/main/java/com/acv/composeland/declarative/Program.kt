@@ -35,8 +35,8 @@ fun ProgramState.program() =
                     ),
                 )
             ),
-            Button(accept),
-            Button(cancel),
+            Button(accept, {}),
+            Button(cancel,{} ),
         )
     )
 
