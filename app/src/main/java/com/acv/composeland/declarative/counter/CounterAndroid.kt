@@ -1,13 +1,10 @@
 package com.acv.composeland.declarative.counter
 
 import android.os.Bundle
-import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AppCompatActivity
 import com.acv.composeland.declarative.Button
-import com.acv.composeland.declarative.State
 import com.acv.composeland.declarative.Text
 import com.acv.composeland.declarative.interpreter.android
 import com.acv.composeland.suspend.AndroidComposeView
@@ -19,14 +16,14 @@ class CounterAndroid : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         var recompose: () -> Unit = {}
 
+        var count = 0
         recompose = {
             setContent {
-                var count = State(0)
                 Counter(
                     text = Text("$count clicks"),
                     button = Button(
                         text = "Click",
-                        onClick = { count.value++; recompose() }
+                        onClick = { count++; recompose() }
                     ),
                 )
 
