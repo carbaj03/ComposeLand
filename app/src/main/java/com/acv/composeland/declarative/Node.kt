@@ -8,6 +8,8 @@ class Button(
 ) : Node()
 
 sealed class Image : Node()
+object Tools : Image()
+object Default : Image()
 
 sealed class Group : Node()
 data class Row(val nodes: List<Node>) : Group()

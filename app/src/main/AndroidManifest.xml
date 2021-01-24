@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ComposeLand">
         <activity
-            android:name=".declarative.counter.CounterAndroid"
+            android:name=".declarative.todo.composer.TodoAndroid"
             android:label="@string/app_name"
             android:theme="@style/Theme.ComposeLand.NoActionBar">
             <intent-filter>

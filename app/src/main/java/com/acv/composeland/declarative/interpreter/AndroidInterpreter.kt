@@ -4,7 +4,10 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
+import androidx.appcompat.widget.AppCompatImageView
+import com.acv.composeland.R
 import com.acv.composeland.declarative.*
+
 
 fun Node.android(root: ViewGroup) {
     when (this) {
@@ -25,5 +28,7 @@ fun Node.android(root: ViewGroup) {
                 nodes.forEach { node -> node.android(this) }
             })
         }
+        is Tools -> root.addView(AppCompatImageView(root.context).apply { setImageResource(R.drawable.ic_click) })
+        is Default -> root.addView(AppCompatImageView(root.context).apply { setImageResource(R.drawable.ic_click) })
     }
 }
