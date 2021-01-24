@@ -5,17 +5,6 @@ import android.util.Log
 import android.view.ViewGroup
 import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AppCompatActivity
-import com.acv.composeland.declarative.todo.loading.Button
-import com.acv.composeland.declarative.todo.loading.Checked
-import com.acv.composeland.declarative.todo.loading.Composer
-import com.acv.composeland.declarative.todo.loading.Default
-import com.acv.composeland.declarative.todo.loading.Event
-import com.acv.composeland.declarative.todo.loading.Loading
-import com.acv.composeland.declarative.todo.loading.State
-import com.acv.composeland.declarative.todo.loading.Text
-import com.acv.composeland.declarative.todo.loading.TodoApp
-import com.acv.composeland.declarative.todo.loading.TodoItem
-import com.acv.composeland.declarative.todo.loading.Tools
 import com.acv.composeland.suspend.AndroidComposeView
 
 
@@ -35,8 +24,7 @@ fun program(
     state: State,
     update: (Event, State) -> Unit
 ): TodoApp {
-    Log.e("program", state.toString())
-    return com.acv.composeland.declarative.todo.loading.Main(
+    return Main(
         title = Text(state.title),
         items = state.items,
         add = Button(
@@ -55,10 +43,9 @@ class TodoAndroid : AppCompatActivity() {
 
         var recompose: Recompose = { _, _ -> }
         recompose = { event, state ->
-            Log.e("run", state.toString())
-            com.acv.composeland.declarative.todo.loading.setContent {
-                com.acv.composeland.declarative.todo.loading.sideEffects(state, recompose)
-                com.acv.composeland.declarative.todo.loading.reduce(event, recompose)
+            setContent {
+                event.sideEffects(state, recompose)
+                state.reduce(event, recompose)
             }
         }
         recompose(
@@ -72,8 +59,8 @@ class TodoAndroid : AppCompatActivity() {
     }
 }
 
-fun Event.sideEffects(state: State, recompose: Recompose){
-    when(this){
+fun Event.sideEffects(state: State, recompose: Recompose) {
+    when (this) {
         Event.Loading -> {
 
             recompose(Event.Initial, state)
@@ -88,7 +75,7 @@ fun State.reduce(
 
     return when (event) {
         is Event.Initial ->
-            com.acv.composeland.declarative.todo.loading.program(
+            program(
                 state = copy(
                     items = listOf(
                         TodoItem(
@@ -106,7 +93,7 @@ fun State.reduce(
                 update = recompose
             )
         is Event.Add ->
-            com.acv.composeland.declarative.todo.loading.program(
+            program(
                 state = copy(
                     items = items.plus(
                         TodoItem(
@@ -146,18 +133,18 @@ private fun ComponentActivity.android(f: () -> Composer) {
     }
 
     f().children.onEach {
-        com.acv.composeland.declarative.todo.loading.android(parent)
+        it.android(parent)
     }
 }
 
 private fun log(f: () -> Composer) {
     f().children.onEach {
-        com.acv.composeland.declarative.todo.loading.log()
+        it.log()
     }
 }
 
 private fun html(f: () -> Composer) {
     f().children.onEach {
-        Log.e("log", com.acv.composeland.declarative.todo.loading.html())
+        Log.e("log", it.html())
     }
 }

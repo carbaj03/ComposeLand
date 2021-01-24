@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AppCompatActivity
 import com.acv.composeland.suspend.AndroidComposeView
+import kotlinx.coroutines.*
 
 sealed class Event {
     object Loading : Event()
@@ -23,7 +24,6 @@ fun program(
     state: State,
     update: (Event, State) -> Unit
 ): TodoApp {
-    Log.e("program", state.toString())
     return Main(
         title = Text(state.title),
         items = state.items,
@@ -41,11 +41,11 @@ class TodoAndroid : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
         var recompose: Recompose = { _, _ -> }
         recompose = { event, state ->
-            Log.e("run", state.toString())
-            setContent {
-                event.sideEffects(state, recompose)
+            Android(this).setContent {
+                GlobalScope.launch { event.sideEffects(state, recompose) }
                 state.reduce(event, recompose)
             }
         }
@@ -60,11 +60,13 @@ class TodoAndroid : AppCompatActivity() {
     }
 }
 
-fun Event.sideEffects(state: State, recompose: Recompose) {
+suspend fun Event.sideEffects(state: State, recompose: Recompose) {
     when (this) {
         Event.Loading -> {
-
-            recompose(Event.Initial, state)
+            delay(2000)
+            withContext(Dispatchers.Main) {
+                recompose(Event.Initial, state)
+            }
         }
     }
 }
@@ -73,7 +75,6 @@ fun State.reduce(
     event: Event,
     recompose: Recompose
 ): TodoApp {
-
     return when (event) {
         is Event.Initial ->
             program(
@@ -106,17 +107,23 @@ fun State.reduce(
                 ),
                 update = recompose
             )
-        Event.Loading -> Loading
+        is Event.Loading -> Loading
     }
 }
 
 
-fun <A> A.setContent(f: () -> Composer) {
-    Log.e("comntent", "saf")
+sealed class Target
+data class Android(val componentActivity: ComponentActivity) : Target()
+object Ios : Target()
+object Web : Target()
+object Console : Target()
+
+fun Target.setContent(f: () -> Composer) {
     when (this) {
-        is ComponentActivity -> android(f)
-        is String -> html(f)
-        else -> log(f)
+        is Android -> componentActivity.android(f)
+        is Ios -> log(f)
+        is Web -> html(f)
+        is Console -> log(f)
     }
 }
 
