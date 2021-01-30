@@ -37,6 +37,7 @@ fun DesignMaterialMain(state: DesignMaterialState) {
                     Image(
                         bitmap = it,
                         contentScale = ContentScale.Fit,
+                        contentDescription = null,
                     )
                 }
 

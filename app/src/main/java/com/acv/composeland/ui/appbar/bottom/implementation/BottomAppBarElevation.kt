@@ -69,15 +69,15 @@ fun BottomAppBarElevation(
                 elevation = a[color]!!,
             ) {
                 IconButton(onClick = { /* doSomething() */ }) {
-                    Icon(Icons.Filled.Menu)
+                    Icon(Icons.Filled.Menu, null)
                 }
                 // The actions should be at the end of the BottomAppBar
                 Spacer(Modifier.weight(1f, true))
                 IconButton(onClick = { /* doSomething() */ }) {
-                    Icon(Icons.Filled.Favorite)
+                    Icon(Icons.Filled.Favorite, null)
                 }
                 IconButton(onClick = { /* doSomething() */ }) {
-                    Icon(Icons.Filled.Favorite)
+                    Icon(Icons.Filled.Favorite, null)
                 }
             }
         },

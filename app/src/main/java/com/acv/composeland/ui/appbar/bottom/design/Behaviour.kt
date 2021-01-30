@@ -32,34 +32,34 @@ fun Behaviour(behaviour: Behaviour) {
             if (position.value == FabPosition.End) {
                 BottomAppBar(cutoutShape = RoundedCornerShape(50)) {
                     IconButton(onClick = { /* doSomething() */ }) {
-                        Icon(Icons.Filled.Menu)
+                        Icon(Icons.Filled.Menu, null)
                     }
                     IconButton(onClick = { /* doSomething() */ }) {
-                        Icon(Icons.Filled.Search)
+                        Icon(Icons.Filled.Search, null)
                     }
                     IconButton(onClick = { /* doSomething() */ }) {
-                        Icon(Icons.Filled.Menu)
+                        Icon(Icons.Filled.Menu, null)
                     }
                 }
             } else {
                 BottomAppBar(cutoutShape = RoundedCornerShape(50)) {
                     IconButton(onClick = { /* doSomething() */ }) {
-                        Icon(Icons.Filled.Menu)
+                        Icon(Icons.Filled.Menu, null)
                     }
                     // The actions should be at the end of the BottomAppBar
                     Spacer(Modifier.weight(1f, true))
                     IconButton(onClick = { /* doSomething() */ }) {
-                        Icon(Icons.Filled.Search)
+                        Icon(Icons.Filled.Search, null)
                     }
                     IconButton(onClick = { /* doSomething() */ }) {
-                        Icon(Icons.Filled.Menu)
+                        Icon(Icons.Filled.Menu, null)
                     }
                 }
             }
         },
         floatingActionButton = {
             FloatingActionButton(onClick = { position.value = if (position.value == FabPosition.End) FabPosition.Center else FabPosition.End }) {
-                Icon(Icons.Filled.Add)
+                Icon(Icons.Filled.Add, null)
             }
         },
         floatingActionButtonPosition = position.value,

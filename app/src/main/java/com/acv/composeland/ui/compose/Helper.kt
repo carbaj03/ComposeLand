@@ -26,7 +26,6 @@ fun underlineClick(
 
     val draggable = Modifier.clickable(
         onClick = { action() },
-        interactionState = interactionState
     )
 
     val newText = when {

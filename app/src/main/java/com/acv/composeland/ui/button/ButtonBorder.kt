@@ -2,7 +2,7 @@ package com.acv.composeland.ui.button
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.material.Button
-import androidx.compose.material.ButtonConstants
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.navigation.NavHostController
@@ -22,7 +22,7 @@ fun ButtonBorder(
         goBack = { navController.popBackStack() },
     )
     val a: HashMap<String, BorderStroke> = hashMapOf(
-        "Out" to ButtonConstants.defaultOutlinedBorder,
+        "Out" to ButtonDefaults.outlinedBorder,
     )
     var switch by remember { mutableStateOf("Out") }
 

@@ -23,6 +23,7 @@ fun Principle(
     Column(modifier = modifier) {
         Image(
             bitmap = imageResource(id = state.image),
+            contentDescription = null
         )
         Text(
             text = state.title,

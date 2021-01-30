@@ -50,7 +50,7 @@ fun ChipColor(
         var selected by remember { mutableStateOf(0) }
         Row {
             Chip(
-                left = { if (switch) Icon(modifier = it, imageVector = Icons.Filled.Favorite) else null },
+                left = { if (switch) Icon(modifier = it, imageVector = Icons.Filled.Favorite, contentDescription = null) else null },
                 text = "Red",
                 enabled = switch,
                 selected = selected == 0,
@@ -63,7 +63,7 @@ fun ChipColor(
             )
             Spacer(modifier = Modifier.width(8.dp))
             Chip(
-                left = { if (switch) Icon(modifier = it, imageVector = Icons.Filled.Favorite) else null },
+                left = { if (switch) Icon(modifier = it, imageVector = Icons.Filled.Favorite, contentDescription = null) else null },
                 text = "Yellow",
                 enabled = switch,
                 selected = selected == 1,

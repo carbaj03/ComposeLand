@@ -2,8 +2,12 @@ package com.acv.composeland.ui.animation
 
 import androidx.compose.foundation.ScrollableColumn
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.scrollable
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -41,13 +45,13 @@ fun AnimationMain(
                 title = { Text(state.title) },
                 navigationIcon = {
                     IconButton(onClick = { state.goBack() }) {
-                        Icon(Icons.Filled.ArrowBack)
+                        Icon(Icons.Filled.ArrowBack, "back")
                     }
                 }
             )
         },
     ) {
-        ScrollableColumn {
+        Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
             state.items.forEach { screen ->
                 Card(
                     modifier = Modifier

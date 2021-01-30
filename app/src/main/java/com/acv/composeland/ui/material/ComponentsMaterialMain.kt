@@ -39,6 +39,7 @@ fun ComponentsMaterialMain(
                 Image(
                     bitmap = imageResource(id = screen.image),
                     contentScale = ContentScale.Fit,
+                    contentDescription = null,
                 )
                 H6(text = screen.title)
                 Text(

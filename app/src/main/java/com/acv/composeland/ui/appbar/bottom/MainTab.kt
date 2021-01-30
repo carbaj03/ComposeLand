@@ -35,7 +35,8 @@ fun FancyTab(
         ) {
             Icon(
                 modifier = Modifier.align(Alignment.CenterVertically),
-                imageVector = icon
+                imageVector = icon,
+                contentDescription = null
             )
             Spacer(modifier = Modifier.width(4.dp))
             Text(

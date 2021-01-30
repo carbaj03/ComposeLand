@@ -1,8 +1,12 @@
 package com.acv.composeland.ui.chip
 
 import androidx.compose.foundation.ScrollableColumn
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import com.acv.composeland.ui.common.Body
 import com.acv.composeland.ui.common.H1
@@ -26,7 +30,7 @@ fun ChipMain(
         goBack = { navController.popBackStack() },
         items = ChipScreen.items(navController),
     )
-    ScrollableColumn {
+    Column(modifier = Modifier.verticalScroll(rememberScrollState())){
         H1(text = "Usage")
         Row {
             Body(text = "comsadf")
@@ -35,7 +39,7 @@ fun ChipMain(
         }
     }
 
-//    ScrollableColumn {
+//    Column(modifier = Modifier.verticalScroll(rememberScrollState())
 //        Card(
 //            modifier = Modifier
 //                .fillMaxWidth()

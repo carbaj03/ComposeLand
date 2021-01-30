@@ -19,7 +19,7 @@ fun TopBarBack(
             IconButton(onClick = {
                 goBack()
             }) {
-                Icon(Icons.Filled.ArrowBack)
+                Icon(Icons.Filled.ArrowBack, null)
             }
         }
     )

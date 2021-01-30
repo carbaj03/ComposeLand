@@ -1,8 +1,9 @@
 package com.acv.composeland.ui.common
 
-import androidx.compose.foundation.ScrollableColumn
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -14,7 +15,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun CodeScaffold(
-    title : String,
+    title: String,
     goBack: () -> Unit,
     code: AnnotatedString,
     sample: @Composable () -> Unit,
@@ -26,13 +27,17 @@ fun CodeScaffold(
                 title = { Text(title) },
                 navigationIcon = {
                     IconButton(onClick = { goBack() }) {
-                        Icon(Icons.Filled.ArrowBack)
+                        Icon(Icons.Filled.ArrowBack, "Back")
                     }
                 }
             )
         },
     ) {
-        ScrollableColumn(contentPadding = PaddingValues(8.dp)) {
+        Column(
+            modifier = Modifier
+                .verticalScroll(rememberScrollState())
+                .padding(8.dp)
+        ) {
             TextCode(code = code)
             Divider(modifier = Modifier.padding(vertical = 8.dp))
             Text(
@@ -54,7 +59,7 @@ fun CodeScaffold(
 
 @Composable
 fun CodeScaffold(
-    title : String,
+    title: String,
     goBack: () -> Unit,
     code: String,
     sample: @Composable () -> Unit,
@@ -71,7 +76,7 @@ fun CodeScaffold(
 
 @Composable
 fun CodeScaffold(
-    title : String,
+    title: String,
     goBack: () -> Unit,
     code: String,
     content: @Composable () -> Unit,
@@ -87,7 +92,7 @@ fun CodeScaffold(
 
 @Composable
 fun CodeScaffold(
-    title : String,
+    title: String,
     goBack: () -> Unit,
     code: AnnotatedString,
     children: @Composable () -> Unit,

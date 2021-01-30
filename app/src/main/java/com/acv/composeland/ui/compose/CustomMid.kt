@@ -44,6 +44,7 @@ fun CustomMid(
                     },
                 imageVector = imageVector,
                 contentScale = ContentScale.Fit,
+                contentDescription = null,
             )
 
             Text(

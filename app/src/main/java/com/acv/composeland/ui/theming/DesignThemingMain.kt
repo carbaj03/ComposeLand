@@ -37,6 +37,7 @@ fun DesignThemingMain(state: DesignThemingState) {
                     Image(
                         bitmap = it,
                         contentScale = ContentScale.Fit,
+                        contentDescription = null,
                     )
                 }
 

@@ -1,8 +1,9 @@
 package com.acv.composeland.ui.material.color
 
-import androidx.compose.foundation.ScrollableColumn
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
@@ -16,7 +17,6 @@ import com.acv.composeland.ui.common.H6
 import com.acv.composeland.ui.common.Subtitle
 import com.acv.composeland.ui.material.PrincipleItem
 import com.acv.composeland.ui.material.Principles
-import kotlinx.coroutines.launch
 
 data class ColorMainState(
     val title: String,
@@ -45,13 +45,13 @@ fun ColorMain(
                 title = { Text(state.title) },
                 navigationIcon = {
                     IconButton(onClick = { state.goBack() }) {
-                        Icon(Icons.Filled.ArrowBack)
+                        Icon(Icons.Filled.ArrowBack, "Back")
                     }
                 }
             )
         },
     ) {
-//        ScrollableColumn {
+//        Column(modifier = Modifier.verticalScroll(rememberScrollState())
 //            state.items.forEach { screen ->
 //                Card(
 //                    modifier = Modifier
@@ -63,7 +63,7 @@ fun ColorMain(
 //                }
 //            }
 //        }
-        ScrollableColumn {
+        Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
             TheColorSystem()
             ColorUsageAndPalettes()
             ColorThemeCreation()
@@ -252,31 +252,32 @@ fun Analitycs() {
                     title = { Text("Analitycs") },
                     navigationIcon = {
                         IconButton(onClick = { }) {
-                            Icon(Icons.Filled.Menu)
+                            Icon(Icons.Filled.Menu, "Menu")
                         }
                     },
                     actions = {
                         IconButton(onClick = {}) {
-                            Icon(Icons.Default.Search)
+                            Icon(Icons.Default.Search, "Search")
                         }
                         IconButton(onClick = {}) {
-                            Icon(Icons.Default.Menu)
+                            Icon(Icons.Default.Menu, "Menu")
                         }
                     },
                 )
             },
             floatingActionButton = {
                 FloatingActionButton(onClick = {}) {
-                    Icon(Icons.Filled.Add)
+                    Icon(Icons.Filled.Add, "Add")
                 }
             },
         ) {
-            ScrollableColumn {
+            Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
 //                SimpleCardAnalitycs()
             }
         }
     }
 }
+
 
 @Composable
 fun SimpleCardAnalitycs() {

@@ -1,10 +1,15 @@
 package com.acv.composeland.ui.core
 
-import androidx.compose.foundation.ScrollableColumn
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.Scaffold
+import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
@@ -34,14 +39,16 @@ fun CoreConceptsMain(
                 title = { H6(text = state.title) },
                 navigationIcon = {
                     IconButton(onClick = { state.goBack() }) {
-                        Icon(Icons.Filled.ArrowBack)
+                        Icon(Icons.Filled.ArrowBack, null)
                     }
                 }
             )
         },
     ) {
-        ScrollableColumn(
-            modifier = Modifier.padding(horizontal = 8.dp)
+        Column(
+            modifier = Modifier
+                .verticalScroll(rememberScrollState())
+                .padding(horizontal = 8.dp)
         ) {
             Spacer(modifier = Modifier.height(8.dp))
 

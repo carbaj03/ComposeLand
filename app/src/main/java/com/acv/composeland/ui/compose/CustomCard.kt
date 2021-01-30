@@ -92,6 +92,7 @@ fun CustomCard(
                     },
                 imageVector = imageVector,
                 contentScale = ContentScale.Fit,
+                contentDescription = null,
             )
         }
     }

@@ -71,7 +71,7 @@ fun Example(
                 title = { H6(text = title) },
                 navigationIcon = {
                     IconButton(onClick = { goBack() }) {
-                        Icon(Icons.Filled.ArrowBack)
+                        Icon(Icons.Filled.ArrowBack, null)
                     }
                 }
             )
@@ -79,7 +79,7 @@ fun Example(
         floatingActionButton = {
             if (example.isExpanded) {
                 FloatingActionButton(onClick = { example.onExpand() }) {
-                    Icon(Icons.Filled.Favorite)
+                    Icon(Icons.Filled.Favorite, null)
                 }
             }
         },

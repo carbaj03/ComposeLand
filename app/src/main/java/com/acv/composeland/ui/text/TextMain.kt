@@ -53,7 +53,7 @@ private fun TextToolbar(title: String, goBack: () -> Unit) {
         title = { Text(title) },
         navigationIcon = {
             IconButton(onClick = { goBack() }) {
-                Icon(Icons.Filled.ArrowBack)
+                Icon(Icons.Filled.ArrowBack, null)
             }
         }
     )

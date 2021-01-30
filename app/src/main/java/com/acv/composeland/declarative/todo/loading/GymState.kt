@@ -1,16 +1,16 @@
 package com.acv.composeland.declarative.todo.loading
 
-sealed class TodoApp : Composer
+sealed class GymApp : Composer
 
-object Loading : TodoApp() {
+object LoadingGym : GymApp() {
     override val children: MutableList<Node> = mutableListOf(Text("Loading"))
 }
 
-data class Main(
+data class GymScreen(
     val title: Text,
     val items: List<TodoItem>,
     val add: Button,
-) : TodoApp() {
+) : GymApp() {
     override val children: MutableList<Node> = mutableListOf<Node>().apply {
         add(title)
         items.forEach { addAll(it.children) }
@@ -18,11 +18,12 @@ data class Main(
     }
 }
 
-data class TodoItem(
-    val text: Text,
-    val completed: Checked,
+data class GymItem(
+    val column: Column,
+    val exercise: Text,
+    val muscle: Text,
     val image: Image,
 ) : Composer {
     override val children: MutableList<Node> =
-        mutableListOf(Row(mutableListOf(text, image, completed)))
+        mutableListOf()
 }

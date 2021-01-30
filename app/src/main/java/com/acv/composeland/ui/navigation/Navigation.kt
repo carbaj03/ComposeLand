@@ -69,6 +69,7 @@ fun NavigationMain(navController: NavHostController) {
                         Image(
                             bitmap = it,
                             contentScale = ContentScale.Fit,
+                            contentDescription = null,
                         )
                     }
 

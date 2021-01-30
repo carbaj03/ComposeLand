@@ -27,22 +27,22 @@ fun Anatomy(anatomy: Anatomy) {
         bottomBar = {
             BottomAppBar() {
                 IconButton(onClick = { /* doSomething() */ }) {
-                    Icon(Icons.Filled.Menu)
+                    Icon(Icons.Filled.Menu, null)
                 }
                 Text(text = "Title")
                 // The actions should be at the end of the BottomAppBar
                 Spacer(Modifier.weight(1f, true))
                 IconButton(onClick = { /* doSomething() */ }) {
-                    Icon(Icons.Filled.Favorite)
+                    Icon(Icons.Filled.Favorite, null)
                 }
                 IconButton(onClick = { /* doSomething() */ }) {
-                    Icon(Icons.Filled.Favorite)
+                    Icon(Icons.Filled.Favorite, null)
                 }
             }
         },
         floatingActionButton = {
             FloatingActionButton(onClick = {}) {
-                Icon(Icons.Filled.Favorite)
+                Icon(Icons.Filled.Favorite, null)
             }
         },
         floatingActionButtonPosition = FabPosition.Center,
@@ -54,19 +54,19 @@ fun Anatomy(anatomy: Anatomy) {
         bottomBar = {
             BottomAppBar() {
                 IconButton(onClick = { /* doSomething() */ }) {
-                    Icon(Icons.Filled.Email)
+                    Icon(Icons.Filled.Email, null)
                 }
                 IconButton(onClick = { /* doSomething() */ }) {
-                    Icon(Icons.Filled.Favorite)
+                    Icon(Icons.Filled.Favorite, null)
                 }
                 IconButton(onClick = { /* doSomething() */ }) {
-                    Icon(Icons.Filled.Build)
+                    Icon(Icons.Filled.Build, null)
                 }
             }
         },
         floatingActionButton = {
             FloatingActionButton(onClick = {}) {
-                Icon(Icons.Filled.Send)
+                Icon(Icons.Filled.Send, null)
             }
         },
         floatingActionButtonPosition = FabPosition.End,
@@ -78,21 +78,21 @@ fun Anatomy(anatomy: Anatomy) {
         bottomBar = {
             BottomAppBar() {
                 IconButton(onClick = { /* doSomething() */ }) {
-                    Icon(Icons.Filled.Menu)
+                    Icon(Icons.Filled.Menu, null)
                 }
                 // The actions should be at the end of the BottomAppBar
                 Spacer(Modifier.weight(1f, true))
                 IconButton(onClick = { /* doSomething() */ }) {
-                    Icon(Icons.Filled.Favorite)
+                    Icon(Icons.Filled.Favorite, null)
                 }
                 IconButton(onClick = { /* doSomething() */ }) {
-                    Icon(Icons.Filled.Favorite)
+                    Icon(Icons.Filled.Favorite, null)
                 }
             }
         },
         floatingActionButton = {
             FloatingActionButton(onClick = {}) {
-                Icon(Icons.Filled.Add)
+                Icon(Icons.Filled.Add, null)
             }
         },
         floatingActionButtonPosition = FabPosition.Center,
@@ -104,15 +104,15 @@ fun Anatomy(anatomy: Anatomy) {
         bottomBar = {
             BottomAppBar() {
                 IconButton(onClick = { /* doSomething() */ }) {
-                    Icon(Icons.Filled.Menu)
+                    Icon(Icons.Filled.Menu, null)
                 }
                 // The actions should be at the end of the BottomAppBar
                 Spacer(Modifier.weight(1f, true))
                 IconButton(onClick = { /* doSomething() */ }) {
-                    Icon(Icons.Filled.Email)
+                    Icon(Icons.Filled.Email, null)
                 }
                 IconButton(onClick = { /* doSomething() */ }) {
-                    Icon(Icons.Filled.Notifications)
+                    Icon(Icons.Filled.Notifications, null)
                 }
             }
         },
@@ -134,21 +134,21 @@ fun Anatomy(anatomy: Anatomy) {
         bottomBar = {
             BottomAppBar() {
                 IconButton(onClick = { /* doSomething() */ }) {
-                    Icon(Icons.Filled.Menu)
+                    Icon(Icons.Filled.Menu, null)
                 }
                 // The actions should be at the end of the BottomAppBar
                 Spacer(Modifier.weight(1f, true))
                 IconButton(onClick = { /* doSomething() */ }) {
-                    Icon(Icons.Filled.Search)
+                    Icon(Icons.Filled.Search, null)
                 }
                 IconButton(onClick = { /* doSomething() */ }) {
-                    Icon(Icons.Filled.Menu)
+                    Icon(Icons.Filled.Menu, null)
                 }
             }
         },
         floatingActionButton = {
             FloatingActionButton(onClick = {}) {
-                Icon(Icons.Filled.Add)
+                Icon(Icons.Filled.Add, null)
             }
         },
         floatingActionButtonPosition = FabPosition.Center,
@@ -160,21 +160,21 @@ fun Anatomy(anatomy: Anatomy) {
         bottomBar = {
             BottomAppBar(cutoutShape = RoundedCornerShape(50)) {
                 IconButton(onClick = { /* doSomething() */ }) {
-                    Icon(Icons.Filled.Menu)
+                    Icon(Icons.Filled.Menu, null)
                 }
                 // The actions should be at the end of the BottomAppBar
                 Spacer(Modifier.weight(1f, true))
                 IconButton(onClick = { /* doSomething() */ }) {
-                    Icon(Icons.Filled.Search)
+                    Icon(Icons.Filled.Search, null)
                 }
                 IconButton(onClick = { /* doSomething() */ }) {
-                    Icon(Icons.Filled.Menu)
+                    Icon(Icons.Filled.Menu, null)
                 }
             }
         },
         floatingActionButton = {
             FloatingActionButton(onClick = {}) {
-                Icon(Icons.Filled.Add)
+                Icon(Icons.Filled.Add, null)
             }
         },
         floatingActionButtonPosition = FabPosition.Center,

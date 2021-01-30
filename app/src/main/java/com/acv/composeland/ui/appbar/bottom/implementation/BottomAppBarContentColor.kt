@@ -20,7 +20,7 @@ data class BottomAppBarContentColorState(
 
 @Composable
 fun BottomAppBarContentColor(
-    navController : NavHostController
+    navController: NavHostController
 ) {
     val state = BottomAppBarContentColorState(goBack = { navController.popBackStack() })
     val a: HashMap<String, Color> = hashMapOf(
@@ -49,16 +49,16 @@ fun BottomAppBarContentColor(
                 contentColor = a[color]!!,
             ) {
                 IconButton(onClick = { /* doSomething() */ }) {
-                    Icon(Icons.Filled.Menu)
+                    Icon(Icons.Filled.Menu, null)
                 }
                 Text(text = "Title")
                 // The actions should be at the end of the BottomAppBar
                 Spacer(Modifier.weight(1f, true))
                 IconButton(onClick = { /* doSomething() */ }) {
-                    Icon(Icons.Filled.Favorite)
+                    Icon(Icons.Filled.Favorite, null)
                 }
                 IconButton(onClick = { /* doSomething() */ }) {
-                    Icon(Icons.Filled.Favorite)
+                    Icon(Icons.Filled.Favorite, null)
                 }
             }
         },

@@ -37,6 +37,7 @@ fun Related(
                     .padding(end = 8.dp)
                     .preferredSize(32.dp),
                 bitmap = imageResource(state.icon),
+                contentDescription = null,
             )
             Column {
                 Text(
@@ -57,7 +58,7 @@ fun Related(
                 modifier = Modifier.weight(1f),
                 text = state.type,
             )
-            Icon(Icons.Filled.ArrowBack)
+            Icon(Icons.Filled.ArrowBack, null)
         }
     }
 }

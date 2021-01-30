@@ -68,7 +68,7 @@ fun ButtonMain(
                 title = { Text(state.title) },
                 navigationIcon = {
                     IconButton(onClick = { state.goBack() }) {
-                        Icon(Icons.Filled.ArrowBack)
+                        Icon(Icons.Filled.ArrowBack,null)
                     }
                 }
             )
@@ -110,7 +110,8 @@ fun <A : GridItem> Grid(
                                     top.linkTo(parent.top)
                                 },
                             imageVector = vectorResource(id = screen.icon),
-                            tint = MaterialTheme.colors.primary
+                            tint = MaterialTheme.colors.primary,
+                            contentDescription = null,
                         )
                         Text(
                             modifier = Modifier

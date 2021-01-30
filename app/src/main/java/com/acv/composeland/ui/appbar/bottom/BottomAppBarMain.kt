@@ -28,7 +28,7 @@ data class BottomAppBarMainState(
 )
 
 data class BottomAppBarMainItem(
-    val icon : Int,
+    val icon: Int,
     val name: String,
     val goToDetail: () -> Unit
 )
@@ -125,22 +125,22 @@ fun BottomAppBarMain(
             BottomAppBarMainItem(
                 icon = R.drawable.ic_click,
                 name = "Background",
-                goToDetail = { navController.navigate(route = BottomAppBarScreen.Background.route)}
+                goToDetail = { navController.navigate(route = BottomAppBarScreen.Background.route) }
             ),
             BottomAppBarMainItem(
                 icon = R.drawable.ic_click,
                 name = "Elevation",
-                goToDetail = { navController.navigate(route = BottomAppBarScreen.Elevation.route)}
+                goToDetail = { navController.navigate(route = BottomAppBarScreen.Elevation.route) }
             ),
             BottomAppBarMainItem(
                 icon = R.drawable.ic_click,
                 name = "Content Color",
-                goToDetail = { navController.navigate(route = BottomAppBarScreen.ContentColor.route)}
+                goToDetail = { navController.navigate(route = BottomAppBarScreen.ContentColor.route) }
             ),
             BottomAppBarMainItem(
                 icon = R.drawable.ic_click,
                 name = "Cutout Shape",
-                goToDetail = { navController.navigate(route = BottomAppBarScreen.CutoutShape.route)}
+                goToDetail = { navController.navigate(route = BottomAppBarScreen.CutoutShape.route) }
             ),
         ),
         onFabClick = { fabVisible = !fabVisible },
@@ -153,10 +153,8 @@ fun BottomAppBarMain(
         },
         floatingActionButton = {
             if (fabVisible) {
-                FloatingActionButton(onClick = {
-                    expanded = -1
-                }) {
-                    Icon(Icons.Filled.Favorite)
+                FloatingActionButton(onClick = { expanded = -1 }) {
+                    Icon(Icons.Filled.Favorite, "Favorite")
                 }
             }
         },
@@ -181,7 +179,7 @@ private fun BottomAppBatTopBar(
         title = { Text(title) },
         navigationIcon = {
             IconButton(onClick = { goBack() }) {
-                Icon(Icons.Filled.ArrowBack)
+                Icon(Icons.Filled.ArrowBack, "Back")
             }
         }
     )

@@ -3,10 +3,7 @@ package com.acv.composeland.ui.chip
 import androidx.compose.animation.AnimatedValueModel
 import androidx.compose.animation.VectorConverter
 import androidx.compose.animation.asDisposableClock
-import androidx.compose.animation.core.AnimatedValue
-import androidx.compose.animation.core.AnimationClockObservable
-import androidx.compose.animation.core.AnimationVector
-import androidx.compose.animation.core.AnimationVector1D
+import androidx.compose.animation.core.*
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.selectable
@@ -15,6 +12,7 @@ import androidx.compose.material.*
 import androidx.compose.material.ProvideTextStyle
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
+import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -52,7 +50,7 @@ fun Chip(
         color = colors.backgroundColor(enabled, selected),
         contentColor = contentColor.copy(alpha = 1f),
         border = border,
-        elevation = elevation?.elevation(enabled, interactionState) ?: 0.dp,
+        elevation = elevation?.elevation(enabled, interactionState)?.value ?: 0.dp,
         modifier = modifier.selectable(
             onClick = { onSelect(!selected) },
             enabled = enabled,
@@ -96,7 +94,6 @@ fun Chip(
  *
  * See [ButtonConstants.defaultElevation] for the default elevation used in a [Button].
  */
-@ExperimentalMaterialApi
 @Stable
 interface ChipElevation {
     /**
@@ -105,7 +102,8 @@ interface ChipElevation {
      * @param enabled whether the button is enabled
      * @param interactionState the [InteractionState] for this button
      */
-    fun elevation(enabled: Boolean, interactionState: InteractionState): Dp
+    @Composable
+    fun elevation(enabled: Boolean, interactionState: InteractionState): State<Dp>
 }
 
 object ChipConstants {
@@ -131,13 +129,11 @@ object ChipConstants {
         pressedElevation: Dp = 8.dp,
         disabledElevation: Dp = 0.dp
     ): ChipElevation {
-        val clock = AmbientAnimationClock.current.asDisposableClock()
-        return remember(defaultElevation, pressedElevation, disabledElevation, clock) {
+        return remember(defaultElevation, pressedElevation, disabledElevation) {
             DefaultChipElevation(
                 defaultElevation = defaultElevation,
                 pressedElevation = pressedElevation,
                 disabledElevation = disabledElevation,
-                clock = clock
             )
         }
     }
@@ -190,7 +186,7 @@ object ChipConstants {
     @Composable
     val defaultOutlinedBorder: BorderStroke
         get() = BorderStroke(
-            OutlinedBorderSize, MaterialTheme.colors.onSurface.copy(alpha = ButtonConstants.OutlinedBorderOpacity)
+            OutlinedBorderSize, MaterialTheme.colors.onSurface.copy(alpha = ButtonDefaults.OutlinedBorderOpacity)
         )
 
 }
@@ -236,19 +232,14 @@ private data class DefaultChipColors(
 /**
  * Default [ButtonElevation] implementation.
  */
-@OptIn(ExperimentalMaterialApi::class)
 @Stable
 private class DefaultChipElevation(
     private val defaultElevation: Dp,
     private val pressedElevation: Dp,
     private val disabledElevation: Dp,
-    private val clock: AnimationClockObservable
 ) : ChipElevation {
-    private val lazyAnimatedElevation = LazyAnimatedValue<Dp, AnimationVector1D> { target ->
-        AnimatedValueModel(initialValue = target, typeConverter = Dp.VectorConverter, clock = clock)
-    }
-
-    override fun elevation(enabled: Boolean, interactionState: InteractionState): Dp {
+    @Composable
+    override fun elevation(enabled: Boolean, interactionState: InteractionState): State<Dp> {
         val interaction = interactionState.value.lastOrNull {
             it is Interaction.Pressed
         }
@@ -262,18 +253,18 @@ private class DefaultChipElevation(
             }
         }
 
-        val animatedElevation = lazyAnimatedElevation.animatedValueForTarget(target)
+        val animatable = remember { Animatable(target, Dp.VectorConverter) }
 
-        if (animatedElevation.targetValue != target) {
-            if (!enabled) {
-                // No transition when moving to a disabled state
-                animatedElevation.snapTo(target)
-            } else {
-                val lastInteraction = when (animatedElevation.targetValue) {
+        if (!enabled) {
+            // No transition when moving to a disabled state
+            animatable.snapTo(target)
+        } else {
+            LaunchedEffect(target) {
+                val lastInteraction = when (animatable.targetValue) {
                     pressedElevation -> Interaction.Pressed
                     else -> null
                 }
-                animatedElevation.animateElevation(
+                animatable.animateElevation(
                     from = lastInteraction,
                     to = interaction,
                     target = target
@@ -281,7 +272,7 @@ private class DefaultChipElevation(
             }
         }
 
-        return animatedElevation.value
+        return animatable.asState()
     }
 }
 

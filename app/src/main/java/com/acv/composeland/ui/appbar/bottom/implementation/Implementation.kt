@@ -42,7 +42,8 @@ fun Implementation(
                                     start.linkTo(parent.start)
                                     top.linkTo(parent.top)
                                 },
-                            imageVector = vectorResource(id = screen.icon)
+                            imageVector = vectorResource(id = screen.icon),
+                            contentDescription = null
                         )
                         Text(
                             modifier = Modifier

@@ -84,11 +84,11 @@ fun BackdropScaffoldSample(
                 navigationIcon = {
                     if (scaffoldState.isConcealed) {
                         IconButton(onClick = { scaffoldState.reveal() }) {
-                            Icon(Icons.Default.Menu)
+                            Icon(Icons.Default.Menu, null)
                         }
                     } else {
                         IconButton(onClick = { scaffoldState.conceal() }) {
-                            Icon(Icons.Default.Close)
+                            Icon(Icons.Default.Close, null)
                         }
                     }
                 },
@@ -102,7 +102,7 @@ fun BackdropScaffoldSample(
                             }
                         }
                     ) {
-                        Icon(Icons.Default.Favorite)
+                        Icon(Icons.Default.Favorite, null)
                     }
                 },
                 elevation = 0.dp,
@@ -114,7 +114,9 @@ fun BackdropScaffoldSample(
             LazyColumn {
                 item {
                     Column(
-                        modifier = Modifier.padding(8.dp).fillMaxWidth()
+                        modifier = Modifier
+                            .padding(8.dp)
+                            .fillMaxWidth()
                     ) {
                         Text(
                             text = "About this codelab",
@@ -319,7 +321,10 @@ fun FirstStep(
     onNext: () -> Unit,
 ) {
     Column(
-        modifier = Modifier.padding(horizontal = 16.dp).fillMaxWidth().fillMaxHeight()
+        modifier = Modifier
+            .padding(horizontal = 16.dp)
+            .fillMaxWidth()
+            .fillMaxHeight()
     ) {
         H6(
             modifier = Modifier
@@ -376,7 +381,9 @@ fun SecondStep(
     onBack: () -> Unit,
 ) {
     Column(
-        modifier = Modifier.padding(horizontal = 16.dp).fillMaxWidth()
+        modifier = Modifier
+            .padding(horizontal = 16.dp)
+            .fillMaxWidth()
     ) {
         H6(
             modifier = Modifier
@@ -404,7 +411,9 @@ fun ThirdStep(
     onBack: () -> Unit,
 ) {
     Column(
-        modifier = Modifier.padding(horizontal = 16.dp).fillMaxWidth()
+        modifier = Modifier
+            .padding(horizontal = 16.dp)
+            .fillMaxWidth()
     ) {
         H6(
             modifier = Modifier
