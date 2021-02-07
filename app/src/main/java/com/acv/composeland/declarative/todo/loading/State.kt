@@ -6,7 +6,7 @@ object Loading : TodoApp() {
     override val children: MutableList<Node> = mutableListOf(Text("Loading"))
 }
 
-data class Main(
+data class TodoItems(
     val title: Text,
     val items: List<TodoItem>,
     val add: Button,

@@ -24,7 +24,7 @@ fun program(
     state: State,
     update: (Event, State) -> Unit
 ): TodoApp {
-    return Main(
+    return TodoItems(
         title = Text(state.title),
         items = state.items,
         add = Button(
@@ -40,7 +40,6 @@ class TodoAndroid : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
 
         var recompose: Recompose = { _, _ -> }
         recompose = { event, state ->
