@@ -79,7 +79,6 @@ fun Add(onBack: () -> Unit) {
                 elevation = 0.dp
             )
         },
-        conte
     ) {
         ChipGroup(
             items = listOf("sp", "em"),
