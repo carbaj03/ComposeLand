@@ -49,7 +49,7 @@ fun PaletteColor(state: PaletteColorState) {
                         .fillMaxWidth()
                         .padding(8.dp)
                 ) {
-                    Body(color = contentColorFor(color = screen.second), text = screen.first)
+                    Body(color = contentColorFor(screen.second), text = screen.first)
                 }
             }
         }

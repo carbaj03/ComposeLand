@@ -15,8 +15,8 @@ import com.acv.composeland.suspend.AndroidComposeView
 
 class HelloWorldAndroid : AppCompatActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onCreate(rememberSaveable: Bundle?) {
+        super.onCreate(rememberSaveable)
         setContent {
             HelloWorld(
                 text = Text("Hello World")

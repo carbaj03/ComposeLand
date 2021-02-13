@@ -7,10 +7,8 @@ import androidx.compose.material.Tab
 import androidx.compose.material.TabRow
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.savedinstancestate.Saver
-import androidx.compose.runtime.setValue
-import androidx.compose.runtime.savedinstancestate.savedInstanceState
+import androidx.compose.runtime.saveable.Saver
+import androidx.compose.runtime.saveable.rememberSaveable
 
 interface TabItem {
     val title: String
@@ -20,10 +18,10 @@ interface TabItem {
 fun <A : TabItem> Tabs(
     options: List<A>,
     default: A,
-    saver : Saver<A, String>,
+    saver: Saver<A, String>,
     content: @Composable (A) -> Unit
 ) {
-    var state by savedInstanceState(saver = saver) { default }
+    var state = rememberSaveable(saver = saver) { default }
 
     Column {
         TabRow(
@@ -39,7 +37,7 @@ fun <A : TabItem> Tabs(
                 )
             }
         }
-        Crossfade(current = state) {
+        Crossfade(state) {
             content(it)
         }
     }

@@ -1,23 +1,17 @@
 package com.acv.composeland.ui.chip
 
-import androidx.compose.animation.AnimatedValueModel
-import androidx.compose.animation.VectorConverter
-import androidx.compose.animation.asDisposableClock
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.material.*
-import androidx.compose.material.ProvideTextStyle
-import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.platform.AmbientAnimationClock
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
@@ -69,7 +63,7 @@ fun Chip(
                             minWidth = ChipConstants.DefaultMinWidth,
                             minHeight = ChipConstants.DefaultMinHeight
                         )
-                        .indication(interactionState, AmbientIndication.current()),
+                        .indication(interactionState, LocalIndication.current),
                     horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
@@ -256,8 +250,9 @@ private class DefaultChipElevation(
         val animatable = remember { Animatable(target, Dp.VectorConverter) }
 
         if (!enabled) {
-            // No transition when moving to a disabled state
-            animatable.snapTo(target)
+            LaunchedEffect(target) {
+                animatable.snapTo(target)
+            }
         } else {
             LaunchedEffect(target) {
                 val lastInteraction = when (animatable.targetValue) {

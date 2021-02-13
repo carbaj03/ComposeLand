@@ -5,7 +5,8 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ScrollableTabRow
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.savedinstancestate.savedInstanceState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import com.acv.composeland.ui.appbar.bottom.design.TabItem
 
@@ -14,7 +15,7 @@ fun MainTabs(
     items: List<TabItem>,
     content: @Composable (TabItem) -> Unit
 ) {
-    var state by savedInstanceState { 0 }
+    var state by rememberSaveable { mutableStateOf(0) }
     Column {
         ScrollableTabRow(
             selectedTabIndex = state,

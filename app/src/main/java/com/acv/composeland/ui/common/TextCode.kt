@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.annotatedString
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -22,7 +22,7 @@ fun TextCode(code: AnnotatedString) {
         Modifier
             .fillMaxWidth()
             .background(Color.DarkGray, RoundedCornerShape(4.dp))
-    ){
+    ) {
         Text(
             modifier = Modifier
                 .horizontalScroll(scrollState)
@@ -106,7 +106,7 @@ object codeBui {
 
             override fun invoke(): AnnotatedString {
                 f(this)
-                return annotatedString { evaluateCode(l) }
+                return buildAnnotatedString { evaluateCode(l) }
             }
         }()
 }

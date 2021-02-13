@@ -8,8 +8,6 @@ import androidx.activity.ComponentActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.compose.runtime.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.viewinterop.emitView
-
 
 abstract class Node {
     val children = mutableListOf<Node>()
@@ -40,10 +38,10 @@ class NodeApplier(root: Node) : AbstractApplier<Node>(root) {
 // A function like the following could be created to create a composition provided a root Node.
 @OptIn(ExperimentalComposeApi::class)
 fun Node.setContent(
-    parent: CompositionReference,
+    parent: CompositionContext,
     content: @Composable () -> Unit
 ): Composition {
-    return compositionFor(this, NodeApplier(this), parent).apply {
+    return Composition(this, NodeApplier(this), parent).apply {
         setContent(content)
     }
 }
@@ -57,14 +55,14 @@ class GroupNode : Node()
 
 // Composable equivalents could be created
 @Composable fun Text(text: String, onClick: () -> Unit = {}) {
-    emit<TextNode, NodeApplier>(::TextNode) {
+    ComposeNode<TextNode, NodeApplier>(::TextNode) {
         set(text) { this.text = it }
         set(onClick) { this.onClick = it }
     }
 }
 
 @Composable fun Group(content: @Composable () -> Unit) {
-    emit<GroupNode, NodeApplier>(::GroupNode, {}, content)
+    ComposeNode<GroupNode, NodeApplier>(::GroupNode, {}, content)
 }
 
 // and then a sample tree could be composed:

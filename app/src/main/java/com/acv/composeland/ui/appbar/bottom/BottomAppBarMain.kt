@@ -5,7 +5,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.*
-import androidx.compose.runtime.savedinstancestate.savedInstanceState
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.navigate
 import com.acv.composeland.R
@@ -37,8 +37,8 @@ data class BottomAppBarMainItem(
 fun BottomAppBarMain(
     navController: NavHostController
 ) {
-    var expanded by savedInstanceState { -1 }
-    var fabVisible by savedInstanceState(expanded) { expanded >= 0 }
+    var expanded by rememberSaveable { mutableStateOf(-1) }
+    var fabVisible by rememberSaveable(expanded) { mutableStateOf(expanded >= 0) }
 
     var usageState = Usage(
         isExpanded = expanded == 0,

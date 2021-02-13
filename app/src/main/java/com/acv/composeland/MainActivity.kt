@@ -15,8 +15,8 @@ import com.acv.composeland.ui.theming.theming
 
 class MainActivity : AppCompatActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onCreate(rememberSaveable: Bundle?) {
+        super.onCreate(rememberSaveable)
 
         setContent {
             ComposeLandTheme {

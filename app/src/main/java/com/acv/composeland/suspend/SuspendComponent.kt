@@ -23,8 +23,8 @@ import kotlin.coroutines.*
 
 class MainActivity : AppCompatActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onCreate(rememberSaveable: Bundle?) {
+        super.onCreate(rememberSaveable)
 
 //        myContent {
 //            Log()

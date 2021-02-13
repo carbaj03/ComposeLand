@@ -121,7 +121,7 @@ fun ScaffoldWithBottomBarAndCutout() {
                 IconButton(onClick = {
                     scaffoldState.drawerState.open()
                 }) {
-                    androidx.compose.foundation.Icon(Icons.Filled.Menu)
+                    Icon(Icons.Filled.Menu, null)
                 }
             }
         },

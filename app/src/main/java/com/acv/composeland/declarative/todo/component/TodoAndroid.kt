@@ -14,8 +14,8 @@ import com.acv.composeland.suspend.AndroidComposeView
 
 class TodoAndroid : AppCompatActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onCreate(rememberSaveable: Bundle?) {
+        super.onCreate(rememberSaveable)
 
         val items = mutableListOf(
             TodoItem(

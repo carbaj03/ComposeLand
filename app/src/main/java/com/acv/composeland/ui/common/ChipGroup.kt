@@ -1,9 +1,10 @@
 package com.acv.composeland.ui.common
 
-import androidx.compose.foundation.ScrollableRow
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.ContentAlpha
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
@@ -24,25 +25,30 @@ fun ChipGroup(
     onChange: (String) -> Unit,
     colors: ChipColors = ChipConstants.defaultOutlinedChipColors(
         selectedBackgroundColor = MaterialTheme.colors.primary.copy(alpha = ContentAlpha.medium),
-        selectedContentColor = contentColorFor(color = MaterialTheme.colors.primary),
+        selectedContentColor = contentColorFor(MaterialTheme.colors.primary),
         unselectedBackgroundColor = MaterialTheme.colors.background,
         unselectedContentColor = MaterialTheme.colors.primary,
     )
 ) {
     var selected by remember { mutableStateOf(selected) }
-    ScrollableRow(modifier = modifier) {
-        items.forEach { id ->
-            Chip(
-                modifier = Modifier.padding(vertical = 8.dp),
-                text = id,
-                selected = selected == id,
-                onSelect = {
-                    selected = if (selected == id) "none" else id
-                    onChange(id)
-                },
-                colors = colors
-            )
-            Spacer(modifier = Modifier.width(8.dp))
+    rememberScrollState(0f)
+    LazyRow(modifier = modifier) {
+        // use `item` for separate elements like headers
+        // and `items` for lists of identical elements
+        item {
+            items.forEach { id ->
+                Chip(
+                    modifier = Modifier.padding(vertical = 8.dp),
+                    text = id,
+                    selected = selected == id,
+                    onSelect = {
+                        selected = if (selected == id) "none" else id
+                        onChange(id)
+                    },
+                    colors = colors
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+            }
         }
     }
 

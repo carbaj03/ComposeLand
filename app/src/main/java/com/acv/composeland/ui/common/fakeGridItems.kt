@@ -5,6 +5,7 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 
 fun <T> LazyListScope.fakeGridItems(
@@ -21,15 +22,15 @@ fun <T> LazyListScope.fakeGridItems(
     }
 
     for (row in 0 until rows) {
-        if (row == 0) spacerItem(contentPadding.top)
+        if (row == 0) spacerItem(contentPadding.calculateTopPadding())
 
         item {
             Row(
                 Modifier
                     .fillMaxWidth()
                     .padding(
-                        start = contentPadding.start,
-                        end = contentPadding.end
+                        start = contentPadding.calculateStartPadding(LayoutDirection.Ltr),
+                        end = contentPadding.calculateEndPadding(LayoutDirection.Ltr)
                     )
             ) {
                 for (column in 0 until columns) {
@@ -49,7 +50,7 @@ fun <T> LazyListScope.fakeGridItems(
         if (row < rows - 1) {
             spacerItem(verticalItemPadding)
         } else {
-            spacerItem(contentPadding.bottom)
+            spacerItem(contentPadding.calculateBottomPadding())
         }
     }
 }

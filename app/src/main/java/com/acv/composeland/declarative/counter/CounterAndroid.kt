@@ -15,8 +15,8 @@ import com.acv.composeland.suspend.AndroidComposeView
 
 class CounterAndroid : AppCompatActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onCreate(rememberSaveable: Bundle?) {
+        super.onCreate(rememberSaveable)
         var recompose: () -> Unit = {}
 
         var count = 0

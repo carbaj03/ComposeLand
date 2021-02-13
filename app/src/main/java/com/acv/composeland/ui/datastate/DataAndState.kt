@@ -6,7 +6,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.*
-import androidx.compose.runtime.savedinstancestate.savedInstanceState
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.navigation.NavHostController
 import com.acv.composeland.ui.common.H6
 
@@ -30,7 +30,7 @@ data class Example(
 fun DataAndStateMain(
     navController: NavHostController
 ) {
-    var expanded by savedInstanceState { false }
+    var expanded by rememberSaveable { mutableStateOf(false) }
     var example by remember(expanded) {
         Log.e("example", expanded.toString())
         mutableStateOf(

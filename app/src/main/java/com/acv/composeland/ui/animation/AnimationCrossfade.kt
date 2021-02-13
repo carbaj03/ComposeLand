@@ -2,9 +2,13 @@ package com.acv.composeland.ui.animation
 
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Button
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 
 
@@ -18,8 +22,8 @@ fun AnimationCrossfade(
 ) {
     val state = AnimationCrossfadeState(goBack = { navController.popBackStack() })
 
-    var letter by remember { mutableStateOf("A") }
-    Crossfade(current = letter) { screen ->
+    var letter: String by remember { mutableStateOf("A") }
+    Crossfade(targetState = letter) { screen ->
         when (screen) {
             "A" -> {
                 Column {

@@ -3,7 +3,7 @@ package com.acv.composeland.ui.material
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
-import androidx.compose.runtime.savedinstancestate.Saver
+import androidx.compose.runtime.saveable.Saver
 import androidx.compose.ui.viewinterop.viewModel
 import com.acv.composeland.R
 import com.acv.composeland.ui.common.TabItem

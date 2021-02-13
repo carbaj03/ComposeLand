@@ -38,8 +38,8 @@ typealias Recompose = (event: Event, state: State) -> Unit
 
 class TodoAndroid : AppCompatActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onCreate(rememberSaveable: Bundle?) {
+        super.onCreate(rememberSaveable)
 
         var recompose: Recompose = { _, _ -> }
         recompose = { event, state ->
