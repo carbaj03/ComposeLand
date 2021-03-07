@@ -1,6 +1,5 @@
 package com.acv.composeland.ui.chip
 
-import androidx.compose.foundation.ScrollableColumn
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.rememberScrollState
@@ -24,13 +23,13 @@ data class ChipMainItem(
 
 @Composable
 fun ChipMain(
-    navController : NavHostController
+    navController: NavHostController
 ) {
     val state = ChipMainState(
         goBack = { navController.popBackStack() },
         items = ChipScreen.items(navController),
     )
-    Column(modifier = Modifier.verticalScroll(rememberScrollState())){
+    Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
         H1(text = "Usage")
         Row {
             Body(text = "comsadf")

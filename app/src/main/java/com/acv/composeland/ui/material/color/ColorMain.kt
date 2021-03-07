@@ -63,12 +63,12 @@ fun ColorMain(
 //                }
 //            }
 //        }
-        Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-            TheColorSystem()
-            ColorUsageAndPalettes()
-            ColorThemeCreation()
-            PickingColors()
-        }
+//        Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+//            TheColorSystem()
+//            ColorUsageAndPalettes()
+//            ColorThemeCreation()
+//            PickingColors()
+//        }
     }
 }
 

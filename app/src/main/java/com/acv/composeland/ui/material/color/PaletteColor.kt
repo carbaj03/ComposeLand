@@ -17,7 +17,6 @@ data class PaletteColorState(
     val goBack: () -> Unit,
 )
 
-@OptIn(ExperimentalLayout::class)
 @Composable
 fun PaletteColor(state: PaletteColorState) {
     val items = listOf(

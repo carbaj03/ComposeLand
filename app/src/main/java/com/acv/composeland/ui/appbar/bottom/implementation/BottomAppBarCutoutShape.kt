@@ -1,6 +1,6 @@
 package com.acv.composeland.ui.appbar.bottom.implementation
 
-import androidx.compose.animation.animatedFloat
+import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.TweenSpec
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.CircleShape
@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.acv.composeland.ui.common.ChipGroup
 import com.acv.composeland.ui.common.CodeScaffold
+import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.math.abs
 import kotlin.math.roundToInt
@@ -88,7 +89,9 @@ fun ScaffoldWithBottomBarAndCutout() {
     val sharpEdgePercent = -50f
     val roundEdgePercent = 45f
     // Start with sharp edges
-    val animatedProgress = animatedFloat(sharpEdgePercent)
+    val animatedProgress = remember { Animatable(sharpEdgePercent) }
+    // Create a coroutineScope for the animation
+    val coroutineScope = rememberCoroutineScope()
     // animation value to animate shape
     val progress = animatedProgress.value.roundToInt()
 
@@ -102,14 +105,17 @@ fun ScaffoldWithBottomBarAndCutout() {
         RoundedCornerShape(progress)
     }
     // lambda to call to trigger shape animation
-    val changeShape = {
+    val changeShape: () -> Unit = {
         val target = animatedProgress.targetValue
         val nextTarget = if (target == roundEdgePercent) sharpEdgePercent else roundEdgePercent
-        animatedProgress.animateTo(
-            targetValue = nextTarget,
-            anim = TweenSpec(durationMillis = 600)
-        )
+        coroutineScope.launch {
+            animatedProgress.animateTo(
+                targetValue = nextTarget,
+                animationSpec = TweenSpec(durationMillis = 600)
+            )
+        }
     }
+
 
     Scaffold(
         modifier = Modifier.height(300.dp),
@@ -119,7 +125,7 @@ fun ScaffoldWithBottomBarAndCutout() {
         bottomBar = {
             BottomAppBar(cutoutShape = fabShape) {
                 IconButton(onClick = {
-                    scaffoldState.drawerState.open()
+                    coroutineScope.launch { scaffoldState.drawerState.open() }
                 }) {
                     Icon(Icons.Filled.Menu, null)
                 }
@@ -134,8 +140,6 @@ fun ScaffoldWithBottomBarAndCutout() {
         },
         floatingActionButtonPosition = FabPosition.Center,
         isFloatingActionButtonDocked = true,
-        bodyContent = { innerPadding ->
-
-        }
+        content = {}
     )
 }

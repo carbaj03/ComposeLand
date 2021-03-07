@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.ui.platform.setContent
+import androidx.activity.compose.setContent
 import androidx.lifecycle.lifecycleScope
 import arrow.Kind
 import arrow.core.Either

@@ -11,7 +11,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.loadImageResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.acv.composeland.ui.common.H6
 import com.acv.composeland.ui.common.fakeGridItems
@@ -32,14 +32,11 @@ fun DesignThemingMain(state: DesignThemingState) {
                     .padding(8.dp)
                     .clickable(onClick = { screen.goToDetail() })
             ) {
-                val vectorAsset = loadImageResource(id = screen.image)
-                vectorAsset.resource.resource?.let {
-                    Image(
-                        bitmap = it,
-                        contentScale = ContentScale.Fit,
-                        contentDescription = null,
-                    )
-                }
+                Image(
+                    painter = painterResource(id = screen.image),
+                    contentScale = ContentScale.Fit,
+                    contentDescription = null,
+                )
 
                 H6(text = screen.title)
                 Text(

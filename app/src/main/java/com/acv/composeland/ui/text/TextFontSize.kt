@@ -2,6 +2,7 @@ package com.acv.composeland.ui.text
 
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Slider
+import androidx.compose.material.SliderDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.unit.em
@@ -60,10 +61,15 @@ fun StepsSliderSample(onChange: (Float) -> Unit) {
     Slider(
         value = sliderPosition,
         onValueChange = { sliderPosition = it },
-        valueRange = 1f..10f,
-        onValueChangeEnd = { onChange(sliderPosition) },
+        valueRange = 0f..100f,
+        onValueChangeFinished = {
+            // launch some business logic update with the state you hold
+            // viewModel.updateSelectedSliderValue(sliderPosition)
+        },
         steps = 5,
-        thumbColor = MaterialTheme.colors.secondary,
-        activeTrackColor = MaterialTheme.colors.secondary
+        colors = SliderDefaults.colors(
+            thumbColor = MaterialTheme.colors.secondary,
+            activeTrackColor = MaterialTheme.colors.secondary
+        )
     )
 }

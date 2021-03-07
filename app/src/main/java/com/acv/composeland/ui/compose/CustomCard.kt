@@ -3,8 +3,6 @@ package com.acv.composeland.ui.compose
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.ConstraintLayout
-import androidx.compose.foundation.layout.Dimension
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
@@ -12,16 +10,18 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.Dimension
 
 @Composable
 fun CustomCard(
     type: String,
     title: String,
     description: String,
-    imageVector: ImageVector,
+    painter: Painter,
     guide: () -> Unit,
     codelab: () -> Unit,
 ) {
@@ -30,7 +30,9 @@ fun CustomCard(
         elevation = 0.dp
     ) {
         ConstraintLayout(
-            modifier = Modifier.fillMaxWidth().background(Color.LightGray)
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.LightGray)
         ) {
             val (typeRef, titleRef, imageRef, descriptionRef, codelabRef, guideRef) = createRefs()
 
@@ -68,18 +70,21 @@ fun CustomCard(
                     .constrainAs(guideRef) {
                         start.linkTo(parent.start, 8.dp)
                         top.linkTo(descriptionRef.bottom, 4.dp)
-                    }.then(draggable),
+                    }
+                    .then(draggable),
                 style = MaterialTheme.typography.button,
             )
 
             val (actionCodelab, textCodelab) = underlineClick("Codelab", codelab)
             Text(
                 text = textCodelab,
-                modifier = Modifier.constrainAs(codelabRef) {
-                    start.linkTo(parent.start, 8.dp)
-                    top.linkTo(guideRef.bottom, 8.dp)
-                    bottom.linkTo(parent.bottom, 8.dp)
-                }.then(actionCodelab),
+                modifier = Modifier
+                    .constrainAs(codelabRef) {
+                        start.linkTo(parent.start, 8.dp)
+                        top.linkTo(guideRef.bottom, 8.dp)
+                        bottom.linkTo(parent.bottom, 8.dp)
+                    }
+                    .then(actionCodelab),
                 style = MaterialTheme.typography.button,
             )
 
@@ -90,7 +95,7 @@ fun CustomCard(
                         end.linkTo(parent.end)
                         height = Dimension.fillToConstraints
                     },
-                imageVector = imageVector,
+                painter = painter,
                 contentScale = ContentScale.Fit,
                 contentDescription = null,
             )

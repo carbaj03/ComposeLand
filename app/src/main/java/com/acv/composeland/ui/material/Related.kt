@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.res.imageResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -35,8 +36,8 @@ fun Related(
             Image(
                 modifier = Modifier
                     .padding(end = 8.dp)
-                    .preferredSize(32.dp),
-                bitmap = imageResource(state.icon),
+                    .defaultMinSize(32.dp),
+                painter = painterResource(state.icon),
                 contentDescription = null,
             )
             Column {
@@ -162,7 +163,7 @@ fun Related(
 //                .constrainAs(image) {
 //                    start.linkTo(parent.start)
 //                    top.linkTo(parent.top)
-//                }.preferredSize(24.dp),
+//                }.defaultMinSize(24.dp),
 //            bitmap = imageResource(state.icon),
 //        )
 //

@@ -1,21 +1,26 @@
 package com.acv.composeland.ui.button
 
-import androidx.compose.foundation.Interaction
-import androidx.compose.foundation.InteractionState
+import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.draggable
+import androidx.compose.foundation.gestures.rememberDraggableState
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.PressInteraction
 import androidx.compose.material.Button
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.gesture.scrollorientationlocking.Orientation
 import androidx.navigation.NavHostController
+import com.acv.composeland.suspend.launch
 import com.acv.composeland.ui.common.CodeScaffold
+import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.flow.collect
 
 data class ButtonInteractionStateState(
     val goBack: () -> Unit,
 )
 
+@OptIn(InternalCoroutinesApi::class)
 @Composable
 fun ButtonInteractionState(
     navController: NavHostController
@@ -23,18 +28,23 @@ fun ButtonInteractionState(
     val state = ButtonInteractionStateState(
         goBack = { navController.popBackStack() },
     )
-    val interactionState = remember { InteractionState() }
-    var text = when {
-        Interaction.Dragged in interactionState -> "Dragged"
-        Interaction.Pressed in interactionState -> "Pressed"
-        // Default / baseline state
-        else -> "Drag me horizontally, or press me!"
+    val scope = rememberCoroutineScope()
+    val interactionState = remember { MutableInteractionSource() }
+    var text by remember { mutableStateOf("") }
+
+    scope.launch {
+        interactionState.interactions.collect {
+            text = when (it) {
+                is PressInteraction.Press -> "Dragged"
+                else -> "Drag me horizontally, or press me!"
+            }
+        }
     }
     val draggable = Modifier.draggable(
+        state = rememberDraggableState(onDelta = { 0f }),
         orientation = Orientation.Horizontal,
-        interactionState = interactionState
-    ) { /* update some business state here */ }
-
+        interactionSource = interactionState,
+    )
     val code: String = """
       @Composable
       fun ButtonSample(){
@@ -57,7 +67,7 @@ fun ButtonInteractionState(
         Button(
             modifier = draggable,
             onClick = { },
-            interactionState = interactionState,
+            interactionSource = interactionState,
         ) {
             Text(text = text)
         }

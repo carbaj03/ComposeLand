@@ -1,10 +1,7 @@
 package com.acv.composeland.ui.theming.codelab
 
 import android.util.Log
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.ScrollableColumn
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -83,11 +80,15 @@ fun BackdropScaffoldSample(
                 title = { Text("Jetpack Compose Theming") },
                 navigationIcon = {
                     if (scaffoldState.isConcealed) {
-                        IconButton(onClick = { scaffoldState.reveal() }) {
+                        IconButton(onClick = {
+                            scope.launch { scaffoldState.reveal() }
+                        }) {
                             Icon(Icons.Default.Menu, null)
                         }
                     } else {
-                        IconButton(onClick = { scaffoldState.conceal() }) {
+                        IconButton(onClick = {
+                            scope.launch { scaffoldState.conceal() }
+                        }) {
                             Icon(Icons.Default.Close, null)
                         }
                     }
@@ -140,8 +141,9 @@ fun BackdropScaffoldSample(
                             onSelected = {
                                 selection = select(selection, state.step.number)
                                 selected = state.step.number
-                                scaffoldState.conceal()
-                            })
+                                scope.launch { scaffoldState.conceal() }
+                            }
+                        )
                     }
                 }
             }
@@ -236,7 +238,7 @@ fun Step(
         Row(
             modifier = Modifier
                 .fillMaxSize()
-                .preferredHeight(50.dp)
+                .defaultMinSize(50.dp)
         ) {
             Box(
                 contentAlignment = Alignment.Center,
@@ -332,8 +334,10 @@ fun FirstStep(
                 .height(24.dp),
             text = "1. Introduction"
         )
-        ScrollableColumn(
-            modifier = Modifier.weight(1f)
+        Column(
+            modifier = Modifier
+                .weight(1f)
+                .verticalScroll(rememberScrollState())
         ) {
             Body(
                 text = "In this codelab you will learn how to use Jetpack Compose‘s theming APIs to style your application. We'll see how to customize colors, shapes and typography so that they're used consistently throughout your application, supporting multiple themes such as light & dark theme."

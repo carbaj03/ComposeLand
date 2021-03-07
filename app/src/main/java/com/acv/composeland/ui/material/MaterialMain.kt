@@ -4,11 +4,13 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.Saver
-import androidx.compose.ui.viewinterop.viewModel
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.acv.composeland.R
 import com.acv.composeland.ui.common.TabItem
 import com.acv.composeland.ui.common.Tabs
 import com.acv.composeland.ui.common.TopBarBack
+import com.acv.composeland.ui.theming.ThemingTabItem
 
 
 data class MaterialState(
@@ -76,7 +78,7 @@ fun MaterialMain(
 //    val state by produceState(MaterialState.empty(navController), materialViewModel) {
 //        materialViewModel.init(MaterialNavigatorComponent(navController))
 //    }
-
+    var stateTabs by rememberSaveable(stateSaver = MaterialTabItem.AutoSaver) { mutableStateOf(MaterialTabItem.Develop) }
     Scaffold(
         topBar = {
             TopBarBack(
@@ -87,8 +89,8 @@ fun MaterialMain(
     ) {
         Tabs(
             options = MaterialTabItem.items,
-            default = MaterialTabItem.Develop,
-            saver = MaterialTabItem.AutoSaver,
+            selected = stateTabs,
+            onSelection = { stateTabs = it },
         ) {
             when (it) {
                 MaterialTabItem.Design -> DesignMaterialMain(state = state.designMaterialState)
@@ -107,11 +109,13 @@ sealed class MaterialTabItem(
         val items = listOf(Design, Components, Develop)
         val AutoSaver = Saver<TabItem, String>(
             save = { it.title },
-            restore = { when(it){
-                "Design" -> Design
-                "Componets" -> Components
-                else -> Develop
-            } }
+            restore = {
+                when (it) {
+                    "Design" -> Design
+                    "Componets" -> Components
+                    else -> Develop
+                }
+            }
         )
     }
 

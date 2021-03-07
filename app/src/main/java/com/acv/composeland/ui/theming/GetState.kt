@@ -22,7 +22,7 @@ suspend fun getState(
                     image = R.drawable.buttons,
                     title = "Buttons",
                     description = "Buttons allow users to take actions, and make choices, with a single tap ",
-                    goToDetail = { mainNavigator.goButton() }
+                    goToDetail = { mainNavigator.goButton() },
                 ),
                 ThemingItem(
                     image = R.drawable.bottom,
@@ -38,7 +38,7 @@ suspend fun getState(
                     image = R.drawable.snackbars,
                     title = "Color",
                     description = "sdf",
-                    goToDetail = { mainNavigator.goColor() }
+                    goToDetail = { mainNavigator.goColor() },
                 )
             )
         ),

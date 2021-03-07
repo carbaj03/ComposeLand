@@ -1,18 +1,20 @@
 package com.acv.composeland.ui.compose
 
 import android.util.Log
-import androidx.compose.foundation.ScrollableColumn
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.viewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.acv.composeland.R
 
 
@@ -81,13 +83,15 @@ fun HomeScreen(
             )
         },
     ) {
-        ScrollableColumn(modifier = Modifier.padding(horizontal = 8.dp)) {
+        Column(modifier = Modifier
+            .padding(horizontal = 8.dp)
+            .verticalScroll(rememberScrollState())) {
             state.items.forEach { item ->
                 Spacer(modifier = Modifier.height(8.dp))
                 when (item) {
                     is HeaderMainItem -> {
                         CustomCard(
-                            imageVector = vectorResource(id = item.image),
+                            painter = painterResource(id = item.image),
                             title = item.title,
                             description = item.description,
                             type = "Featured",
@@ -97,7 +101,7 @@ fun HomeScreen(
                     }
                     is MidMainItem -> {
                         CustomMid(
-                            imageVector = vectorResource(id = item.image),
+                            painter = painterResource(id = item.image),
                             title = item.title,
                             description = item.description,
                             guide = item.guide,

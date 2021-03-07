@@ -8,10 +8,12 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.Dimension
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.navigate
 import com.acv.composeland.R
@@ -68,7 +70,7 @@ fun ButtonMain(
                 title = { Text(state.title) },
                 navigationIcon = {
                     IconButton(onClick = { state.goBack() }) {
-                        Icon(Icons.Filled.ArrowBack,null)
+                        Icon(Icons.Filled.ArrowBack, null)
                     }
                 }
             )
@@ -109,7 +111,7 @@ fun <A : GridItem> Grid(
                                     start.linkTo(parent.start)
                                     top.linkTo(parent.top)
                                 },
-                            imageVector = vectorResource(id = screen.icon),
+                            painter = painterResource(id = screen.icon),
                             tint = MaterialTheme.colors.primary,
                             contentDescription = null,
                         )

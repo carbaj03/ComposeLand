@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.imageResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.acv.composeland.ui.common.H6
@@ -37,7 +38,7 @@ fun ComponentsThemingMain(
                     .clickable(onClick = { screen.goToDetail() })
             ) {
                 Image(
-                    bitmap = imageResource(id = screen.image),
+                    painter = painterResource(id = screen.image),
                     contentScale = ContentScale.Fit,
                     contentDescription = null,
                 )

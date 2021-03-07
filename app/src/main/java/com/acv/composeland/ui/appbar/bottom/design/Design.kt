@@ -1,7 +1,9 @@
 package com.acv.composeland.ui.appbar.bottom.design
 
-import androidx.compose.foundation.ScrollableColumn
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Divider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -12,8 +14,10 @@ import com.acv.composeland.ui.common.ExpandableCard
 fun Design(
     state: DesignState,
 ) {
-    ScrollableColumn(
-        modifier = Modifier.padding(horizontal = 8.dp)
+    Column(
+        modifier = Modifier
+            .padding(horizontal = 8.dp)
+            .verticalScroll(rememberScrollState())
     ) {
         ExpandableCard(
             title = state.usage.title,

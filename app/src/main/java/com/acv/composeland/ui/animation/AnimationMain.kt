@@ -1,8 +1,6 @@
 package com.acv.composeland.ui.animation
 
-import androidx.compose.foundation.ScrollableColumn
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding

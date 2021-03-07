@@ -4,7 +4,8 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.Saver
-import androidx.compose.ui.viewinterop.viewModel
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.acv.composeland.R
 import com.acv.composeland.ui.common.TabItem
 import com.acv.composeland.ui.common.Tabs
@@ -67,13 +68,12 @@ data class ThemingItem(
 )
 
 @Composable
-fun ThemingGuide(
-    themingNavigator: ThemingNavigator,
-    themingViewModel: ThemingViewModel = viewModel(),
+fun ThemingGuideScreen(
+    viewModel: ThemingViewModel = viewModel(),
+    navigator: ThemingNavigator,
 ) {
-    val id = 0
-    var state by remember { mutableStateOf(ThemingState.empty(themingNavigator)) }
-    LaunchedEffect(id) { state = themingViewModel.init(themingNavigator) }
+    val state by viewModel.init(navigator).collectAsState(initial = ThemingState.empty(navigator))
+    var stateTabs by rememberSaveable(stateSaver = ThemingTabItem.AutoSaver) { mutableStateOf(ThemingTabItem.Design) }
 
     Scaffold(
         topBar = {
@@ -85,8 +85,8 @@ fun ThemingGuide(
     ) {
         Tabs(
             options = ThemingTabItem.items,
-            default = ThemingTabItem.Design,
-            saver = ThemingTabItem.AutoSaver,
+            selected = stateTabs,
+            onSelection = { stateTabs = it },
         ) {
             when (it) {
                 ThemingTabItem.Design -> DesignThemingMain(state = state.designThemingState)
@@ -104,11 +104,13 @@ sealed class ThemingTabItem(
         val items = listOf(Design, Components, Develop)
         val AutoSaver = Saver<TabItem, String>(
             save = { it.title },
-            restore = { when(it){
-                "Design" -> MaterialTabItem.Design
-                "Componets" -> MaterialTabItem.Components
-                else -> MaterialTabItem.Develop
-            } }
+            restore = {
+                when (it) {
+                    "Design" -> MaterialTabItem.Design
+                    "Componets" -> MaterialTabItem.Components
+                    else -> MaterialTabItem.Develop
+                }
+            }
         )
     }
 

@@ -31,7 +31,7 @@ fun ChipGroup(
     )
 ) {
     var selected by remember { mutableStateOf(selected) }
-    rememberScrollState(0f)
+    rememberScrollState(0)
     LazyRow(modifier = modifier) {
         // use `item` for separate elements like headers
         // and `items` for lists of identical elements

@@ -2,8 +2,6 @@ package com.acv.composeland.ui.compose
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.ConstraintLayout
-import androidx.compose.foundation.layout.Dimension
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
@@ -11,16 +9,18 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.Dimension
 
 @Composable
 fun CustomMid(
     modifier: Modifier = Modifier,
     title: String,
     description: String,
-    imageVector: ImageVector,
+    painter: Painter,
     guide: () -> Unit,
     codelab: () -> Unit,
 ) {
@@ -42,7 +42,7 @@ fun CustomMid(
                         top.linkTo(parent.top)
                         height = Dimension.value(45.dp)
                     },
-                imageVector = imageVector,
+                painter = painter,
                 contentScale = ContentScale.Fit,
                 contentDescription = null,
             )

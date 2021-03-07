@@ -41,7 +41,7 @@ fun <T> LazyListScope.fakeGridItems(
                         }
                     }
                     if (column < columns - 1) {
-                        Spacer(modifier = Modifier.preferredWidth(horizontalItemPadding))
+                        Spacer(modifier = Modifier.defaultMinSize(horizontalItemPadding))
                     }
                 }
             }
@@ -57,6 +57,6 @@ fun <T> LazyListScope.fakeGridItems(
 
 fun LazyListScope.spacerItem(height: Dp) {
     item {
-        Spacer(Modifier.preferredHeight(height).fillParentMaxWidth())
+        Spacer(Modifier.defaultMinSize(height).fillParentMaxWidth())
     }
 }

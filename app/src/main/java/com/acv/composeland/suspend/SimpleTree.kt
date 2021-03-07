@@ -41,7 +41,7 @@ fun Node.setContent(
     parent: CompositionContext,
     content: @Composable () -> Unit
 ): Composition {
-    return Composition(this, NodeApplier(this), parent).apply {
+    return Composition(NodeApplier(this), parent).apply {
         setContent(content)
     }
 }
@@ -66,7 +66,7 @@ class GroupNode : Node()
 }
 
 // and then a sample tree could be composed:
-fun runApp(root: GroupNode, parent: CompositionReference) {
+fun runApp(root: GroupNode, parent: CompositionContext) {
     GroupNode().setContent(parent) {
         var count by remember { mutableStateOf(0) }
         Group {
