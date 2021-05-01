@@ -21,6 +21,7 @@ class VisibleActivity : AppCompatActivity() {
     lateinit var adapter: CustomAdapter
     lateinit var recyclerView: RecyclerView
 
+
     override fun onCreate(rememberSaveable: Bundle?) {
         super.onCreate(rememberSaveable)
         setContentView(R.layout.activity_view)

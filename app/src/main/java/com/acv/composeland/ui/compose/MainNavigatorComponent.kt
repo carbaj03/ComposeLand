@@ -2,6 +2,7 @@ package com.acv.composeland.ui.compose
 
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.navigate
+import com.acv.composeland.ui.animation.AnimationScreen
 import com.acv.composeland.ui.screen.MainScreen
 import com.acv.composeland.ui.screen.MaterialScreen
 import com.acv.composeland.ui.theming.ThemingScreen
@@ -27,5 +28,9 @@ class MainNavigatorComponent(
 
     override fun goThemingCodelab() {
         navController.navigate(ThemingScreen.Codelab.route)
+    }
+
+    override fun goAnimationGuide() {
+        navController.navigate(AnimationScreen.Main.route)
     }
 }

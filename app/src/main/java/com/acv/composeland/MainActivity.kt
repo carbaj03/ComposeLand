@@ -6,10 +6,14 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Column
+import androidx.compose.material.Button
+import androidx.compose.material.Text
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.acv.composeland.ui.ComposeLandTheme
+import com.acv.composeland.ui.animation.animation
 import com.acv.composeland.ui.screen.*
 import com.acv.composeland.ui.theming.theming
 

@@ -1,6 +1,5 @@
 package com.acv.composeland.ui.compose
 
-import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -72,7 +71,6 @@ fun HomeScreen(
     mainViewModel: MainViewModel = viewModel(),
     id: Int = 0,
 ) {
-    Log.e("HomeScreen", "run")
     var state by remember(id) { mutableStateOf(MainState.empty(navigation)) }
     LaunchedEffect(id) { state = mainViewModel.init(navigation) }
 
@@ -83,9 +81,11 @@ fun HomeScreen(
             )
         },
     ) {
-        Column(modifier = Modifier
-            .padding(horizontal = 8.dp)
-            .verticalScroll(rememberScrollState())) {
+        Column(
+            modifier = Modifier
+                .padding(horizontal = 8.dp)
+                .verticalScroll(rememberScrollState())
+        ) {
             state.items.forEach { item ->
                 Spacer(modifier = Modifier.height(8.dp))
                 when (item) {

@@ -6,4 +6,5 @@ interface MainNavigator {
     fun goMain()
     fun goThemingGuide()
     fun goThemingCodelab()
+    fun goAnimationGuide()
 }

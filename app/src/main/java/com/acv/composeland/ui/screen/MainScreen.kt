@@ -23,12 +23,11 @@ fun NavGraphBuilder.main(
     navController: NavHostController,
 ) {
     val main = MainNavigatorComponent(navController = navController)
-
-    composable(MainScreen.Core.route) {
-        CoreConceptsMain(navController)
-    }
     composable(MainScreen.Main.route) {
         HomeScreen(main)
+    }
+    composable(MainScreen.Core.route) {
+        CoreConceptsMain(navController)
     }
     composable(MainScreen.Navigation.route) {
         NavigationMain(navController)

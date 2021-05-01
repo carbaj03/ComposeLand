@@ -29,6 +29,13 @@ suspend fun getState(mainNavigator: MainNavigator): MainState {
                 description = "Learn how to style your application and support light and dark themes.",
                 guide = { mainNavigator.goThemingGuide() },
                 codelab = { mainNavigator.goThemingCodelab() },
+            ),
+            MidMainItem(
+                image = R.drawable.ic_theming,
+                title = "Animation",
+                description = "Learn about animimation API",
+                guide = { mainNavigator.goAnimationGuide() },
+                codelab = { },
             )
         )
     )

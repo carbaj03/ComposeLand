@@ -23,10 +23,22 @@ sealed class MaterialScreen(val route: String) {
 fun NavGraphBuilder.material(navController: NavHostController) {
     val material = MaterialNavigatorComponent(navController = navController)
 
-    composable(MaterialScreen.Main.route) { MaterialMain(material) }
-    composable(MaterialScreen.Text.route) { TextMain(navController = navController) }
-    composable(MaterialScreen.Color.route) { ColorMain(navController = navController) }
-    composable(MaterialScreen.Button.route) { ButtonMain(navController = navController) }
-    composable(MaterialScreen.Chip.route) { ChipMain(navController = navController) }
-    composable(MaterialScreen.BottomAppBar.route) { BottomAppBarMain(navController = navController) }
+    composable(MaterialScreen.Main.route) {
+        MaterialMain(material)
+    }
+    composable(MaterialScreen.Text.route) {
+        TextMain(navController = navController)
+    }
+    composable(MaterialScreen.Color.route) {
+        ColorMain(navController = navController)
+    }
+    composable(MaterialScreen.Button.route) {
+        ButtonMain(navController = navController)
+    }
+    composable(MaterialScreen.Chip.route) {
+        ChipMain(navController = navController)
+    }
+    composable(MaterialScreen.BottomAppBar.route) {
+        BottomAppBarMain(navController = navController)
+    }
 }

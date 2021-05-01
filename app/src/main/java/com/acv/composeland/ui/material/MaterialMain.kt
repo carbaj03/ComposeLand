@@ -12,7 +12,6 @@ import com.acv.composeland.ui.common.Tabs
 import com.acv.composeland.ui.common.TopBarBack
 import com.acv.composeland.ui.theming.ThemingTabItem
 
-
 data class MaterialState(
     val title: String,
     val goBack: () -> Unit,

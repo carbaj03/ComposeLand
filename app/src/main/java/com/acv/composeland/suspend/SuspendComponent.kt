@@ -7,11 +7,8 @@ import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.compose.setContent
 import androidx.lifecycle.lifecycleScope
-import arrow.Kind
 import arrow.core.Either
 import arrow.fx.*
-import arrow.fx.typeclasses.Disposable
-import arrow.typeclasses.Continuation
 import com.acv.composeland.R
 import com.acv.composeland.suspend.memo.update.TodoApp
 import com.acv.composeland.suspend.memo.update.compose
@@ -151,74 +148,4 @@ private open class StandaloneCoroutine(
         handleCoroutineException(context, exception)
         return true
     }
-}
-
-
-@Suppress(
-    "UNCHECKED_CAST",
-    "NOTHING_TO_INLINE"
-)
-inline fun IO.Companion.unsafeCancellableRun(): IOUnsafeCancellableRun =
-    unsafeCancellableRun_singleton
-
-/**
- * cached extension
- */
-@PublishedApi()
-internal val unsafeCancellableRun_singleton: IOUnsafeCancellableRun = object :
-    IOUnsafeCancellableRun {}
-
-suspend fun <A> unsafe.runNonBlockingCancellable(
-    onCancel: OnCancel,
-    fa: Function0<Kind<ForIO, A>>,
-    cb: Function1<Either<Throwable, A>, Unit>
-): Function0<Unit> =
-    IO.unsafeCancellableRun().run {
-        this@runNonBlockingCancellable.runNonBlockingCancellable(onCancel, fa, cb)
-    }
-
-interface IOUnsafeCancellableRun : UnsafeCancellableRun<ForIO> {
-    override suspend fun <A> runBlocking(fa: () -> Kind<ForIO, A>): A = fa().fix().unsafeRunSync()
-
-    override suspend fun <A> runNonBlocking(fa: () -> Kind<ForIO, A>, cb: (Either<Throwable, A>) -> Unit) =
-        fa().fix().unsafeRunAsync(cb)
-
-    override suspend fun <A> runNonBlockingCancellable(onCancel: OnCancel, fa: () -> Kind<ForIO, A>, cb: (Either<Throwable, A>) -> Unit): Disposable =
-        fa().fix().unsafeRunAsyncCancellable(onCancel, cb)
-}
-
-
-@RestrictsSuspension
-object unsafe {
-
-    operator fun <A> invoke(f: suspend unsafe.() -> A): A {
-        val c = UnsafeContinuation<A>()
-        f.startCoroutine(this, c)
-        return c.result!!
-    }
-}
-
-private class UnsafeContinuation<A> : Continuation<A> {
-    var result: A? = null
-
-    override fun resume(value: A) {
-        result = value
-    }
-
-    override fun resumeWithException(exception: Throwable) {
-        throw exception
-    }
-
-    override val context: CoroutineContext = EmptyCoroutineContext
-}
-
-@Deprecated(IODeprecation)
-interface UnsafeCancellableRun<F> : UnsafeRun<F> {
-    suspend fun <A> runNonBlockingCancellable(onCancel: OnCancel, fa: () -> Kind<F, A>, cb: (Either<Throwable, A>) -> Unit): Disposable
-}
-
-@Deprecated(IODeprecation)
-interface UnsafeRun<F> {
-    suspend fun <A> runBlocking(fa: () -> Kind<F, A>): A
-    suspend fun <A> runNonBlocking(fa: () -> Kind<F, A>, cb: (Either<Throwable, A>) -> Unit): Unit
 }
