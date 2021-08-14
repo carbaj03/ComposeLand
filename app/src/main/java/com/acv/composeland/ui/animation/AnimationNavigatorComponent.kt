@@ -1,7 +1,6 @@
 package com.acv.composeland.ui.animation
 
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.navigate
 
 class AnimationNavigatorComponent(
     private val navController: NavHostController

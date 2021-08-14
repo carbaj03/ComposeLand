@@ -7,7 +7,6 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.navigate
 import com.acv.composeland.R
 import com.acv.composeland.ui.appbar.bottom.design.*
 import com.acv.composeland.ui.appbar.bottom.implementation.Implementation

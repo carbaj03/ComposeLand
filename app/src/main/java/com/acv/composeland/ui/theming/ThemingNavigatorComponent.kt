@@ -1,7 +1,6 @@
 package com.acv.composeland.ui.theming
 
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.navigate
 import com.acv.composeland.ui.screen.BottomAppBarScreen
 import com.acv.composeland.ui.screen.ColorScreen
 import com.acv.composeland.ui.screen.MaterialScreen

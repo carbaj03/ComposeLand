@@ -1,8 +1,6 @@
 package com.acv.composeland.ui.theming.codelab
 
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.navigate
-import com.acv.composeland.ui.theming.ThemingScreen
 
 class ThemingCodelabNavigatorComponent(
     private val navController: NavHostController

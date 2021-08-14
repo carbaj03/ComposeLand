@@ -5,7 +5,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.navigate
 import com.acv.composeland.R
 import com.acv.composeland.ui.button.Grid
 import com.acv.composeland.ui.button.GridItem

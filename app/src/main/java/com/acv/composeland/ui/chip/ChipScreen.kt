@@ -1,7 +1,6 @@
 package com.acv.composeland.ui.chip
 
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.navigate
 
 sealed class ChipScreen(val route: String) {
     companion object {

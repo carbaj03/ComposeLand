@@ -15,7 +15,6 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.navigate
 import com.acv.composeland.R
 import com.acv.composeland.ui.common.fakeGridItems
 import com.acv.composeland.ui.screen.ButtonScreen

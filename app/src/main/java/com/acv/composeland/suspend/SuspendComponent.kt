@@ -5,17 +5,15 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AppCompatActivity
-import androidx.activity.compose.setContent
 import androidx.lifecycle.lifecycleScope
-import arrow.core.Either
-import arrow.fx.*
-import com.acv.composeland.R
 import com.acv.composeland.suspend.memo.update.TodoApp
 import com.acv.composeland.suspend.memo.update.compose
 import com.acv.composeland.suspend.memo.update.todoItemRepository
 import kotlinx.coroutines.*
 import kotlinx.coroutines.launch
-import kotlin.coroutines.*
+import kotlin.coroutines.AbstractCoroutineContextElement
+import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.EmptyCoroutineContext
 
 
 class MainActivity : AppCompatActivity() {
@@ -132,7 +130,7 @@ fun CoroutineScope.launch(
     block: suspend CoroutineScope.() -> Unit
 ): Job {
     val newContext = newCoroutineContext(context)
-    val coroutine = StandaloneCoroutine(newContext, active = true)
+    val coroutine = StandaloneCoroutine(newContext, initParentJob = true, active = true)
 
     coroutine.start(start, coroutine, block)
     return coroutine
@@ -142,8 +140,9 @@ fun CoroutineScope.launch(
 @InternalCoroutinesApi
 private open class StandaloneCoroutine(
     parentContext: CoroutineContext,
-    active: Boolean
-) : AbstractCoroutine<Unit>(parentContext, active) {
+    initParentJob: Boolean,
+    active: Boolean,
+) : AbstractCoroutine<Unit>(parentContext, initParentJob, active) {
     override fun handleJobException(exception: Throwable): Boolean {
         handleCoroutineException(context, exception)
         return true
